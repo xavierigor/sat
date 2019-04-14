@@ -1,0 +1,25 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+nav {
+    /* background: #0fbcf9; */
+    /* background: #45aaf2; */
+    background: #1e90ff;
+    font-weight: 700;
+    /* text-transform: uppercase; */
+    padding-top:10px !important;
+    padding-bottom:10px !important;
+    /* font-family: 'Montserrat',sans-serif; */
+    font-family: 'Arimo',sans-serif;
+}
+
+nav .navbar-brand {
+    font-family: 'Abril Fatface', cursive;
+    font-size: 1.5em;
+    letter-spacing: 2px;
+}
