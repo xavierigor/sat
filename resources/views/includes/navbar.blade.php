@@ -1,11 +1,15 @@
-<nav class="navbar navbar-expand-sm navbar-dark ">
-    <div class="container">
+<nav class="navbar navbar-expand-sm navbar-dark" id="nav">
+    {{-- <div class="container"> --}}
+        {{-- @if((Auth::guard('coordenador')->check() && Request::is('/coordenador/*')) || (Auth::guard('professor')->check() && Request::is('/professor/*'))) --}}
+        @if((Auth::guard('coordenador')->check() && Request::is('coordenador')) || (Auth::check() && Request::is('home')))
+            <i class="fas fa-bars fa-lg text-white mr-4" style="cursor: pointer" onclick="toggleSidebar()"></i>
+        @endif
         <a class="navbar-brand" href={{route('public.index')}}>{{ config('app.name') }}</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         
-        <div class="collapse navbar-collapse" id="navbarsExample02">
+        <div class="collapse navbar-collapse" id="navbar">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
 
@@ -109,5 +113,5 @@
                 @endif
             </ul>
         </div>
-    </div>
+    {{-- </div> --}}
 </nav>

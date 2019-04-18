@@ -4,18 +4,22 @@
 
 body {
     font-family: 'Open Sans', sans-serif;
+    overflow-x: hidden;
 }
 
 nav {
     /* background: #0fbcf9; */
     /* background: #45aaf2; */
     background: #1e90ff;
-    font-weight: 700;
-    /* text-transform: uppercase; */
-    padding-top:10px !important;
-    padding-bottom:10px !important;
-    /* font-family: 'Montserrat',sans-serif; */
-    font-family: 'Arimo',sans-serif;
+    font-weight: 600;
+    padding-top:5px !important;
+    padding-bottom:5px !important;
+    font-size: .9em;
+    transition: margin-left .5s;
+    z-index: 6 !important;
+    -webkit-box-shadow: 2px 5px 34px 0px rgba(0,0,0,0.2);
+    -moz-box-shadow: 2px 5px 34px 0px rgba(0,0,0,0.2);
+    box-shadow: 2px 5px 34px 0px rgba(0,0,0,0.2);
 }
 
 nav .navbar-brand {

@@ -1,0 +1,56 @@
+.sidenav {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    background-color: rgb(248, 248, 248); /* Black*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 70px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+
+.open {
+    border-right: 1px solid rgb(230, 230, 230);
+}
+
+.sidenav h3 {
+    font-size: 1.1em;
+    text-transform: uppercase;
+    color: rgb(207, 207, 207);
+    padding: 8px 8px 8px 20px;
+}
+
+.sidenav a {
+    padding: 8px 8px 4px 20px;
+    text-decoration: none;
+    font-size: 1em;
+    color: #333;
+    display: block;
+    transition: 0.3s;
+    font-weight: 600;
+}
+
+.sidenav a i {
+    color: #999;
+    margin-right: 10px;
+}
+
+.sidenav a:hover i{
+    color: #333;
+}
+
+.sidenav .active, .sidenav .active i{
+    color: #007bff !important;
+}
+
+#main {
+    transition: margin-left .5s;
+    padding: 20px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
