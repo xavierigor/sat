@@ -1,9 +1,19 @@
-@extends('layouts.master')
+@extends('layouts.auth')
 
 @section('title', 'Login')
 
 @section('content')
-<div class="container">
+
+    <div class="login-form">
+        <form method="POST" action="{{ route('login') }}">
+            @csrf
+
+            @include('includes.forms.login')
+        </form>
+    </div>
+
+
+{{-- <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -71,5 +81,5 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 @endsection

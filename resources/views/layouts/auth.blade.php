@@ -19,19 +19,28 @@
     <!-- Styles -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href={{asset('css/main.css')}}>
-    <link rel="stylesheet" href={{asset('css/sidebar.css')}}>
+    <link rel="stylesheet" href={{asset('css/auth.css')}}>
 </head>
 <body>
     @include('includes.navbar')
-    @include('includes.sidebar')
+
     
-    <div class="container py-5" id="main">
-        @yield('content')
+
+    <div class="container wrapper py-5">
+        <div class="info">
+            <img src="{{ asset('images/logo.png') }}" alt="logo" class="img-fluid logo">
+            <p>Sistema de Apoio ao Trabalho de Conclusão de Curso</p>
+        </div>
+
+        <section class="content shadow-sm">
+            @yield('content')
+        </section>
     </div>
+
+    @include('includes.auth.footer')
 
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="{{ asset('js/sidebar.js') }}"></script>
 </body>
 </html>

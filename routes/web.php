@@ -11,7 +11,11 @@
 |
 */
 
+// Rotas Publicas
 Route::get('/', 'PublicController@index')->name('public.index');
+Route::get('/agenda-tccs', 'PublicController@agenda')->name('public.agenda');
+Route::get('/iniciar-sessao', 'PublicController@escolhaLogin')->name('public.escolhaLogin');
+Route::get('/documentos-modelo', 'PublicController@documentosModelo')->name('public.documentosModelo');
 
 // Auth::routes();
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');

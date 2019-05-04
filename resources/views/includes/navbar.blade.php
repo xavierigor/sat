@@ -1,10 +1,15 @@
-<nav class="navbar navbar-expand-sm navbar-dark" id="nav">
+<nav class="navbar navbar-expand-md navbar-light bg-light" id="nav">
     {{-- <div class="container"> --}}
         {{-- @if((Auth::guard('coordenador')->check() && Request::is('/coordenador/*')) || (Auth::guard('professor')->check() && Request::is('/professor/*'))) --}}
         @if((Auth::guard('coordenador')->check() && Request::is('coordenador')) || (Auth::check() && Request::is('home')))
             <i class="fas fa-bars fa-lg text-white mr-4" style="cursor: pointer" onclick="toggleSidebar()"></i>
         @endif
-        <a class="navbar-brand" href={{route('public.index')}}>{{ config('app.name') }}</a>
+
+        {{-- <a class="navbar-brand" href={{route('public.index')}}>{{ config('app.name') }}</a> --}}
+        <a class="navbar-brand" href={{route('public.index')}}>
+            <img src="{{ asset('images/logo.png') }}" alt="logo" class="img-fluid">
+        </a>
+
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -12,7 +17,12 @@
         <div class="collapse navbar-collapse" id="navbar">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
-
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('public.agenda') }}">Agenda de TCC's</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('public.documentosModelo') }}">Documentos Modelo</a>
+                </li>
             </ul>
 
             <!-- Right Side Of Navbar -->
@@ -57,11 +67,14 @@
 
 
                 @if(!Auth::check() && !Auth::guard('coordenador')->check())
-                    <li class="nav-item">
+                    {{-- <li class="nav-item">
                         <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('coordenador.showLogin') }}">{{ __('Coordenador Login') }}</a>
+                    </li> --}}
+                    <li class="nav-item entrar">
+                        <a href="{{ route('public.escolhaLogin') }}" class="nav-link">Entrar<i class="fas fa-sign-in-alt ml-2"></i></a>
                     </li>
                     @if (Route::has('register'))
                         <li class="nav-item">
