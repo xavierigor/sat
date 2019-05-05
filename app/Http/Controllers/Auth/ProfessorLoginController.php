@@ -6,9 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Auth;
-use Validator;
 
-class CoordenadorLoginController extends Controller
+class ProfessorLoginController extends Controller
 {
 
     /*
@@ -47,20 +46,20 @@ class CoordenadorLoginController extends Controller
     }
 
     public function showLogin() {
-        return view('auth.coordenador.login');
+        return view('auth.professor.login');
     }
 
-    public function login(Request $request) {
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|max:255|email',
-            'password' => 'required',
-        ]);
+    // public function login(Request $request) {
+    //     $validator = Validator::make($request->all(), [
+    //         'email' => 'required|max:255|email',
+    //         'password' => 'required',
+    //     ]);
 
-        if(Auth::guard('coordenador')->attempt(['email' => $request->email, 'password' => $request->password])) {
-            // return redirect()->route('coordenador.dashboard');
-            return redirect()->intended(route('coordenador.dashboard'));
-        }
-        $validator->errors()->add('email', 'Essas credenciais não correspondem aos nossos registros.');
-        return redirect()->back()->withInput($request->only('email'))->withErrors($validator);
-    }
+    //     if(Auth::guard('coordenador')->attempt(['email' => $request->email, 'password' => $request->password])) {
+    //         // return redirect()->route('coordenador.dashboard');
+    //         return redirect()->intended(route('coordenador.dashboard'));
+    //     }
+    //     $validator->errors()->add('email', 'Essas credenciais não correspondem aos nossos registros.');
+    //     return redirect()->back()->withInput($request->only('email'))->withErrors($validator);
+    // }
 }

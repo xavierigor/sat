@@ -28,7 +28,7 @@
 
     <div class="container wrapper py-5">
         <div class="info">
-            <img src="{{ asset('images/logo.png') }}" alt="logo" class="img-fluid logo">
+            <img draggable="false" src="{{ asset('images/logo.png') }}" alt="logo" class="img-fluid logo">
             <p>Sistema de Apoio ao Trabalho de Conclusão de Curso</p>
         </div>
 

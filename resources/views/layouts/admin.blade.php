@@ -20,13 +20,16 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href={{asset('css/main.css')}}>
     <link rel="stylesheet" href={{asset('css/sidebar.css')}}>
+    <link rel="stylesheet" href={{asset('css/admin.css')}}>
 </head>
 <body>
     @include('includes.navbar')
     @include('includes.sidebar')
     
-    <div class="container py-5" id="main">
-        @yield('content')
+    <div class="container-fluid" id="main">
+        <section class="shadow-sm">
+            @yield('content')
+        </section>
     </div>
 
     <!-- Scripts -->

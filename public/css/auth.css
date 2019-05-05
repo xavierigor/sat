@@ -36,7 +36,7 @@ body {
     padding: 45px 60px;
 }
 
-.wrapper .content a{
+.wrapper .content .escolha-login a{
     text-decoration: none;
     color: #232323;
     border: 1px solid #232323;
@@ -51,6 +51,16 @@ body {
     border: 1px solid #FF0100;
     color: #FF0100;
     font-weight: 700;
+}
+
+@media(min-width: 768px) {
+    .login-form {
+        font-size: .9em;
+    }
+}
+
+.voltar-escolha-login {
+    font-weight: 500;
 }
 
 

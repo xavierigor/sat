@@ -1,0 +1,28 @@
+body {
+    min-height: 100vh;
+}
+
+nav .toggle-sidebar {
+    cursor: pointer;
+    position: absolute;
+    display: inline-block;
+    top: 21px;
+    left: 22px;
+    color: #fff;
+}
+
+#main {
+    margin-left: 220px;
+}
+
+@media(min-width: 768px) {
+    #main {
+        width: inherit !important;
+    }
+}
+
+@media(max-width: 767px) {
+    #main {
+        margin-left: 0;
+    }
+}

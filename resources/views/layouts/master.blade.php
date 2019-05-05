@@ -23,7 +23,7 @@
 <body>
     @include('includes.navbar')
 
-    <div class="container py-5" id="main">
+    <div class="container py-4" id="main">
         <div class="shadow-sm">
             <div class="header">
                 @yield('header', config('app.name'))

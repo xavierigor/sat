@@ -13,7 +13,7 @@
         <div class="row">
             <a class="voltar-escolha-login" title="Voltar" href="{{ route('public.escolhaLogin') }}">
                 <i class="fas fa-arrow-left fa-fw"></i>
-                Não sou coordenador
+                Não sou professor
             </a>
         </div>
     </div>

@@ -1,14 +1,16 @@
 <nav class="navbar navbar-expand-md navbar-light bg-light" id="nav">
-    {{-- <div class="container"> --}}
         {{-- @if((Auth::guard('coordenador')->check() && Request::is('/coordenador/*')) || (Auth::guard('professor')->check() && Request::is('/professor/*'))) --}}
         @if((Auth::guard('coordenador')->check() && Request::is('coordenador')) || (Auth::check() && Request::is('home')))
-            <i class="fas fa-bars fa-lg text-white mr-4" style="cursor: pointer" onclick="toggleSidebar()"></i>
+            <span class="toggle-sidebar" onclick="toggleSidebar()">
+                <i class="fas fa-bars fa-lg"></i>
+            </span>
         @endif
 
-        {{-- <a class="navbar-brand" href={{route('public.index')}}>{{ config('app.name') }}</a> --}}
-        <a class="navbar-brand" href={{route('public.index')}}>
-            <img src="{{ asset('images/logo.png') }}" alt="logo" class="img-fluid">
-        </a>
+        <div class="navbar-brand">
+            <a href={{route('public.index')}}>
+                <img draggable="false" src="{{ asset('images/logo.png') }}" alt="logo" class="img-fluid">
+            </a>
+        </div>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -114,7 +116,7 @@
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
+                                    {{ __('Sair') }}
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -126,5 +128,4 @@
                 @endif
             </ul>
         </div>
-    {{-- </div> --}}
 </nav>

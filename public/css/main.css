@@ -39,9 +39,9 @@ nav {
     font-weight: 600 !important;
     transition: margin-left .5s;
     z-index: 6 !important;
-    -webkit-box-shadow: 2px 5px 34px 0px rgba(0,0,0,0.1);
-    -moz-box-shadow: 2px 5px 34px 0px rgba(0,0,0,0.1);
-    box-shadow: 2px 5px 34px 0px rgba(0,0,0,0.1);
+    -webkit-box-shadow: 2px 5px 34px 0px rgba(0,0,0,0.05);
+    -moz-box-shadow: 2px 5px 34px 0px rgba(0,0,0,0.05);
+    box-shadow: 2px 5px 34px 0px rgba(0,0,0,0.05);
     position: relative;
     padding-top: 0 !important;
     padding-bottom: 0 !important;
@@ -55,7 +55,7 @@ nav {
 }
 
 nav .navbar-brand {
-    padding: 15px 45px;
+    padding: 15px 67px;
     background: linear-gradient(to right, #FF0100, #FF7D00);
 }
 
@@ -71,6 +71,14 @@ nav .navbar-nav .entrar {
     nav .navbar-nav .entrar {
         padding: 0 10px;
     }
+}
+
+nav .dropdown-menu {
+    border-radius: 0;
+}
+
+nav .dropdown-menu a {
+    font-size: .9em;
 }
 
 nav .navbar-nav .entrar a {

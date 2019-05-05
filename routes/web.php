@@ -40,3 +40,5 @@ Route::prefix('/coordenador')->group(function() {
 
 Route::get('/coordenador-login', 'Auth\CoordenadorLoginController@showLogin')->name('coordenador.showLogin');
 Route::post('/coordenador-login', 'Auth\CoordenadorLoginController@login')->name('coordenador.login');
+
+Route::get('/professor-login', 'Auth\ProfessorLoginController@showLogin')->name('professor.showLogin');
