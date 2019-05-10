@@ -36,6 +36,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::prefix('/coordenador')->group(function() {
     Route::get('/', 'CoordenadorController@dashboard')->middleware('auth:coordenador')->name('coordenador.dashboard');
+    Route::get('/cadastrarProfessor', 'CoordenadorController@cadastrarProfessor')->middleware('auth:coordenador')->name('coordenador.cadastrarProfessor');
+    Route::post('/salvarProfessor', 'CoordenadorController@salvarProfessor')->middleware('auth:coordenador')->name('coordenador.salvarProfessor');
 });
 
 Route::get('/coordenador-login', 'Auth\CoordenadorLoginController@showLogin')->name('coordenador.showLogin');

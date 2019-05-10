@@ -27,6 +27,9 @@
     @include('includes.sidebar')
     
     <div class="container-fluid" id="main">
+        <div class="header">
+            @yield('header', config('app.name'))
+        </div>
         <section class="shadow-sm">
             @yield('content')
         </section>

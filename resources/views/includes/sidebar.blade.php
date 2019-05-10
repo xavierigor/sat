@@ -9,11 +9,15 @@
                 Coordenador
             </a>
             <a href="#" class="{{ Request::is('cadastrar/aluno') ? 'active' : '' }}">
-                <i class="fas fa-user-graduate fa-fw"></i>
+                <i class="fas fa-user fa-fw"></i>
                 Professores
             </a>
-            <a href="#" class="{{ Request::is('cadastrar/aluno') ? 'active' : '' }}">
+            <a href="{{route('coordenador.cadastrarProfessor')}}" class="{{ Request::is('cadastrar/aluno') ? 'active' : '' }}">
                 <i class="fas fa-user fa-fw"></i>
+                Cadastrar Professores
+            </a>
+            <a href="#" class="{{ Request::is('cadastrar/aluno') ? 'active' : '' }}">
+                <i class="fas fa-user-graduate fa-fw"></i>
                 Alunos
             </a>
         @elseif(Auth::guard(null)) {{-- Se for aluno --}}
