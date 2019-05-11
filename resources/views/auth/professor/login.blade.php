@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="login-form">
-        <form method="POST" action="{{ route('coordenador.login') }}">
+        <form method="POST" action="{{ route('professor.login') }}">
             @csrf
 
             @include('includes.forms.login')

@@ -10,6 +10,6 @@
             </div>
         @endif
 
-        Hello <b>{{Auth::user()->name}}</b>, you are logged in as <b>Coordenador</b>!
+        Olá <b>{{Auth::user()->name}}</b>, você está logado(a) como <b>Coordenador</b>!
     </div>
 @endsection

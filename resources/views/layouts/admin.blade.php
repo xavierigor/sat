@@ -31,6 +31,7 @@
             @yield('header', config('app.name'))
         </div>
         <section class="shadow-sm">
+            @include('includes.messages')
             @yield('content')
         </section>
     </div>

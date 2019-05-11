@@ -21,13 +21,13 @@
     font-size: 1em;
     text-transform: uppercase;
     color: rgb(163, 163, 163);
-    padding: 20px 8px 15px 20px;
+    padding: 20px 8px 15px 15px;
 }
 
 .sidenav a {
-    padding: 12px 8px 12px 20px;
+    padding: 12px 8px 12px 15px;
     text-decoration: none;
-    font-size: .9em;
+    font-size: .83em;
     color: rgb(182, 182, 182);
     display: block;
     transition: 0.2s;
@@ -37,7 +37,7 @@
 
 .sidenav a i {
     color: rgb(150, 150, 150);
-    margin-right: 10px;
+    margin-right: 5px;
 }
 
 .sidenav a:hover{

@@ -34,13 +34,19 @@ Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::prefix('/coordenador')->group(function() {
-    Route::get('/', 'CoordenadorController@dashboard')->middleware('auth:coordenador')->name('coordenador.dashboard');
-    Route::get('/cadastrarProfessor', 'CoordenadorController@cadastrarProfessor')->middleware('auth:coordenador')->name('coordenador.cadastrarProfessor');
-    Route::post('/salvarProfessor', 'CoordenadorController@salvarProfessor')->middleware('auth:coordenador')->name('coordenador.salvarProfessor');
-});
-
 Route::get('/coordenador-login', 'Auth\CoordenadorLoginController@showLogin')->name('coordenador.showLogin');
 Route::post('/coordenador-login', 'Auth\CoordenadorLoginController@login')->name('coordenador.login');
 
 Route::get('/professor-login', 'Auth\ProfessorLoginController@showLogin')->name('professor.showLogin');
+Route::post('/professor-login', 'Auth\ProfessorLoginController@login')->name('professor.login');
+
+Route::prefix('/coordenador')->group(function() {
+    Route::get('/', 'CoordenadorController@dashboard')->name('coordenador.dashboard');
+    Route::get('/visualizar/professores', 'CoordenadorController@visualizarProfessores')->name('coordenador.visualizar.professores');
+    Route::get('/cadastrar/professor', 'CoordenadorController@cadastrarProfessor')->name('coordenador.cadastrarProfessor');
+    Route::post('/cadastrar/professor', 'CoordenadorController@salvarProfessor')->name('coordenador.salvarProfessor');
+});
+
+Route::prefix('/professor')->group(function() {
+    Route::get('/', 'ProfessorController@dashboard')->name('professor.dashboard');
+});

@@ -20,6 +20,8 @@ class RedirectIfAuthenticated
 
         if (Auth::guard('coordenador')->check()) {
             return redirect()->route('coordenador.dashboard');
+        } else if (Auth::guard('professor')->check()) {
+            return redirect()->route('professor.dashboard');
         } else if (Auth::check()) {
             return redirect('/home');
         }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Auth;
+use Validator;
 
 class ProfessorLoginController extends Controller
 {
@@ -29,9 +30,9 @@ class ProfessorLoginController extends Controller
      * @var string
      */
 
-    protected $redirectTo = '/coordenador';
+    protected $redirectTo = '/professor';
 
-    protected $guard = 'coordenador';
+    protected $guard = 'professor';
 
     /**
      * Create a new controller instance.
@@ -42,24 +43,25 @@ class ProfessorLoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
-        $this->middleware('guest:coordenador')->except('logout');
+        $this->middleware('guest:professor')->except('logout');
     }
 
     public function showLogin() {
         return view('auth.professor.login');
     }
 
-    // public function login(Request $request) {
-    //     $validator = Validator::make($request->all(), [
-    //         'email' => 'required|max:255|email',
-    //         'password' => 'required',
-    //     ]);
+    public function login(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|max:255|email',
+            'password' => 'required',
+        ]);
 
-    //     if(Auth::guard('coordenador')->attempt(['email' => $request->email, 'password' => $request->password])) {
-    //         // return redirect()->route('coordenador.dashboard');
-    //         return redirect()->intended(route('coordenador.dashboard'));
-    //     }
-    //     $validator->errors()->add('email', 'Essas credenciais não correspondem aos nossos registros.');
-    //     return redirect()->back()->withInput($request->only('email'))->withErrors($validator);
-    // }
+        if(Auth::guard('professor')->attempt(['email' => $request->email, 'password' => $request->password])) {
+            return redirect()->intended(route('professor.dashboard'));
+        }
+
+        $validator->errors()->add('email', 'Essas credenciais não correspondem aos nossos registros.');
+
+        return redirect()->back()->withInput($request->only('email'))->withErrors($validator);
+    }
 }

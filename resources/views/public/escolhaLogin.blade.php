@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="text-center mb-4">
-        <i class="fas fa-user-circle fa-3x" style="color:rgba(0,0,0,0.8)"></i>
+        <i class="fas fa-user-circle fa-fw fa-3x" style="color:rgba(0,0,0,0.8)"></i>
     </div>
     <div class="escolha-login">
         <a class="mb-3" href="{{ route('login') }}">Aluno</a>
