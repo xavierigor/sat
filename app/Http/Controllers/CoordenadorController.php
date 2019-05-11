@@ -41,7 +41,7 @@ class CoordenadorController extends Controller
         $professor = new Professor;
         $professor->name = $request->name;
         $professor->email = $request->email;
-        // Muda o formato da data_nasc para ddmmaaaa e armazena em senha
+        // Muda o formato da data_nasc para ddmmaaaa e armazena em password
         $professor->password = bcrypt(str_replace('/', '', date('d/m/Y',(strtotime($request->data_nasc)))));
         $professor->matricula = $request->matricula;
         $professor->data_nasc = $request->data_nasc;
@@ -49,10 +49,10 @@ class CoordenadorController extends Controller
         $professor->telefone = $request->telefone;
 
         if($professor->save()) {
-            return back()->with('success', 'Professor cadastrado');
+            return redirect()->back()->with(session()->flash('success', 'Professor cadastrado'));
         }
 
-        return back()->with('error', 'Erro ao cadastrar professor');
+        return back()->with(session()->flash('error', 'Erro ao cadastrar professor'));
     }
 
 }
