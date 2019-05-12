@@ -9,18 +9,19 @@ use App\User;
 class CoordenadorController extends Controller
 {
 
-    // Get's
-
+    
     // Isso remove a necessidade de colocar middleware em todas as rotas no arquivo routes/web.php
     public function __construct() {
         $this->middleware('auth:coordenador');
     }
-
-
+    
+    
     public function dashboard() {
         return view('coordenador.dashboard');
     }
 
+    // Get's Professor
+    
     public function visualizarProfessores() {
         $professores = Professor::orderBy('created_at', 'desc')->get();
 
@@ -37,6 +38,7 @@ class CoordenadorController extends Controller
         return view('coordenador.perfil.professor')->with('professor', $professor);
     }
 
+    // Get's User/Aluno
     public function visualizarAlunos() {
         $alunos = User::orderBy('created_at', 'desc')->get();
         
@@ -48,7 +50,7 @@ class CoordenadorController extends Controller
     }
 
 
-    // Post's
+    // Post's Professor
 
     public function salvarProfessor(Request $request) {
         $this->validate($request, [
@@ -74,7 +76,7 @@ class CoordenadorController extends Controller
             return redirect()->back()->with(session()->flash('success', 'Professor cadastrado.'));
         }
 
-        return back()->with(session()->flash('error', 'Erro ao cadastrar professor.'));
+        return back()->with(session()->flash('error', 'Erro ao cadastrar Professor.'));
     }
 
     public function removerProfessor(Request $request) {        
@@ -82,8 +84,10 @@ class CoordenadorController extends Controller
             return redirect()->back()->with(session()->flash('success', 'Professor removido.'));
         }
 
-        return back()->with(session()->flash('error', 'Erro ao remover professor.'));
+        return back()->with(session()->flash('error', 'Erro ao remover Professor.'));
     }
+    
+    // Post's User/Aluno
 
     public function salvarAluno(Request $request) {
         $this->validate($request, [
@@ -93,9 +97,9 @@ class CoordenadorController extends Controller
             'data_nasc' => 'required|date|date_format:Y-m-d',
             // 'area_de_interesse' => 'max:191|nullable',
             // 'telefone' => 'max:20|nullable',
-        ]);
-
-        $aluno = new User;
+            ]);
+            
+            $aluno = new User;
         $aluno->name = $request->name;
         $aluno->email = $request->email;
         // Muda o formato da data_nasc para ddmmaaaa e armazena em password
@@ -109,7 +113,15 @@ class CoordenadorController extends Controller
             return redirect()->back()->with(session()->flash('success', 'Aluno cadastrado.'));
         }
 
-        return back()->with(session()->flash('error', 'Erro ao cadastrar aluno.'));
+        return back()->with(session()->flash('error', 'Erro ao cadastrar Aluno.'));
+    }
+    
+    public function removerAluno(Request $request) {        
+        if(User::destroy($request->id)) {
+            return redirect()->back()->with(session()->flash('success', 'Aluno removido.'));
+        }
+
+        return back()->with(session()->flash('error', 'Erro ao remover Aluno.'));
     }
 
 }

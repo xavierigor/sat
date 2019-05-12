@@ -12,7 +12,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
-                <form method="POST">
+                <form method="POST" action="{{ route('coordenador.remover.aluno') }}">
                     @csrf
                     <input hidden value="" class="id" id="id" name="id">
                     <button type="submit" class="btn btn-primary">Sim</button>

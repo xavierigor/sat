@@ -36,9 +36,9 @@
                                 <a href="#" role="button" class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="Visualizar Perfil">
                                         <i class="fas fa-eye fa-fw"></i>
                                     </a>
-                                <button role="button" class="btn btn-outline-success" data-toggle="tooltip" data-placement="top" title="Editar">
+                                <!-- <button role="button" class="btn btn-outline-success" data-toggle="tooltip" data-placement="top" title="Editar">
                                     <i class="fas fa-pencil-alt fa-fw"></i>
-                                </button>
+                                </button> -->
                                 <button title="Excluir" type="button" class="btn btn-outline-danger" data-toggle="modal"
                                 data-target="#removerAluno" data-nome="{{ $aluno->name }}" data-id="{{ $aluno->id }}">
                                     <i class="fas fa-trash-alt fa-fw"></i>
