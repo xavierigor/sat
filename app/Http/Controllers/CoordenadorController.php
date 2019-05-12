@@ -29,6 +29,12 @@ class CoordenadorController extends Controller
     public function cadastrarProfessor() {
         return view('coordenador.cadastrar.professor');
     }
+    
+    public function perfilProfessor(Request $request) {
+        $professor = Professor::where('id', $request->id)->first();
+
+        return view('coordenador.perfil.professor')->with('professor', $professor);
+    }
 
     // Post's
 

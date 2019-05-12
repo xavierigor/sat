@@ -33,12 +33,12 @@
                             <td>{{ $professor->matricula }}</td>
                             <td>{{ $professor->telefone }}</td>
                             <td>
-                                <button role="button" class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="Visualizar Perfil">
+                                <a href="{{ route('coordenador.perfil.professor', [$professor->id]) }}" role="button" class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="Visualizar Perfil">
                                     <i class="fas fa-eye fa-fw"></i>
-                                </button>
-                                <button role="button" class="btn btn-outline-success" data-toggle="tooltip" data-placement="top" title="Editar Professor">
+                                </a>
+                                <!-- <button role="button" class="btn btn-outline-success" data-toggle="tooltip" data-placement="top" title="Editar Professor">
                                     <i class="fas fa-pencil-alt fa-fw"></i>
-                                </button>
+                                </button> -->
                                 <!-- Button trigger modal -->
                                 <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal"
                                 data-pessoa="professor" data-nome="{{ $professor->name }}" data-id="{{ $professor->id }}">

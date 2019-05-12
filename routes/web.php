@@ -46,6 +46,7 @@ Route::prefix('/coordenador')->group(function() {
     Route::get('/cadastrar/professor', 'CoordenadorController@cadastrarProfessor')->name('coordenador.cadastrarProfessor');
     Route::post('/cadastrar/professor', 'CoordenadorController@salvarProfessor')->name('coordenador.salvar.professor');
     Route::post('/visualizar/professores', 'CoordenadorController@removerProfessor')->name('coordenador.remover.professor');
+    Route::get('/perfil/{id}', 'CoordenadorController@perfilProfessor')->name('coordenador.perfil.professor');
 });
 
 Route::prefix('/professor')->group(function() {
