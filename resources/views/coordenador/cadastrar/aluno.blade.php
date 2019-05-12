@@ -1,9 +1,9 @@
 @extends('layouts.admin')
 
-@section('title', 'Cadastrar Professor')
+@section('title', 'Cadastrar Aluno')
 
 @section('header')
-<i class="fas fa-user-plus fa-fw"></i> Cadastrar Professor
+<i class="fas fa-user-graduate fa-fw"></i> Cadastrar Aluno
 @endsection
 
 @section('content')
@@ -17,7 +17,7 @@
         
         <small class="d-block mb-3">Os campos com <span class="text-danger">*</span> são obrigatórios</small>
 
-        <form method="POST" action="{{ route('coordenador.salvar.professor') }}">
+        <form method="POST" action="{{ route('coordenador.salvar.aluno') }}">
             @csrf
             <div class="form-row">
                 <div class="form-group col-md-8">
@@ -25,7 +25,7 @@
                     <input value="{{ old('name') }}" type="text" class="form-control {{ $errors->has('name') ? 'border-danger' : ''}}" id="name" name="name">
                     {!! $errors->first('name', '<small class="text-danger">:message</small>') !!}
                     <small class="form-text text-muted">
-                        Nome completo do professor
+                        Nome completo do aluno
                     </small>
                 </div>
                 <div class="form-group col-md-4">
@@ -51,23 +51,6 @@
                     </small>
                 </div>
             </div>
-
-            {{-- <div class="form-row">
-                <div class="form-group col-md-8">
-                    <label for="area_de_interesse">Área de Interesse</label>
-                    <input value="{{ old('area_de_interesse') }}" type="text" class="form-control {{ $errors->has('area_de_interesse') ? 'border-danger' : ''}}" id="area_de_interesse" name="area_de_interesse">
-                    {!! $errors->first('area_de_interesse', '<small class="text-danger">:message</small>') !!}
-                    <small class="form-text text-muted">
-                        Área de interesse do professor
-                    </small>
-                </div>
-                <div class="form-group col-md-4">
-                    <label for="telefone">Telefone</label>
-                    <!-- Adicionar máscara no input -->
-                    <input value="{{ old('telefone') }}" type="tel" class="form-control {{ $errors->has('telefone') ? 'border-danger' : ''}}" id="telefone" name="telefone" placeholder="(00) 0 0000-0000">
-                    {!! $errors->first('telefone', '<small class="text-danger">:message</small>') !!}
-                </div>
-            </div> --}}
             
             <button type="submit" class="btn btn-primary">Cadastrar</button>
         </form>

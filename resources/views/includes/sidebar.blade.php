@@ -12,13 +12,17 @@
                 <i class="fas fa-user fa-fw"></i>
                 Professores Cadastrados
             </a>
-            <a href="{{route('coordenador.cadastrarProfessor')}}" class="{{ Request::is('*/cadastrar/professor') ? 'active' : '' }}">
+            <a href="{{route('coordenador.cadastrar.professor')}}" class="{{ Request::is('*/cadastrar/professor') ? 'active' : '' }}">
                 <i class="fas fa-user fa-fw"></i>
                 Cadastrar Professor
             </a>
-            <a href="#" class="{{ Request::is('cadastrar/aluno') ? 'active' : '' }}">
+            <a href="{{ route('coordenador.visualizar.alunos') }}" class="{{ Request::is('*/visualizar/alunos') ? 'active' : '' }}">
                 <i class="fas fa-user-graduate fa-fw"></i>
-                Alunos
+                Alunos Cadastrados
+            </a>
+            <a href="{{route('coordenador.cadastrar.aluno')}}" class="{{ Request::is('*/cadastrar/aluno') ? 'active' : '' }}">
+                <i class="fas fa-user-graduate fa-fw"></i>
+                Cadastrar Aluno
             </a>
         @elseif(Auth::guard('professor')->check())
             <a href="#" class="{{ Request::is('tcc') ? 'active' : '' }}">

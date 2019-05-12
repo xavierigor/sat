@@ -9,10 +9,10 @@
 @section('content')
     @if($professores->count() > 0)
 
-        @include('includes.remove-modal')
+        @include('includes.modal.removerProfessor')
 
-        <div class="table-responsive">
-            <table class="table table-bordered table-hover">
+        <div class="table-responsive text-center">
+            <table class="table table-hover">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -39,9 +39,8 @@
                                 <!-- <button role="button" class="btn btn-outline-success" data-toggle="tooltip" data-placement="top" title="Editar Professor">
                                     <i class="fas fa-pencil-alt fa-fw"></i>
                                 </button> -->
-                                <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal"
-                                data-pessoa="professor" data-nome="{{ $professor->name }}" data-id="{{ $professor->id }}">
+                                <button title="Excluir" type="button" class="btn btn-outline-danger" data-toggle="modal"
+                                data-target="#removerProfessor" data-nome="{{ $professor->name }}" data-id="{{ $professor->id }}">
                                     <i class="fas fa-trash-alt fa-fw"></i>
                                 </button>
                             </td>
@@ -50,9 +49,6 @@
                 </tbody>
             </table>
         </div>
-
-        
-
     @else
         <p>Nenhum professor encontrado</p>
     @endif

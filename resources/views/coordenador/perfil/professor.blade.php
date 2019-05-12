@@ -1,31 +1,19 @@
 @extends('layouts.admin')
 
-@section('title', 'Painel de Controle')
+@section('title', $professor->name)
 
 @section('header')
-<i class="fas fa-user-plus fa-fw"></i> Perfil Professor
+<i class="fas fa-user fa-fw"></i> {{ $professor->name }}
 @endsection
 
 @section('content')
 
-
-    <!-- <tbody>
-        <tr>
-            <th scope="row">{{ $professor->id }}</th>
-            <td>{{ $professor->name }}</td>
-            <td>{{ $professor->email }}</td>
-            <td>{{ $professor->matricula }}</td>
-            <td>{{ $professor->telefone }}</td>
-        </tr>
-    </tbody> -->
-
     <div class="container">
-
-        <div class="row p-3">
-            <div class="col-xl-4">
-                ​<img src="{{ asset('images/user.png') }}" class="rounded-circle" alt="Cinque Terre" width="200" height="200">
+        <div class="row p-3 text-center text-md-left">
+            <div class="col-md-4 col-sm-5">
+                ​<img src="{{ asset('images/user.png') }}" class="rounded-circle img-fluid" alt="avatar" width="200" height="200">
             </div>
-            <div class="col-xl-8 pt-4">
+            <div class="col-md-8 col-sm-7 pt-4">
                 <h5>
                     <i class="fas fa-user-circle fa-fw"></i>
                     {{ $professor->name }}
@@ -33,22 +21,22 @@
                 <h5>
                     <i class="fas fa-at fa-fw"></i>
                     {{ $professor->email }}
-                </h5><br>   
-                <h5>
-                    <i class="fas fa-phone fa-fw"></i>
-                    {{ $professor->telefone }}
-                </h5>
+                </h5><br>
+                @if($professor->telefone) 
+                    <h5>
+                        <i class="fas fa-phone fa-fw"></i>
+                        {{ $professor->telefone }}
+                    </h5>
+                @endif
             </div>
         </div>
         <hr>
         <div class="row p-3">
-            <div class="">
-                <h5>Area de interesse:</h5>
-                <p>{{ $professor->area_de_interesse }}</p>
+            <div class="col-md-12">
+                <h5>Área de interesse:</h5>
+                <p>{{ $professor->area_de_interesse ? $professor->area_de_interesse : 'Não especificada' }}</p>
             </div>
         </div>
     </div>
-    
-
 
 @endsection

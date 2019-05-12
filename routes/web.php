@@ -17,10 +17,11 @@ Route::get('/agenda-tccs', 'PublicController@agenda')->name('public.agenda');
 Route::get('/iniciar-sessao', 'PublicController@escolhaLogin')->name('public.escolhaLogin');
 Route::get('/documentos-modelo', 'PublicController@documentosModelo')->name('public.documentosModelo');
 
-// Auth::routes();
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+
+// Auth::routes();
 
 // Registration Routes...
 // Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
@@ -43,9 +44,13 @@ Route::post('/professor-login', 'Auth\ProfessorLoginController@login')->name('pr
 Route::prefix('/coordenador')->group(function() {
     Route::get('/', 'CoordenadorController@dashboard')->name('coordenador.dashboard');
     Route::get('/visualizar/professores', 'CoordenadorController@visualizarProfessores')->name('coordenador.visualizar.professores');
-    Route::get('/cadastrar/professor', 'CoordenadorController@cadastrarProfessor')->name('coordenador.cadastrarProfessor');
+    Route::get('/cadastrar/professor', 'CoordenadorController@cadastrarProfessor')->name('coordenador.cadastrar.professor');
     Route::post('/cadastrar/professor', 'CoordenadorController@salvarProfessor')->name('coordenador.salvar.professor');
     Route::post('/visualizar/professores', 'CoordenadorController@removerProfessor')->name('coordenador.remover.professor');
+    Route::get('/cadastrar/aluno', 'CoordenadorController@cadastrarAluno')->name('coordenador.cadastrar.aluno');
+    Route::post('/cadastrar/aluno', 'CoordenadorController@salvarAluno')->name('coordenador.salvar.aluno');
+    Route::get('/visualizar/alunos', 'CoordenadorController@visualizarAlunos')->name('coordenador.visualizar.alunos');
+    
     Route::get('/perfil/{id}', 'CoordenadorController@perfilProfessor')->name('coordenador.perfil.professor');
 });
 

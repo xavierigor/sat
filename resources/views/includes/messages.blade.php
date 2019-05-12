@@ -1,10 +1,12 @@
-<script>
-    @if(Session::get('success'))
-        toastr.success("{{ Session::get('success') }}", "Sucesso")
-    @elseif(Session::get('error'))
-        toastr.error("{{ Session::get('error') }}", "Erro")
-    @endif
-</script>
+@if(Session::has('success') || Session::has('error'))
+    <script>
+        @if(Session::get('success'))
+            toastr.success("{{ Session::get('success') }}", "Sucesso")
+        @elseif(Session::get('error'))
+            toastr.error("{{ Session::get('error') }}", "Erro")
+        @endif
+    </script>
+@endif
 
 {{-- @if(count($errors) > 0)
     @foreach($errors->all() as $error)

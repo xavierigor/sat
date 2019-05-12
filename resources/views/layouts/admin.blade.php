@@ -45,7 +45,7 @@
     <script src="{{ asset('js/toastr.min.js') }}"></script>
 
     <!-- Script de passar conteúdo do botão para o modal -->
-    <script src="{{ asset('js/remove-modal.js') }}"></script>
+    <script src="{{ asset('js/modal-remover.js') }}"></script>
     
     @include('includes.messages')
 </body>

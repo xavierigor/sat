@@ -2,7 +2,7 @@
     box-sizing: border-box;
 }
 
-input, textarea, button {
+input, textarea, button, .btn {
     border-radius: 0 !important;
 }
 
