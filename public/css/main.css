@@ -35,7 +35,7 @@ body {
 
 /* Navbar */
 nav {
-    font-size: .9em;
+    font-size: .95em;
     font-weight: 600 !important;
     transition: margin-left .5s;
     z-index: 6 !important;
@@ -54,10 +54,17 @@ nav {
     }
 }
 
+
 nav .navbar-brand {
-    padding: 15px 67px;
+    padding: 15px 82px;
     background: linear-gradient(to right, #FF0100, #FF7D00);
 }
+
+/* @media(min-width: 768px) {
+    nav .navbar-brand {
+        padding: 15px 82px;
+    }
+} */
 
 nav .navbar-brand img {
     max-height: 30px;
@@ -78,7 +85,7 @@ nav .dropdown-menu {
 }
 
 nav .dropdown-menu a {
-    font-size: .9em;
+    font-size: .95em;
 }
 
 nav .navbar-nav .entrar a {

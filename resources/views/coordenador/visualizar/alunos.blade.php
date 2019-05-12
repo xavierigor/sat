@@ -53,3 +53,7 @@
         <p>Nenhum aluno encontrado</p>
     @endif
 @endsection
+
+@section('scripts')
+    <script src="{{ asset('js/modal-remover.js') }}"></script>
+@endsection

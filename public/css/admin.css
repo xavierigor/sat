@@ -12,8 +12,7 @@ nav .toggle-sidebar {
 }
 
 #main {
-    margin-left: 220px;
-
+    margin-left: 250px;
 }
 
 @media(min-width: 768px) {
@@ -24,7 +23,7 @@ nav .toggle-sidebar {
 
 @media(max-width: 767px) {
     #main {
-        margin-left: 0;
+        margin-left: 250px;
     }
 
     #main section {
@@ -39,5 +38,4 @@ nav .toggle-sidebar {
 
 #main section input, #main section button {
     font-size: 1em;
-    /* font-size: .9em; */
 }

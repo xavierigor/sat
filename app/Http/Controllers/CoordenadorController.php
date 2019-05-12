@@ -8,9 +8,7 @@ use App\User;
 
 class CoordenadorController extends Controller
 {
-
     
-    // Isso remove a necessidade de colocar middleware em todas as rotas no arquivo routes/web.php
     public function __construct() {
         $this->middleware('auth:coordenador');
     }

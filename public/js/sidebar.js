@@ -1,7 +1,7 @@
 $(document).ready(function() {
     if($(window).width() > 767 && !$('#mySidenav').hasClass('open')) {
         $('#mySidenav').addClass('open');
-    } else {
+    } else if ($(window).width() <= 767 && $('#mySidenav').hasClass('open')) {
         $('#mySidenav').removeClass('open');
     }
 })
@@ -12,8 +12,8 @@ function toggleSidebar() {
         document.getElementById("main").style.marginLeft = "0";
         $("#mySidenav").toggleClass('open');
     } else {
-        document.getElementById("mySidenav").style.width = "220px";
-        document.getElementById("main").style.marginLeft = "220px";
+        document.getElementById("mySidenav").style.width = "250px";
+        document.getElementById("main").style.marginLeft = "250px";
         $("#mySidenav").toggleClass('open');
     }
 }
