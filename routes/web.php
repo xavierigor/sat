@@ -44,7 +44,8 @@ Route::prefix('/coordenador')->group(function() {
     Route::get('/', 'CoordenadorController@dashboard')->name('coordenador.dashboard');
     Route::get('/visualizar/professores', 'CoordenadorController@visualizarProfessores')->name('coordenador.visualizar.professores');
     Route::get('/cadastrar/professor', 'CoordenadorController@cadastrarProfessor')->name('coordenador.cadastrarProfessor');
-    Route::post('/cadastrar/professor', 'CoordenadorController@salvarProfessor')->name('coordenador.salvarProfessor');
+    Route::post('/cadastrar/professor', 'CoordenadorController@salvarProfessor')->name('coordenador.salvar.professor');
+    Route::post('/visualizar/professores', 'CoordenadorController@removerProfessor')->name('coordenador.remover.professor');
 });
 
 Route::prefix('/professor')->group(function() {

@@ -8,6 +8,8 @@ use App\Professor;
 class CoordenadorController extends Controller
 {
 
+    // Get's
+
     // Isso remove a necessidade de colocar middleware em todas as rotas no arquivo routes/web.php
     public function __construct() {
         $this->middleware('auth:coordenador');
@@ -27,6 +29,8 @@ class CoordenadorController extends Controller
     public function cadastrarProfessor() {
         return view('coordenador.cadastrar.professor');
     }
+
+    // Post's
 
     public function salvarProfessor(Request $request) {
         $this->validate($request, [
@@ -53,6 +57,16 @@ class CoordenadorController extends Controller
         }
 
         return back()->with(session()->flash('error', 'Erro ao cadastrar professor'));
+    }
+
+    public function removerProfessor(Request $request) {        
+
+        if(Professor::destroy($request->id)) {
+            return  redirect()->back()->with(session()->flash('success', 'Professor removido.'));
+        }
+
+        return  back()->with(session()->flash('error', 'Erro ao remover professor.'));
+
     }
 
 }

@@ -17,7 +17,7 @@
         
         <small class="d-block mb-3">Os campos com <span class="text-danger">*</span> são obrigatórios</small>
 
-        <form method="POST" action="{{ route('coordenador.salvarProfessor') }}">
+        <form method="POST" action="{{ route('coordenador.salvar.professor') }}">
             @csrf
             <div class="form-row">
                 <div class="form-group col-md-8">
