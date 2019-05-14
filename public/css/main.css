@@ -27,6 +27,14 @@ input[type="color"]:focus,
   outline: 0 none;
 }
 
+.table, .table thead tr, .table thead th {
+    border: none !important;
+}
+
+button.close {
+    font-size: 1.5rem !important;
+}
+
 body {
     font-family: 'Open Sans', sans-serif;
     overflow-x: hidden;
@@ -48,7 +56,8 @@ nav {
     padding-left: 0 !important;
 }
 
-@media(max-width: 767px){
+/* @media(max-width: 767px){ */
+@media(max-width: 991px){
     .navbar-collapse {
         padding: .5rem 1rem !important;
     }
@@ -58,6 +67,7 @@ nav {
 nav .navbar-brand {
     padding: 15px 82px;
     background: linear-gradient(to right, #FF0100, #FF7D00);
+    margin-right: 1rem;
 }
 
 /* @media(min-width: 768px) {
@@ -74,7 +84,8 @@ nav .navbar-nav .entrar {
     border: 1px solid #FF0100;
 }
 
-@media(max-width: 767px){
+/* @media(max-width: 767px){ */
+@media(max-width: 991px){
     nav .navbar-nav .entrar {
         padding: 0 10px;
     }

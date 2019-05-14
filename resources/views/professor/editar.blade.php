@@ -3,12 +3,12 @@
 @section('title', 'Editar Perfil')
 
 @section('header')
-<i class="fas fa-user-graduate fa-fw"></i> Editar Perfil
+<i class="fas fa-user fa-fw"></i> Editar Perfil
 @endsection
 
 @section('content')
 <div>
-    <form method="POST" action="{{ route('aluno.update') }}">
+    <form method="POST" action="{{ route('professor.update') }}">
         @csrf
         <div class="form-row">
             <div class="form-group col-md-8">

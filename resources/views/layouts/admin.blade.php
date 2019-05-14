@@ -42,10 +42,6 @@
     <script src="{{ asset('js/sidebar.js') }}"></script>
     <script src="{{ asset('js/toastr.min.js') }}"></script>
     
-    <!--
-    Isso permite a chamada de scripts únicos de cada página, ex: o script do modal de remover
-    só precisa ser chamado em duas views: visualizar.professores e visualizar.alunos
-    -->
     @yield('scripts')
     @include('includes.messages')
 </body>

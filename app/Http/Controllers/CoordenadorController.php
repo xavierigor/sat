@@ -31,11 +31,6 @@ class CoordenadorController extends Controller
         return view('coordenador.cadastrar.professor');
     }
     
-    public function perfilProfessor(Request $request) {
-        $professor = Professor::where('id', $request->id)->first();
-
-        return view('coordenador.perfil.professor')->with('professor', $professor);
-    }
 
     // Get's User/Aluno
     public function visualizarAlunos() {

@@ -9,6 +9,7 @@
 @section('content')
     @if($professores->count() > 0)
 
+        @include('includes.modal.visualizarProfessor')
         @include('includes.modal.removerProfessor')
 
         <div class="table-responsive text-center">
@@ -19,7 +20,7 @@
                         <th scope="col">Nome</th>
                         <th scope="col">Email</th>
                         <th scope="col">Matrícula</th>
-                        <th scope="col">Telefone</th>
+                        {{-- <th scope="col">Telefone</th> --}}
                         <th scope="col">Opções</th>
                     </tr>
                 </thead>
@@ -31,11 +32,15 @@
                             <td>{{ $professor->name }}</td>
                             <td>{{ $professor->email }}</td>
                             <td>{{ $professor->matricula }}</td>
-                            <td>{{ $professor->telefone }}</td>
+                            {{-- <td>{{ $professor->telefone }}</td> --}}
                             <td>
-                                <a href="{{ route('coordenador.perfil.professor', [$professor->id]) }}" role="button" class="btn btn-outline-primary" data-toggle="tooltip" data-placement="top" title="Visualizar Perfil">
+                                <button class="btn btn-outline-primary" data-toggle="modal" data-target="#visualizarProfessor"
+                                data-nome="{{ $professor->name }}" data-matricula="{{ $professor->matricula }}"
+                                data-telefone="{{ $professor->telefone }}" data-email="{{ $professor->email }}"
+                                data-data_nasc="{{ DateTime::createFromFormat('Y-m-d', $professor->data_nasc)->format('d/m/Y') }}"
+                                data-area_de_interesse="{{ $professor->area_de_interesse }}" title="Ver">
                                     <i class="fas fa-eye fa-fw"></i>
-                                </a>
+                                </button>
                                 <!-- <button role="button" class="btn btn-outline-success" data-toggle="tooltip" data-placement="top" title="Editar Professor">
                                     <i class="fas fa-pencil-alt fa-fw"></i>
                                 </button> -->
@@ -55,5 +60,6 @@
 @endsection
 
 @section('scripts')
+    <script src="{{ asset('js/modal-visualizar.js') }}"></script>
     <script src="{{ asset('js/modal-remover.js') }}"></script>
 @endsection

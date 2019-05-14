@@ -53,14 +53,15 @@
                         </a>
                     </li>
 
-                    <li data-toggle="collapse" data-target="#perfil-prof" class="collapsed {{ Request::is('*/cadastrar/aluno') || Request::is('*/visualizar/alunos') ? 'active' : '' }}">
+                    <li data-toggle="collapse" data-target="#perfil-prof" class="collapsed {{ Request::is('professor/editar') || Request::is('professor/perfil') || Request::is('professor/alterar/senha') ? 'active' : '' }}">
                         <a href="#" class="dropdown-option">
                             <i class="fas fa-user fa-fw"></i> Perfil <i class="fas fa-chevron-down fa-fw"></i>
                         </a>
                     </li>
-                    <ul class="sub-menu collapse" id="perfil-prof">
-                        <li><a href="#">Opção 1</a></li>
-                        <li><a href="#">Opção 2</a></li>
+                    <ul class="sub-menu collapse {{ Request::is('professor/editar') || Request::is('professor/perfil') || Request::is('professor/alterar/senha') ? 'show' : '' }}" id="perfil-prof">
+                        <li class="{{ Request::is('professor/perfil') ? 'active' : ''}}"><a href="{{ route('professor.perfil') }}">Visualizar</a></li>
+                        <li class="{{ Request::is('professor/editar') ? 'active' : ''}}"><a href="{{ route('professor.editar') }}">Editar Perfil</a></li>
+                        <li class="{{ Request::is('professor/alterar/senha') ? 'active' : ''}}"><a href="{{ route('professor.alterar.senha') }}">Alterar Senha</a></li>
                     </ul>
         
                     <li data-toggle="collapse" data-target="#orientandos" class="collapsed {{ Request::is('*/cadastrar/professor') || Request::is('*/visualizar/professores') ? 'active' : '' }}">
@@ -86,7 +87,7 @@
                 @elseif(Auth::guard(null))
 
                     <li>
-                        <a href="{{ route('coordenador.dashboard') }}" class="{{ Request::is('home') ? 'active' : '' }}">
+                        <a href="{{ route('aluno.dashboard') }}" class="{{ Request::is('aluno') ? 'active' : '' }}">
                             <i class="fas fa-tachometer-alt fa-fw"></i>
                             Painel de Controle
                         </a>

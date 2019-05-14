@@ -1,6 +1,5 @@
-<nav class="navbar navbar-expand-md navbar-light bg-light" id="nav">
-    {{-- @if((Auth::guard('coordenador')->check() && Request::is('/coordenador/*')) || (Auth::guard('professor')->check() && Request::is('/professor/*'))) --}}
-    @if((Auth::guard('coordenador')->check() && Request::is('coordenador', 'coordenador/*')) || (Auth::guard('professor')->check() && Request::is('professor', 'professor/*')) || (Auth::check() && Request::is('home', 'home/*')))
+<nav class="navbar navbar-expand-lg navbar-light bg-light" id="nav">
+    @if((Auth::guard('coordenador')->check() && Request::is('coordenador', 'coordenador/*')) || (Auth::guard('professor')->check() && Request::is('professor', 'professor/*')) || (Auth::check() && Request::is('aluno', 'aluno/*')))
         <span class="toggle-sidebar" onclick="toggleSidebar()">
             <i class="fas fa-bars fa-lg"></i>
         </span>
@@ -19,10 +18,13 @@
     <div class="collapse navbar-collapse" id="navbar">
         <!-- Left Side Of Navbar -->
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
+            <li class="nav-item {{ Request::is('agenda-tccs') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('public.agenda') }}">Agenda de TCC's</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item {{ Request::is('orientadores') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('public.orientadores') }}">Orientadores</a>
+            </li>
+            <li class="nav-item {{ Request::is('documentos-modelo') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('public.documentosModelo') }}">Documentos Modelo</a>
             </li>
         </ul>
@@ -133,7 +135,7 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a href={{url('/home')}} class="dropdown-item">
+                            <a href={{ route('aluno.dashboard') }} class="dropdown-item">
                                 <i class="fas fa-tachometer-alt mr-1 fa-fw"></i>
                                 Painel de Controle
                             </a>

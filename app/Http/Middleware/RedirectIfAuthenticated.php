@@ -23,7 +23,7 @@ class RedirectIfAuthenticated
         } else if (Auth::guard('professor')->check()) {
             return redirect()->route('professor.dashboard');
         } else if (Auth::check()) {
-            return redirect('/home');
+            return redirect()->route('aluno.dashboard');
         }
 
         return $next($request);

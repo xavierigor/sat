@@ -1,9 +1,9 @@
-@extends('layouts.admin')
+@extends('layouts.master')
 
-@section('title', $professor->name)
+@section('title', $orientador->name)
 
 @section('header')
-<i class="fas fa-user fa-fw"></i> {{ $professor->name }}
+<i class="fas fa-user fa-fw"></i> {{ $orientador->name }}
 @endsection
 
 @section('content')
@@ -16,16 +16,16 @@
             <div class="col-md-8 col-sm-7 pt-4">
                 <h5>
                     <i class="fas fa-user-circle fa-fw"></i>
-                    {{ $professor->name }}
+                    {{ $orientador->name }}
                 </h5><br>
                 <h5>
                     <i class="fas fa-at fa-fw"></i>
-                    {{ $professor->email }}
+                    {{ $orientador->email }}
                 </h5><br>
-                @if($professor->telefone) 
+                @if($orientador->telefone) 
                     <h5>
                         <i class="fas fa-phone fa-fw"></i>
-                        {{ $professor->telefone }}
+                        {{ $orientador->telefone }}
                     </h5>
                 @endif
             </div>
@@ -34,7 +34,7 @@
         <div class="row p-3">
             <div class="col-md-12">
                 <h5>Área de interesse:</h5>
-                <p>{{ $professor->area_de_interesse ? $professor->area_de_interesse : 'Não especificada' }}</p>
+                <p>{{ $orientador->area_de_interesse ? $orientador->area_de_interesse : 'Não especificada' }}</p>
             </div>
         </div>
     </div>
