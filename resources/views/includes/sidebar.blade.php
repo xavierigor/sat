@@ -92,14 +92,15 @@
                         </a>
                     </li>
 
-                    <li data-toggle="collapse" data-target="#perfil-aluno" class="collapsed {{ Request::is('*/cadastrar/aluno') || Request::is('*/visualizar/alunos') ? 'active' : '' }}">
+                    <li data-toggle="collapse" data-target="#perfil-aluno" class="collapsed {{ Request::is('aluno/editar') || Request::is('aluno/perfil') || Request::is('aluno/alterar/senha') ? 'active' : '' }}">
                         <a href="#" class="dropdown-option">
                             <i class="fas fa-user-graduate fa-fw"></i> Perfil <i class="fas fa-chevron-down fa-fw"></i>
                         </a>
                     </li>
-                    <ul class="sub-menu collapse" id="perfil-aluno">
-                        <li><a href="#">Opção 1</a></li>
-                        <li><a href="#">Opção 2</a></li>
+                    <ul class="sub-menu collapse {{ Request::is('aluno/editar') || Request::is('aluno/perfil') || Request::is('aluno/alterar/senha') ? 'show' : '' }}" id="perfil-aluno">
+                        <li class="{{ Request::is('aluno/perfil') ? 'active' : ''}}"><a href="{{ route('aluno.perfil') }}">Visualizar</a></li>
+                        <li class="{{ Request::is('aluno/editar') ? 'active' : ''}}"><a href="{{ route('aluno.editar') }}">Editar Perfil</a></li>
+                        <li class="{{ Request::is('aluno/alterar/senha') ? 'active' : ''}}"><a href="{{ route('aluno.alterar.senha') }}">Alterar Senha</a></li>
                     </ul>
 
                     <li data-toggle="collapse" data-target="#tcc-aluno" class="collapsed {{ Request::is('*/cadastrar/professor') || Request::is('*/visualizar/professores') ? 'active' : '' }}">

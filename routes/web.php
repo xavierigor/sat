@@ -60,3 +60,11 @@ Route::prefix('/coordenador')->group(function() {
 Route::prefix('/professor')->group(function() {
     Route::get('/', 'ProfessorController@dashboard')->name('professor.dashboard');
 });
+
+Route::prefix('/aluno')->group(function() {
+    Route::get('/perfil', 'AlunoController@perfil')->name('aluno.perfil');
+    Route::get('/editar', 'AlunoController@editar')->name('aluno.editar');
+    Route::post('/editar', 'AlunoController@update')->name('aluno.update');
+    Route::get('/alterar/senha', 'AlunoController@alterarSenha')->name('aluno.alterar.senha');
+    Route::post('/alterar/senha', 'AlunoController@salvarSenha')->name('aluno.salvar.senha');
+});

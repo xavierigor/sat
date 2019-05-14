@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Professor;
 use App\User;
+use Crypt;
 
 class CoordenadorController extends Controller
 {
@@ -95,9 +96,9 @@ class CoordenadorController extends Controller
             'data_nasc' => 'required|date|date_format:Y-m-d',
             // 'area_de_interesse' => 'max:191|nullable',
             // 'telefone' => 'max:20|nullable',
-            ]);
+        ]);
             
-            $aluno = new User;
+        $aluno = new User;
         $aluno->name = $request->name;
         $aluno->email = $request->email;
         // Muda o formato da data_nasc para ddmmaaaa e armazena em password
