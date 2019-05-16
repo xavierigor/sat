@@ -7,9 +7,10 @@ nav .toggle-sidebar {
     position: absolute;
     display: inline-block;
     top: 21px;
-    left: 22px;
+    left: 27px;
     color: #fff;
 }
+
 
 #main {
     margin-left: 250px;

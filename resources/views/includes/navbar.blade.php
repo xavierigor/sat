@@ -72,7 +72,7 @@
 
             @if(!Auth::check() && !Auth::guard('coordenador')->check() && !Auth::guard('professor')->check())
                 <li class="nav-item entrar">
-                    <a href="{{ route('public.escolhaLogin') }}" class="nav-link">Entrar<i class="fas fa-sign-in-alt ml-2"></i></a>
+                    <a href="{{ route('public.escolhaLogin') }}" class="btn nav-link">Entrar<i class="fas fa-sign-in-alt ml-2"></i></a>
                 </li>
                 @if (Route::has('register'))
                     <li class="nav-item">

@@ -22,22 +22,23 @@
     <link rel="stylesheet" href={{asset('css/auth.css')}}>
 </head>
 <body>
-    @include('includes.navbar')
-
+    {{-- @include('includes.navbar') --}}
     
 
-    <div class="container wrapper py-5">
+    <div class="container wrapper">
         <div class="info">
-            <img draggable="false" src="{{ asset('images/logo.png') }}" alt="logo" class="img-fluid logo">
-            <p>Sistema de Apoio ao Trabalho de Conclusão de Curso</p>
+            <a href="{{ route('public.index') }}">
+                <img draggable="false" src="{{ asset('images/logo.png') }}" alt="logo" class="img-fluid logo">
+            </a>
+            <p class="m-0">Sistema de Apoio ao Trabalho de Conclusão de Curso</p>
         </div>
 
         <section class="content shadow-sm">
             @yield('content')
         </section>
+        @include('includes.auth.footer')
     </div>
 
-    @include('includes.auth.footer')
 
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

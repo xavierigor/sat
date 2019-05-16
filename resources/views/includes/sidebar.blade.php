@@ -7,7 +7,7 @@
                 
                 @if(Auth::guard('coordenador')->check())
 
-                    <li>
+                    <li class="collapsed">
                         <a href="{{ route('coordenador.dashboard') }}" class="{{ Request::is('coordenador') ? 'active' : '' }}">
                             <i class="fas fa-tachometer-alt fa-fw"></i>
                             Painel de Controle
@@ -116,7 +116,7 @@
 
                 @endif
 
-                <li>
+                <li class="collapsed">
                     <a href="#" class="{{ Request::is('opcoes') ? 'active' : '' }}">
                         <i class="fas fa-cog fa-fw"></i>
                         Opções

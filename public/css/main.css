@@ -70,25 +70,8 @@ nav .navbar-brand {
     margin-right: 1rem;
 }
 
-/* @media(min-width: 768px) {
-    nav .navbar-brand {
-        padding: 15px 82px;
-    }
-} */
-
 nav .navbar-brand img {
     max-height: 30px;
-}
-
-nav .navbar-nav .entrar {
-    border: 1px solid #FF0100;
-}
-
-/* @media(max-width: 767px){ */
-@media(max-width: 991px){
-    nav .navbar-nav .entrar {
-        padding: 0 10px;
-    }
 }
 
 nav .dropdown-menu {
@@ -100,6 +83,7 @@ nav .dropdown-menu a {
 }
 
 nav .navbar-nav .entrar a {
+    border: 1px solid #FF0100;
     color: #FF0100 !important;
     font-weight: 700;
 }
