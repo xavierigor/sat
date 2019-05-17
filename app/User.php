@@ -8,6 +8,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+    public function orientador() {
+        return $this->hasOne('App\Professor');
+    }
+
+    public function tcc() {
+        return $this->hasOne('App\Tcc');
+    }
+
     use Notifiable;
 
     /**

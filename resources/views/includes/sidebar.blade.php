@@ -104,14 +104,14 @@
                         <li class="{{ Request::is('aluno/alterar/senha') ? 'active' : ''}}"><a href="{{ route('aluno.alterar.senha') }}">Alterar Senha</a></li>
                     </ul>
 
-                    <li data-toggle="collapse" data-target="#tcc-aluno" class="collapsed {{ Request::is('*/cadastrar/professor') || Request::is('*/visualizar/professores') ? 'active' : '' }}">
+                    <li data-toggle="collapse" data-target="#tcc-aluno" class="collapsed {{ Request::is('aluno/cadastrar/tcc') || Request::is('aluno/editar/tcc') ? 'active' : '' }}">
                         <a href="#" class="dropdown-option">
-                            <i class="fas fa-file-alt fa-fw"></i> TCC <i class="fas fa-chevron-down fa-fw"></i>
+                            <i class="fas fa-scroll fa-fw"></i> TCC <i class="fas fa-chevron-down fa-fw"></i>
                         </a>
                     </li>
-                    <ul class="sub-menu collapse" id="tcc-aluno">
-                        <li><a href="#">Opção 1</a></li>
-                        <li><a href="#">Opção 2</a></li>
+                    <ul class="sub-menu collapse {{ Request::is('aluno/cadastrar/tcc') || Request::is('aluno/editar/tcc') ? 'show' : '' }}" class="sub-menu collapse" id="tcc-aluno">
+                        <li class="{{ Request::is('aluno/cadastrar/tcc') ? 'active' : ''}}"><a href="{{ route('aluno.cadastrar.tcc') }}">Cadastrar</a></li>
+                        <li class="{{ Request::is('aluno/editar/tcc') ? 'active' : ''}}"><a href="{{ route('aluno.editar.tcc') }}">Editar</a></li>
                     </ul>
 
                 @endif
