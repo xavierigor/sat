@@ -36,7 +36,7 @@
                             <td>
                                 <button href="#" role="button" class="btn btn-outline-primary" data-toggle="modal"
                                 data-target="#visualizarAluno" data-nome="{{ $aluno->name }}" data-matricula="{{ $aluno->matricula }}"
-                                data-telefone="{{ $aluno->telefone }}" data-email="{{ $aluno->email }}" 
+                                data-telefone="{{ $aluno->telefone }}" data-email="{{ $aluno->email }}" data-image="{{ $aluno->image }}"
                                 data-data_nasc="{{ DateTime::createFromFormat('Y-m-d', $aluno->data_nasc)->format('d/m/Y') }}" title="Ver">
                                     <i class="fas fa-eye fa-fw"></i>
                                 </button>

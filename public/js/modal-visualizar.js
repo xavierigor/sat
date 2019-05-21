@@ -6,6 +6,7 @@ $('#visualizarProfessor').on('show.bs.modal', function (event) {
   let email = button.data('email')
   let data_nasc = button.data('data_nasc')
   let area_de_interesse = button.data('area_de_interesse')
+  let image = button.data('data_image')
 
   let modal = $(this)
 
@@ -25,6 +26,7 @@ $('#visualizarAluno').on('show.bs.modal', function (event) {
   let telefone = button.data('telefone')
   let email = button.data('email')
   let data_nasc = button.data('data_nasc')
+  let image = button.data('data_image')
 
   let modal = $(this)
 
@@ -34,4 +36,5 @@ $('#visualizarAluno').on('show.bs.modal', function (event) {
   modal.find('.telefone').text(telefone)
   modal.find('.email').text(email)
   modal.find('.data_nasc').text(data_nasc)
+  
 })

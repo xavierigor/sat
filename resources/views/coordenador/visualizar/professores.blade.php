@@ -36,7 +36,7 @@
                             <td>
                                 <button class="btn btn-outline-primary" data-toggle="modal" data-target="#visualizarProfessor"
                                 data-nome="{{ $professor->name }}" data-matricula="{{ $professor->matricula }}"
-                                data-telefone="{{ $professor->telefone }}" data-email="{{ $professor->email }}"
+                                data-telefone="{{ $professor->telefone }}" data-email="{{ $professor->email }}" data-image="{{ $professor->image }}"
                                 data-data_nasc="{{ DateTime::createFromFormat('Y-m-d', $professor->data_nasc)->format('d/m/Y') }}"
                                 data-area_de_interesse="{{ $professor->area_de_interesse }}" title="Ver">
                                     <i class="fas fa-eye fa-fw"></i>

@@ -11,7 +11,11 @@
     <div class="container">
         <div class="row p-3 text-center text-md-left">
             <div class="col-md-4 col-sm-5">
-                ​<img src="{{ asset('images/user.png') }}" class="rounded-circle img-fluid" alt="avatar" width="200" height="200">
+            @if($orientador->image)
+                ​<img src="{{ asset('storage/perfil/professores/' . $orientador->image) }}" class="rounded-circle" alt="{{$orientador->image}}" width="180px" height="180px">
+            @else
+            ​   <img src="{{ asset('images/user.png') }}" class="rounded-circle" alt="avatar" width="180" height="180">
+            @endif
             </div>
             <div class="col-md-8 col-sm-7 pt-4">
                 <h5>
@@ -22,12 +26,14 @@
                     <i class="fas fa-at fa-fw"></i>
                     {{ $orientador->email }}
                 </h5><br>
-                @if($orientador->telefone) 
-                    <h5>
-                        <i class="fas fa-phone fa-fw"></i>
+                <h5>
+                    <i class="fas fa-phone fa-fw"></i>
+                    @if($orientador->telefone) 
                         {{ $orientador->telefone }}
-                    </h5>
-                @endif
+                    @else
+                        (--) - ---- ----
+                    @endif
+                </h5>
             </div>
         </div>
         <hr>
