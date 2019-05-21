@@ -21,6 +21,7 @@ class CreateProfessoresTable extends Migration
             $table->integer('matricula')->unique();
             $table->date('data_nasc');
             $table->string('telefone')->nullable();
+            $table->string('image')->nullable();
             $table->string('area_de_interesse')->nullable();
             $table->string('termo_de_responsabilidade')->nullable();
             $table->timestamp('email_verified_at')->nullable();

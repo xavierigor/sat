@@ -8,7 +8,7 @@
 
 @section('content')
 <div>
-    <form method="POST" action="{{ route('aluno.update') }}">
+    <form method="POST" action="{{ route('aluno.update') }}" enctype="multipart/form-data">
         @csrf
         <div class="form-row">
             <div class="form-group col-md-8">
@@ -42,6 +42,21 @@
             </div>
         </div>
         
+        <div class="form-row">
+            <div class="form-group pr-3">
+                @if(Auth::user()->image)
+                    ​<img src="{{ asset('storage/perfil/users/' . Auth::user()->image) }}" class="rounded-circle" alt="{{Auth::user()->image}}" width="60px" height="60px">
+                @else
+                ​    <img src="{{ asset('images/user.png') }}" class="rounded-circle" alt="avatar" width="60px" height="60px">
+                @endif
+            </div>
+            <div class="form-group">
+                <label for="email">Foto</label>
+                <input type="file" class="form-control-file {{ $errors->has('image') ? 'border-danger' : ''}}" name="image"  id="image">
+                {!! $errors->first('image', '<small class="text-danger">:message</small>') !!}
+            </div>
+        </div>
+
         <button type="submit" class="btn btn-primary">Salvar Alterações</button>
     </form>
 </div>

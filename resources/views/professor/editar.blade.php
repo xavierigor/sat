@@ -8,7 +8,7 @@
 
 @section('content')
 <div>
-    <form method="POST" action="{{ route('professor.update') }}">
+    <form method="POST" action="{{ route('professor.update') }}" enctype="multipart/form-data">
         @csrf
         <div class="form-row">
             <div class="form-group col-md-8">
@@ -39,6 +39,21 @@
                 <!-- Adicionar máscara no input -->
                 <input value="{{ Auth::user()->telefone }}" type="tel" class="form-control {{ $errors->has('telefone') ? 'border-danger' : ''}}" id="telefone" name="telefone" placeholder="(00) 0 0000-0000">
                 {!! $errors->first('telefone', '<small class="text-danger">:message</small>') !!}
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group pr-3">
+                @if(Auth::user()->image)
+                    ​<img src="{{ asset('storage/perfil/professores/' . Auth::user()->image) }}" class="rounded-circle" alt="{{Auth::user()->image}}" width="60px" height="60px">
+                @else
+                ​    <img src="{{ asset('images/user.png') }}" class="rounded-circle" alt="avatar" width="60px" height="60px">
+                @endif
+            </div>
+            <div class="form-group">
+                <label for="email">Foto</label>
+                <input type="file" class="form-control-file {{ $errors->has('image') ? 'border-danger' : ''}}" name="image"  id="image">
+                {!! $errors->first('image', '<small class="text-danger">:message</small>') !!}
             </div>
         </div>
         

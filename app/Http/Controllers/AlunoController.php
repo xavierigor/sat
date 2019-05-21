@@ -37,6 +37,7 @@ class AlunoController extends Controller
             'matricula' => 'max:9',
             'data_nasc' => 'required|date|date_format:Y-m-d',
             'telefone' => 'max:20|nullable',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $aluno = Auth::user();
@@ -44,6 +45,28 @@ class AlunoController extends Controller
         $aluno->email = $request->email;
         $aluno->data_nasc = $request->data_nasc;
         $aluno->telefone = $request->telefone;
+
+        if($request->hasFile('image') && $request->file('image')->isValid()){
+            
+            if($aluno->image){
+                // remove old img from directory
+                unlink(storage_path('app/public/perfil/users/'.$aluno->image));
+            }
+
+            $name = $aluno->id.kebab_case($aluno->name);
+
+            $extension = $request->image->extension();
+            $nameFile = "{$name}.{$extension}";
+
+            $aluno->image = $nameFile;
+            $upload = $request->image->storeAs('perfil/users', $nameFile);
+
+            // Se upload não funcionar
+            if(! $upload) {
+                return redirect()->back()->with(session()->flash('error', 'Erro ao fazer upload de imagem.'));
+            }
+            // dd($nameFile);
+        }
 
         if($aluno->save()) {
             return redirect()->back()->with(session()->flash('success', 'Dados Atualizados.'));

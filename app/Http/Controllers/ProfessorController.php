@@ -35,6 +35,7 @@ class ProfessorController extends Controller
             'matricula' => 'max:9',
             'data_nasc' => 'required|date|date_format:Y-m-d',
             'telefone' => 'max:20|nullable',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $professor = Auth::user();
@@ -42,6 +43,28 @@ class ProfessorController extends Controller
         $professor->email = $request->email;
         $professor->data_nasc = $request->data_nasc;
         $professor->telefone = $request->telefone;
+
+        if($request->hasFile('image') && $request->file('image')->isValid()){
+            
+            if($professor->image){
+                // remove old img from directory
+                unlink(storage_path('app/public/perfil/professores/'.$professor->image));
+            }
+
+            $name = $professor->id.kebab_case($professor->name);
+
+            $extension = $request->image->extension();
+            $nameFile = "{$name}.{$extension}";
+
+            $professor->image = $nameFile;
+            $upload = $request->image->storeAs('perfil/professores', $nameFile);
+
+            // Se upload não funcionar
+            if(! $upload) {
+                return redirect()->back()->with(session()->flash('error', 'Erro ao fazer upload de imagem.'));
+            }
+            // dd($nameFile);
+        }
 
         if($professor->save()) {
             return redirect()->back()->with(session()->flash('success', 'Dados Atualizados.'));
