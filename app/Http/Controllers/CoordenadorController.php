@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Professor;
 use App\User;
-use Crypt;
+use App\Tcc;
 
 class CoordenadorController extends Controller
 {
@@ -100,10 +100,13 @@ class CoordenadorController extends Controller
         $aluno->password = bcrypt(str_replace('/', '', date('d/m/Y',(strtotime($request->data_nasc)))));
         $aluno->matricula = $request->matricula;
         $aluno->data_nasc = $request->data_nasc;
-        // $aluno->area_de_interesse = $request->area_de_interesse;
-        // $aluno->telefone = $request->telefone;
 
         if($aluno->save()) {
+            $tcc = new Tcc;
+
+            $tcc->user_id = $aluno->id;
+            $tcc->save();
+
             return redirect()->back()->with(session()->flash('success', 'Aluno cadastrado.'));
         }
 

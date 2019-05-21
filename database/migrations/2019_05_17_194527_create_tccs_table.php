@@ -16,10 +16,10 @@ class CreateTccsTable extends Migration
         Schema::create('tccs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('titulo')->default('Não definido');
-            $table->string('area_de_pesquisa');
-            $table->unsignedBigInteger('aluno_id');
+            $table->string('area_de_pesquisa')->nullable();
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('professor_id')->nullable();
-            $table->foreign('aluno_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('professor_id')->references('id')->on('professores');
             $table->timestamps();
         });

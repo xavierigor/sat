@@ -15,7 +15,7 @@
                         <tr>
                             <th scope="col">Nome</th>
                             <th scope="col">Email</th>
-                            <th scope="col">Telefone</th>
+                            {{-- <th scope="col">Telefone</th> --}}
                             <th scope="col">Área de Interesse</th>
                         </tr>
                     </thead>
@@ -29,7 +29,7 @@
                                     </a>
                                 </th>
                                 <td>{{ $orientador->email }}</td>
-                                <td>{{ $orientador->telefone }}</td>
+                                {{-- <td>{{ $orientador->telefone }}</td> --}}
                                 <td>{{ $orientador->area_de_interesse }}</td>
                                 @if(Auth::check())
                                     <td>

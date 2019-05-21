@@ -30,7 +30,7 @@
             <a href="{{ route('public.index') }}">
                 <img draggable="false" src="{{ asset('images/logo.png') }}" alt="logo" class="img-fluid logo">
             </a>
-            <p class="m-0">Sistema de Apoio ao Trabalho de Conclusão de Curso</p>
+            {{-- <p class="m-0">Sistema de Apoio ao Trabalho de Conclusão de Curso</p> --}}
         </div>
 
         <section class="content shadow-sm">

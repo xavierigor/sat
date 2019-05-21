@@ -74,6 +74,5 @@ Route::prefix('/aluno')->group(function() {
     Route::get('/alterar/senha', 'AlunoController@alterarSenha')->name('aluno.alterar.senha');
     Route::post('/alterar/senha', 'AlunoController@salvarSenha')->name('aluno.salvar.senha');
 
-    Route::get('/cadastrar/tcc', 'TccController@create')->name('aluno.cadastrar.tcc');
     Route::get('/editar/tcc', 'TccController@edit')->name('aluno.editar.tcc');
 });
