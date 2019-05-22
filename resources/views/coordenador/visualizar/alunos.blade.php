@@ -12,6 +12,15 @@
         @include('includes.modal.visualizarAluno')
         @include('includes.modal.removerAluno')
 
+        <div class="text-center">
+            <form action="{{ route('coordenador.visualizar.alunos') }}" name="buscarNome" method="get" enctype="multipart/form-data">
+                <input type="text" name="name" />
+                <button type="submit" class="btn btn-outline-primary" value="Buscar">Buscar</button>
+            </form>
+        </div>
+
+        <hr>
+
         <div class="table-responsive text-center">
             <table class="table table-hover">
                 <thead>
@@ -53,6 +62,11 @@
                 </tbody>
             </table>
         </div>
+
+    <div class="d-flex justify-content-center">
+        {{ $alunos->links() }}
+    </div>
+
     @else
         <p>Nenhum aluno encontrado</p>
     @endif

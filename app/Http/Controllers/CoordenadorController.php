@@ -9,6 +9,8 @@ use App\Tcc;
 
 class CoordenadorController extends Controller
 {
+
+    private $TotalItensPágina = 5;
     
     public function __construct() {
         $this->middleware('auth:coordenador');
@@ -22,7 +24,16 @@ class CoordenadorController extends Controller
     // Get's Professor
     
     public function visualizarProfessores() {
-        $professores = Professor::orderBy('created_at', 'desc')->get();
+
+        if(request()->has('name')){
+            $professores = Professor::where('name', request('name'))
+                                ->orderBy('created_at', 'desc')
+                                ->paginate($this->TotalItensPágina)
+                                ->appends('name', request('name'));
+        
+        } else{
+            $professores = Professor::orderBy('created_at', 'desc')->paginate($this->TotalItensPágina);
+        }
 
         return view('coordenador.visualizar.professores')->with('professores', $professores);
     }
@@ -34,7 +45,38 @@ class CoordenadorController extends Controller
 
     // Get's User/Aluno
     public function visualizarAlunos() {
-        $alunos = User::orderBy('created_at', 'desc')->get();
+
+        // $alunos = new User;
+        // $queries = [];
+
+        // $columns = [
+        //     'name',
+        // ];
+
+        // foreach ($columns as $column) {
+
+        //     if(request()->has($column)){
+        //         $alunos = User::where($column, request($column))->paginate($this->TotalItensPágina);
+        //         $queries[$column] = request($column);
+        //     }
+        // }
+
+        // if(request()->has('sort')){
+        //     $alunos = $alunos->orderBy('name', request('sort'))->paginate($this->TotalItensPágina);
+        //     $queries['sort'] = request('sort');
+        // }
+
+
+        if(request()->has('name')){
+            $alunos = User::where('name', request('name'))
+                                ->orderBy('created_at', 'desc')
+                                ->paginate($this->TotalItensPágina)
+                                ->appends('name', request('name'));
+        
+        } else{
+            $alunos = User::orderBy('created_at', 'desc')->paginate($this->TotalItensPágina);
+        }
+
         
         return view('coordenador.visualizar.alunos')->with('alunos', $alunos);
     }
