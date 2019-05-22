@@ -59,7 +59,8 @@ class TccController extends Controller
             }
         }
 
-        return view('aluno.tcc.orientador')->with('orientadores', $orientadores)->with('tccAluno', $tccAluno);
+        return view('aluno.tcc.orientador')->with(['orientadores' => $orientadores, 'tccAluno' => $tccAluno]);
+        // ->with('tccAluno', $tccAluno);
     }
 
     public function cancelarSolicitacao()
@@ -82,33 +83,20 @@ class TccController extends Controller
     
     public function atualizar(Request $request)
     {
-        
         $this->validate($request, [
             'titulo' => 'max:300',
             'area_de_pesquisa' => 'max:300',
         ]);
             
-        $aluno = Auth::user();
-
-// OBS : Não estava conseguindo atualizar utilizando o modelo de
-// armazenamento de dados com relacionamento do ELoquent
-
-        // $tcc = new Tcc;
-        // $tcc->titulo = $request->titulo;
-        // $tcc->area_de_pesquisa = $request->area_de_pesquisa;
-
-        $tcc = Tcc::where('user_id', $aluno->id)->first();;
+        $tcc = Auth::user()->tcc;
         $tcc->titulo = $request->titulo;
         $tcc->area_de_pesquisa = $request->area_de_pesquisa;
         
-        // dd($tcc);
-        // if($aluno->tcc()->save($tcc)) {
         if($tcc->save()) {
-
-            return redirect()->back()->with(session()->flash('success', 'Dados de TCC Atualizados.'));
+            return redirect()->back()->with(session()->flash('success', 'Dados do TCC Atualizados.'));
         } 
 
-        return redirect()->back()->with(session()->flash('error', 'Erro ao Atualizar dados de TCC.'));
+        return redirect()->back()->with(session()->flash('error', 'Erro ao Atualizar dados do TCC.'));
     }
 
     public function solicitarProfessor(Request $request)
@@ -118,7 +106,6 @@ class TccController extends Controller
         $tcc = Tcc::where('user_id', $aluno->id)->first();
         $tcc->prof_solicitado = $request->prof_solicitado;
     
-        // dd($tcc);
         if($tcc->save()) {
     
             return redirect()->back()->with(session()->flash('success', 'Solicitação de Orientação de TCC enviada.'));

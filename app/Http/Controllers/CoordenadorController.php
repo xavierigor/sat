@@ -26,12 +26,17 @@ class CoordenadorController extends Controller
     public function visualizarProfessores() {
 
         if(request()->has('name')){
-            $professores = Professor::where('name', request('name'))
-                                ->orderBy('created_at', 'desc')
-                                ->paginate($this->TotalItensPágina)
-                                ->appends('name', request('name'));
-        
-        } else{
+            // $professores = Professor::where('name', request('name'))
+            //                 ->orderBy('created_at', 'desc')
+            //                 ->paginate($this->TotalItensPágina)
+            //                 ->appends('name', request('name')
+            //             );
+            
+            $professores = Professor::where('name', 'LIKE', '%' . request('name') . '%')
+                ->orderBy('created_at', 'desc')
+                ->paginate($this->TotalItensPágina);
+
+        } else {
             $professores = Professor::orderBy('created_at', 'desc')->paginate($this->TotalItensPágina);
         }
 
@@ -45,38 +50,18 @@ class CoordenadorController extends Controller
 
     // Get's User/Aluno
     public function visualizarAlunos() {
-
-        // $alunos = new User;
-        // $queries = [];
-
-        // $columns = [
-        //     'name',
-        // ];
-
-        // foreach ($columns as $column) {
-
-        //     if(request()->has($column)){
-        //         $alunos = User::where($column, request($column))->paginate($this->TotalItensPágina);
-        //         $queries[$column] = request($column);
-        //     }
-        // }
-
-        // if(request()->has('sort')){
-        //     $alunos = $alunos->orderBy('name', request('sort'))->paginate($this->TotalItensPágina);
-        //     $queries['sort'] = request('sort');
-        // }
-
-
         if(request()->has('name')){
-            $alunos = User::where('name', request('name'))
-                                ->orderBy('created_at', 'desc')
-                                ->paginate($this->TotalItensPágina)
-                                ->appends('name', request('name'));
-        
+            // $alunos = User::where('name', request('name'))
+            //                     ->orderBy('created_at', 'desc')
+            //                     ->paginate($this->TotalItensPágina)
+            //                     ->appends('name', request('name'));
+
+            $alunos = User::where('name', 'LIKE', '%' . request('name') . '%')
+                ->orderBy('created_at', 'desc')
+                ->paginate($this->TotalItensPágina);
         } else{
             $alunos = User::orderBy('created_at', 'desc')->paginate($this->TotalItensPágina);
         }
-
         
         return view('coordenador.visualizar.alunos')->with('alunos', $alunos);
     }
@@ -94,19 +79,14 @@ class CoordenadorController extends Controller
             'email' => 'required|email|unique:professores|max:100',
             'matricula' => 'required|max:9|unique:professores',
             'data_nasc' => 'required|date|date_format:Y-m-d',
-            // 'area_de_interesse' => 'max:191|nullable',
-            // 'telefone' => 'max:20|nullable',
         ]);
 
         $professor = new Professor;
         $professor->name = $request->name;
         $professor->email = $request->email;
-        // Muda o formato da data_nasc para ddmmaaaa e armazena em password
         $professor->password = bcrypt(str_replace('/', '', date('d/m/Y',(strtotime($request->data_nasc)))));
         $professor->matricula = $request->matricula;
         $professor->data_nasc = $request->data_nasc;
-        // $professor->area_de_interesse = $request->area_de_interesse;
-        // $professor->telefone = $request->telefone;
 
         if($professor->save()) {
             return redirect()->back()->with(session()->flash('success', 'Professor cadastrado.'));
@@ -131,14 +111,11 @@ class CoordenadorController extends Controller
             'email' => 'required|email|unique:users|max:100',
             'matricula' => 'required|max:9|unique:users',
             'data_nasc' => 'required|date|date_format:Y-m-d',
-            // 'area_de_interesse' => 'max:191|nullable',
-            // 'telefone' => 'max:20|nullable',
         ]);
             
         $aluno = new User;
         $aluno->name = $request->name;
         $aluno->email = $request->email;
-        // Muda o formato da data_nasc para ddmmaaaa e armazena em password
         $aluno->password = bcrypt(str_replace('/', '', date('d/m/Y',(strtotime($request->data_nasc)))));
         $aluno->matricula = $request->matricula;
         $aluno->data_nasc = $request->data_nasc;

@@ -46,7 +46,7 @@
 
                 @elseif(Auth::guard('professor')->check())
 
-                    <li>
+                    <li class="collapsed">
                         <a href="{{ route('coordenador.dashboard') }}" class="{{ Request::is('professor') ? 'active' : '' }}">
                             <i class="fas fa-tachometer-alt fa-fw"></i>
                             Painel de Controle
@@ -86,7 +86,7 @@
 
                 @elseif(Auth::guard(null))
 
-                    <li>
+                    <li class="collapsed">
                         <a href="{{ route('aluno.dashboard') }}" class="{{ Request::is('aluno') ? 'active' : '' }}">
                             <i class="fas fa-tachometer-alt fa-fw"></i>
                             Painel de Controle

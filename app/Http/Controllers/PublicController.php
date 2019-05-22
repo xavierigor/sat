@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Professor;
 use Hashids;
+use Auth;
 
 class PublicController extends Controller
 {
@@ -26,8 +27,14 @@ class PublicController extends Controller
 
     public function orientadores() {
         $orientadores = Professor::all();
+        
+        if(Auth::user()->tcc->prof_solicitado) {
+            $professor_solicitado = Professor::where('id', Auth::user()->tcc->prof_solicitado)->first();
+        } else {
+            $professor_solicitado = null;
+        }
 
-        return view('public.orientadores.index')->with('orientadores', $orientadores);
+        return view('public.orientadores.index')->with(['orientadores' => $orientadores, 'prof_solicitado' => $professor_solicitado]);
     }
 
     public function perfilOrientador($id) {
