@@ -4,82 +4,65 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use App\Tcc;
+
 
 class TccController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    // GET'S
+
     public function create()
     {
         return view('aluno.tcc.cadastrar');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function visualizar()
     {
-        //
+        return view('aluno.tcc.visualizar');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit()
+    
+    public function editar()
     {
         return view('aluno.tcc.editar');
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    
+    public function orientador()
     {
-        //
+        return view('aluno.tcc.orientador');
+    }
+    
+    // POST'S
+    
+    public function atualizar(Request $request)
+    {
+        
+        $this->validate($request, [
+            'titulo' => 'max:300',
+            'area_de_pesquisa' => 'max:300',
+        ]);
+            
+        $aluno = Auth::user();
+
+// OBS : Não estava conseguindo atualizar utilizando o modelo de
+// armazenamento de dados com relacionamento do ELoquent
+
+        // $tcc = new Tcc;
+        // $tcc->titulo = $request->titulo;
+        // $tcc->area_de_pesquisa = $request->area_de_pesquisa;
+
+        $tcc = Tcc::where('user_id', $aluno->id)->first();;
+        $tcc->titulo = $request->titulo;
+        $tcc->area_de_pesquisa = $request->area_de_pesquisa;
+        
+        // dd($tcc);
+        // if($aluno->tcc()->save($tcc)) {
+        if($tcc->save()) {
+
+            return redirect()->back()->with(session()->flash('success', 'Dados de TCC Atualizados.'));
+        } 
+
+        return redirect()->back()->with(session()->flash('error', 'Erro ao Atualizar dados de TCC.'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

@@ -29,6 +29,10 @@ class AlunoController extends Controller
         return view('aluno.alterarSenha');
     }
 
+
+    // POST'S
+
+    // Alterar dados
     public function update(Request $request) {
         $this->validate($request, [
             'name' => 'required|max:100',
@@ -75,6 +79,7 @@ class AlunoController extends Controller
         return redirect()->back()->with(session()->flash('error', 'Erro ao atualizar dados.'));
     }
 
+    // Alterar Senha
     public function salvarSenha(Request $request) {
         $aluno = Auth::user();
 

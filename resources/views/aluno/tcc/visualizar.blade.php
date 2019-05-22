@@ -9,15 +9,15 @@
 @section('content')
     <div>
         <div>
-            <h4>Título</h4>
+            <h5>Título</h5>
             <p>{{ Auth::user()->tcc->titulo }}</p>
         </div>
         <div>
-            <h4>Área de Pesquisa</h4>
+            <h5>Área de Pesquisa</h5>
             <p>{{ Auth::user()->tcc->area_de_pesquisa }}</p>
         </div>
         {{-- <div>
-            <h4>Orientador</h4>
+            <h5>Orientador</h5>
             <p>{{ Auth::user()->tcc->orientador }}</p>
         </div> --}}
     </div>
