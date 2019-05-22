@@ -11,6 +11,9 @@ use App\Professor;
 class TccController extends Controller
 {
 
+    private $TotalItensPágina = 5;
+
+
     // GET'S
 
     public function create()
@@ -30,7 +33,7 @@ class TccController extends Controller
     
     public function orientador()
     {
-        $orientadores = Professor::all();
+        $orientadores = Professor::where('disponivel_orient', true)->paginate($this->TotalItensPágina);
         $aluno = Auth::user();
         $tcc = Tcc::where('user_id', $aluno->id)->first();
 

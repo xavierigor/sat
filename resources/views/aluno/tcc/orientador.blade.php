@@ -17,7 +17,7 @@
             <div class="row  text-center text-md-left">
                 <div class="col-md-3 col-ms-12">
                     @if($tccAluno->orientador_foto)
-                        ​<img src="{{ asset('storage/perfil/users/' . $tccAluno->orientador_foto) }}" class="rounded-circle" alt="{{Auth::user()->image}}" width="180px" height="180px">
+                        ​<img src="{{ asset('storage/perfil/professores/' . $tccAluno->orientador_foto) }}" class="rounded-circle" alt="{{Auth::user()->image}}" width="180px" height="180px">
                     @else
                     ​    <img src="{{ asset('images/user.png') }}" class="rounded-circle" alt="avatar" width="180px" height="180px">
                     @endif
@@ -37,7 +37,7 @@
                 <div class="row  text-center text-md-left">
                     <div class="col-md-3 col-ms-12">
                         @if($tccAluno->prof_solicitado_foto)
-                            ​<img src="{{ asset('storage/perfil/users/' . $tccAluno->prof_solicitado_foto) }}" class="rounded-circle" alt="{{Auth::user()->image}}" width="180px" height="180px">
+                            ​<img src="{{ asset('storage/perfil/professores/' . $tccAluno->prof_solicitado_foto) }}" class="rounded-circle" alt="{{Auth::user()->image}}" width="180px" height="180px">
                         @else
                         ​    <img src="{{ asset('images/user.png') }}" class="rounded-circle" alt="avatar" width="180px" height="180px">
                         @endif
@@ -57,6 +57,7 @@
             @endif
 
             @if($orientadores->count() > 0)
+
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
@@ -99,6 +100,12 @@
                         </tbody>
                     </table>
                 </div>
+            
+                <!-- Paginação -->
+                <div class="d-flex justify-content-center">
+                    {{ $orientadores->links() }}
+                </div>
+
             @else
                 <p>Nenhum orientador cadastrado</p>
             @endif
