@@ -18,9 +18,10 @@ class CreateTccsTable extends Migration
             $table->string('titulo')->default('Não definido');
             $table->string('area_de_pesquisa')->nullable();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('professor_id')->nullable();
+            $table->unsignedBigInteger('orientador_id')->nullable();
+            $table->unsignedBigInteger('prof_solicitado')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('professor_id')->references('id')->on('professores');
+            $table->foreign('orientador_id')->references('id')->on('professores');
             $table->timestamps();
         });
     }
