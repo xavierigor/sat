@@ -33,38 +33,57 @@ class TccController extends Controller
     
     public function orientador()
     {
-        $orientadores = Professor::where('disponivel_orient', true)->paginate($this->TotalItensPágina);
-        $tcc = Auth::user()->tcc;
-        // $aluno = Auth::user();
-        // $tcc = Tcc::where('user_id', $aluno->id)->first();
+        // O método verifica se o aluno já tem orientador ou solicitação enviada e
+        // retorna para a view uma variável contendo apenas o que será mostrado na tela
 
-        $tccAluno = (object) [
-            'orientador_id' => $tcc->orientador_id,
-            'prof_solicitado' => $tcc->prof_solicitado,
-            'orientador_nome' => null,
-            'orientador_foto' => null,
-            'prof_solicitado_nome' => null,
-            'prof_solicitado_foto' => null,
-        ];
+        $tcc = Auth::user()->tcc;
 
         if($tcc->orientador_id){
+
             $professor = Professor::where('id', $tcc->orientador)->first();
+            
+            $orientador = (object) [
+                'orientador_id' => $tcc->orientador_id,
+                'orientador_nome' => $professor->name,
+                'orientador_foto' => $professor->image,
+            ];
 
-            $tccAluno->orientador_nome = $professor->name;
-            $tccAluno->orientador_foto = $professor->image;
+            return view('aluno.tcc.orientador')->with('orientador', $orientador);
 
-        } else{
+        } else if($tcc->prof_solicitado){
+            
+            $professor = Professor::where('id', $tcc->prof_solicitado)->first();
 
-            if($tcc->prof_solicitado){
-                $professor = Professor::where('id', $tcc->prof_solicitado)->first();
+            $profSolicitado = (object) [
+                'prof_solicitado' => $tcc->prof_solicitado,
+                'prof_solicitado_nome' => $professor->name,
+                'prof_solicitado_foto' => $professor->image,
+            ];
 
-                $tccAluno->prof_solicitado_nome = $professor->name;
-                $tccAluno->prof_solicitado_foto = $professor->image;
+            return view('aluno.tcc.orientador')->with('profSolicitado', $profSolicitado);
+            
+        } else {
+
+            // Se for pesquisado algum nome de orientador
+            if(request()->has('name')){
+            
+                $orientadores = Professor::where('name', 'LIKE', '%' . request('name') . '%')
+                                ->where('disponivel_orient', true)
+                                ->orderBy('created_at', 'desc')
+                                ->paginate($this->TotalItensPágina)
+                                ->appends('name', request('name'));
+    
+            } else{
+
+                $orientadores = Professor::where('disponivel_orient', true)
+                                ->orderBy('created_at', 'desc')
+                                ->paginate($this->TotalItensPágina);
             }
+
+            return view('aluno.tcc.orientador')->with('orientadores', $orientadores);
+            
         }
 
-        return view('aluno.tcc.orientador')->with(['orientadores' => $orientadores, 'tccAluno' => $tccAluno]);
-        // ->with('tccAluno', $tccAluno);
     }
 
     public function cancelarSolicitacao()

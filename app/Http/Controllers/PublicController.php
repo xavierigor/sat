@@ -9,6 +9,10 @@ use Auth;
 
 class PublicController extends Controller
 {
+
+    private $TotalItensPágina = 10;
+
+
     public function index() {
         return view('public.index');
     }
@@ -26,15 +30,22 @@ class PublicController extends Controller
     }
 
     public function orientadores() {
-        $orientadores = Professor::all();
-        
-        if(Auth::user()->tcc->prof_solicitado) {
-            $professor_solicitado = Professor::where('id', Auth::user()->tcc->prof_solicitado)->first();
-        } else {
-            $professor_solicitado = null;
+
+        // Se for pesquisado algum nome de professor
+        if(request()->has('name')){
+            
+            $orientadores = Professor::where('name', 'LIKE', '%' . request('name') . '%')
+                            ->orderBy('created_at', 'desc')
+                            ->paginate($this->TotalItensPágina)
+                            ->appends('name', request('name'));
+
+        } else{
+
+            $orientadores = Professor::orderBy('created_at', 'desc')
+                            ->paginate($this->TotalItensPágina);
         }
 
-        return view('public.orientadores.index')->with(['orientadores' => $orientadores, 'prof_solicitado' => $professor_solicitado]);
+        return view('public.orientadores.index')->with(['orientadores' => $orientadores]);
     }
 
     public function perfilOrientador($id) {

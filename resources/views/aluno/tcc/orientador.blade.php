@@ -8,51 +8,73 @@
 
 @section('content')
 
-<div class="orientadores">
-        <!-- Verificar se já existe um orientador associado ao aluno -->
-        @if($tccAluno->orientador_id)
+    <div class="orientadores">
+
+        <!-- Se já existe um orientador associado ao aluno -->
+        @isset($orientador)
 
             <div class="row  text-center text-md-left">
                 <div class="col-md-3 col-ms-12">
-                    @if($tccAluno->orientador_foto)
-                        ​<img src="{{ asset('storage/perfil/professores/' . $tccAluno->orientador_foto) }}" class="rounded-circle" alt="{{Auth::user()->image}}" width="180px" height="180px">
+                    @if($orientador->orientador_foto)
+                        ​<img src="{{ asset('storage/perfil/professores/' . $orientador->orientador_foto) }}" class="rounded-circle" alt="{{Auth::user()->image}}" width="180px" height="180px">
                     @else
                     ​    <img src="{{ asset('images/user.png') }}" class="rounded-circle" alt="avatar" width="180px" height="180px">
                     @endif
                 </div>
                 <div class="col-md-8 col-ms-12 pt-2">
                     <h3>Você já tem um orientador.</h3>
-                    <a href="{{ route('public.orientador.perfil', Hashids::encode($tccAluno->orientador_id)) }}">
-                        {{ $tccAluno->orientador_nome }}
+                    <a href="{{ route('public.orientador.perfil', Hashids::encode($orientador->orientador_id)) }}">
+                        {{ $orientador->orientador_nome }}
                     </a>
                 </div>
             </div>
             <hr>
+        @endisset
 
-        @else
-
-            @if($tccAluno->prof_solicitado)
-                <div class="row  text-center text-md-left">
-                    <div class="col-md-3 col-ms-12">
-                        @if($tccAluno->prof_solicitado_foto)
-                            ​<img src="{{ asset('storage/perfil/professores/' . $tccAluno->prof_solicitado_foto) }}" class="rounded-circle" alt="{{Auth::user()->image}}" width="180px" height="180px">
-                        @else
-                        ​    <img src="{{ asset('images/user.png') }}" class="rounded-circle" alt="avatar" width="180px" height="180px">
-                        @endif
-                    </div>
-                    <div class="col-md-8 col-ms-12 pt-2">
-                        <h3>Solicitação de orientação de TCC enviada</h3>
-                        <a href="{{ route('public.orientador.perfil', Hashids::encode($tccAluno->prof_solicitado)) }}">
-                            <h4>{{ $tccAluno->prof_solicitado_nome }}</h4>
-                        </a>
-                        <br>
-                        <a class="btn btn-danger" href="{{ route('aluno.cancelar-solicitacao.tcc') }}">
-                            Cancelar Solicitação
-                        </a>
-                    </div>
+        <!-- Se existe um professor solicitado pelo aluno -->
+        @isset($profSolicitado)
+            <div class="row  text-center text-md-left">
+                <div class="col-md-3 col-ms-12">
+                    @if($profSolicitado->prof_solicitado_foto)
+                        ​<img src="{{ asset('storage/perfil/professores/' . $profSolicitado->prof_solicitado_foto) }}" class="rounded-circle" alt="{{Auth::user()->image}}" width="180px" height="180px">
+                    @else
+                    ​    <img src="{{ asset('images/user.png') }}" class="rounded-circle" alt="avatar" width="180px" height="180px">
+                    @endif
                 </div>
-                <br>
-            @endif
+                <div class="col-md-8 col-ms-12 pt-2">
+                    <h3>Solicitação de orientação de TCC enviada</h3>
+                    <a href="{{ route('public.orientador.perfil', Hashids::encode($profSolicitado->prof_solicitado)) }}">
+                        <h4>{{ $profSolicitado->prof_solicitado_nome }}</h4>
+                    </a>
+                    <br>
+                    <a class="btn btn-danger" href="{{ route('aluno.cancelar-solicitacao.tcc') }}">
+                        Cancelar Solicitação
+                    </a>
+                </div>
+            </div>
+            <br>
+        @endisset
+
+        <!-- Se o aluno ainda tem que solicitar um professor para orientação -->
+        @isset($orientadores)
+
+            <div class="text-center mb-5">
+                <form action="{{ route('aluno.orientador.tcc') }}" name="buscarNome" method="get"
+                    enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-inline justify-content-center">
+                        <div class="form-group mr-2 w-50">
+                            <input class="form-control w-100" placeholder="Nome do professor" type="text" name="name">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary" value="Buscar">
+                                Buscar
+                                <i class="fas fa-search fa-fw ml-1"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
 
             @if($orientadores->count() > 0)
 
@@ -77,20 +99,16 @@
                                     <td>{{ $orientador->email }}</td>
                                     <td>{{ $orientador->area_de_interesse }}</td>
 
-                                    @if(!$tccAluno->prof_solicitado)
-                                        @if(Auth::check())
-                                            <td>
-                                                <form action="{{ route('aluno.solicitar-professor.tcc') }}" method="post">
-                                                    @csrf
-                                                    <input value="{{ $orientador->id }}" id="prof_solicitado" name="prof_solicitado" type="hidden">
-                                                    <button class="btn btn-primary">
-                                                        Solicitar
-                                                        <i class="fas fa-paper-plane fa-fw"></i>
-                                                    </button>
-                                                </form>
-                                            </td>
-                                        @endif
-                                    @endif
+                                    <td>
+                                        <form action="{{ route('aluno.solicitar-professor.tcc') }}" method="post">
+                                            @csrf
+                                            <input value="{{ $orientador->id }}" id="prof_solicitado" name="prof_solicitado" type="hidden">
+                                            <button class="btn btn-primary">
+                                                Solicitar
+                                                <i class="fas fa-paper-plane fa-fw"></i>
+                                            </button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -103,10 +121,10 @@
                 </div>
 
             @else
-                <p>Nenhum orientador cadastrado</p>
+                <p>Nenhum orientador encontrado</p>
             @endif
-        </div>
 
-    @endif
-    
+        @endisset    
+    </div>
+
 @endsection

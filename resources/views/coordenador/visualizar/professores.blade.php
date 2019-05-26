@@ -7,27 +7,29 @@
 @endsection
 
 @section('content')
+    
+    <div class="text-center mb-5">
+        <form action="{{ route('coordenador.visualizar.professores') }}" name="buscarNome" method="get"
+            enctype="multipart/form-data">
+            @csrf
+            <div class="form-inline justify-content-center">
+                <div class="form-group mr-2 w-50">
+                    <input class="form-control w-100" placeholder="Nome do professor" type="text" name="name">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" value="Buscar">
+                        Buscar
+                        <i class="fas fa-search fa-fw ml-1"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
     @if($professores->count() > 0)
         @include('includes.modal.visualizarProfessor')
         @include('includes.modal.removerProfessor')
 
-        <div class="text-center mb-5">
-            <form action="{{ route('coordenador.visualizar.professores') }}" name="buscarNome" method="get"
-                enctype="multipart/form-data">
-                @csrf
-                <div class="form-inline justify-content-center">
-                    <div class="form-group mr-2 w-50">
-                        <input class="form-control w-100" placeholder="Nome do professor" type="text" name="name">
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary" value="Buscar">
-                            Buscar
-                            <i class="fas fa-search fa-fw ml-1"></i>
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
 
         <div class="table-responsive text-center">
             <table class="table table-hover">

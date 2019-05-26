@@ -26,15 +26,11 @@ class CoordenadorController extends Controller
     public function visualizarProfessores() {
 
         if(request()->has('name')){
-            // $professores = Professor::where('name', request('name'))
-            //                 ->orderBy('created_at', 'desc')
-            //                 ->paginate($this->TotalItensPágina)
-            //                 ->appends('name', request('name')
-            //             );
             
             $professores = Professor::where('name', 'LIKE', '%' . request('name') . '%')
                 ->orderBy('created_at', 'desc')
-                ->paginate($this->TotalItensPágina);
+                ->paginate($this->TotalItensPágina)
+                ->appends('name', request('name'));
 
         } else {
             $professores = Professor::orderBy('created_at', 'desc')->paginate($this->TotalItensPágina);
@@ -51,14 +47,12 @@ class CoordenadorController extends Controller
     // Get's User/Aluno
     public function visualizarAlunos() {
         if(request()->has('name')){
-            // $alunos = User::where('name', request('name'))
-            //                     ->orderBy('created_at', 'desc')
-            //                     ->paginate($this->TotalItensPágina)
-            //                     ->appends('name', request('name'));
-
+            
             $alunos = User::where('name', 'LIKE', '%' . request('name') . '%')
-                ->orderBy('created_at', 'desc')
-                ->paginate($this->TotalItensPágina);
+                        ->orderBy('created_at', 'desc')
+                        ->paginate($this->TotalItensPágina)
+                        ->appends('name', request('name'));
+
         } else{
             $alunos = User::orderBy('created_at', 'desc')->paginate($this->TotalItensPágina);
         }

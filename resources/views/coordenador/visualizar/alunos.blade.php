@@ -7,35 +7,29 @@
 @endsection
 
 @section('content')
+
+    <div class="text-center mb-5">
+        <form action="{{ route('coordenador.visualizar.alunos') }}" name="buscarNome" method="get"
+            enctype="multipart/form-data">
+            @csrf
+            <div class="form-inline justify-content-center">
+                <div class="form-group mr-2 w-50">
+                    <input class="form-control w-100" type="text" name="name">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" value="Buscar">
+                        Buscar
+                        <i class="fas fa-search fa-fw ml-1"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    
     @if($alunos->count() > 0)
         @include('includes.modal.visualizarAluno')
         @include('includes.modal.removerAluno')
 
-        {{-- <div class="text-center">
-                <form action="{{ route('coordenador.visualizar.alunos') }}" name="buscarNome" method="get"
-                enctype="multipart/form-data">
-                    <input type="text" name="name" />
-                    <button type="submit" class="btn btn-outline-primary" value="Buscar">Buscar</button>
-                </form>
-            </div> --}}
-
-        <div class="text-center mb-5">
-            <form action="{{ route('coordenador.visualizar.alunos') }}" name="buscarNome" method="get"
-                enctype="multipart/form-data">
-                @csrf
-                <div class="form-inline justify-content-center">
-                    <div class="form-group mr-2 w-50">
-                        <input placeholder="Nome do aluno" class="form-control w-100" type="text" name="name">
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary" value="Buscar">
-                            Buscar
-                            <i class="fas fa-search fa-fw ml-1"></i>
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
 
         <div class="table-responsive text-center">
             <table class="table table-hover">
