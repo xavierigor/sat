@@ -8,7 +8,9 @@
                 </button>
             </div>
             <div class="modal-body">
-                Você realmente deseja remover esta pessoa?
+                Você realmente deseja remover
+                <span class="modal-nome text-primary font-weight-bold"></span>
+                ?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>

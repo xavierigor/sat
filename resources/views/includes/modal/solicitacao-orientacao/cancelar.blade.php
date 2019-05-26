@@ -1,25 +1,22 @@
-<div class="modal fade" id="removerAluno" tabindex="-1" role="dialog" aria-labelledby="removerAlunoLabel" aria-hidden="true">
+<div class="modal fade" id="cancelarSolicitacao" tabindex="-1" role="dialog" aria-labelledby="cancelarSolicitacaoLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="removerAlunoLabel">Remover Aluno</h5>
+                <h5 class="modal-title" id="cancelarSolicitacaoLabel">Cancelar Solicitação</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                Você realmente deseja remover
+                Você realmente deseja cancelar a Solicitação de Orientação de Tcc enviada para
                 <span class="modal-nome text-primary font-weight-bold"></span>
                 ?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
-                <form method="POST" action="{{ route('coordenador.remover.aluno') }}">
-                    @csrf
-                    @method('DELETE')
-                    <input hidden value="" class="id" id="id" name="id">
-                    <button type="submit" class="btn btn-primary">Sim</button>
-                </form>
+                <a href="{{ route('aluno.cancelar-solicitacao.tcc') }}" type="submit" class="btn btn-primary">
+                    Sim
+                </a>
             </div>
         </div>
     </div>

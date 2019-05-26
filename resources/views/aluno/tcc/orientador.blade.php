@@ -33,6 +33,10 @@
 
         <!-- Se existe um professor solicitado pelo aluno -->
         @isset($profSolicitado)
+    
+            <!-- Importar modal cancelar solicitacao -->
+            @include('includes.modal.solicitacao-orientacao.cancelar')
+
             <div class="row  text-center text-md-left">
                 <div class="col-md-3 col-ms-12">
                     @if($profSolicitado->prof_solicitado_foto)
@@ -41,26 +45,29 @@
                     ​    <img src="{{ asset('images/user.png') }}" class="rounded-circle" alt="avatar" width="180px" height="180px">
                     @endif
                 </div>
-                <div class="col-md-8 col-ms-12 pt-2">
-                    <h3>Solicitação de orientação de TCC enviada</h3>
+                <div class="col-md-9 col-ms-12 pt-4">
+                    <h5>Solicitação de orientação de TCC enviada</h5>
                     <a href="{{ route('public.orientador.perfil', Hashids::encode($profSolicitado->prof_solicitado)) }}">
-                        <h4>{{ $profSolicitado->prof_solicitado_nome }}</h4>
+                        <h5>{{ $profSolicitado->prof_solicitado_nome }}</h5>
                     </a>
                     <br>
-                    <a class="btn btn-danger" href="{{ route('aluno.cancelar-solicitacao.tcc') }}">
+                    <!-- Chamar modal cancelar solicitacao -->
+                    <button title="Cancelar" type="button" class="btn btn-danger" data-toggle="modal"
+                        data-target="#cancelarSolicitacao" data-nome="{{ $profSolicitado->prof_solicitado_nome }}">
                         Cancelar Solicitação
-                    </a>
+                        <i class="fas fa-times fa-fw"></i>
+                    </button>
                 </div>
             </div>
             <br>
         @endisset
 
         <!-- Se o aluno ainda tem que solicitar um professor para orientação -->
-        @isset($orientadores)
+        @isset($professores)
 
             <div class="text-center mb-5">
                 <form action="{{ route('aluno.orientador.tcc') }}" name="buscarNome" method="get"
-                    enctype="multipart/form-data">
+                enctype="multipart/form-data">
                     @csrf
                     <div class="form-inline justify-content-center">
                         <div class="form-group mr-2 w-50">
@@ -75,9 +82,12 @@
                     </div>
                 </form>
             </div>
+            
+            @if($professores->count() > 0)
 
-            @if($orientadores->count() > 0)
-
+                <!-- Importar modal confirmar envio de solicitacao -->
+                @include('includes.modal.solicitacao-orientacao.confirmar')
+            
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
@@ -89,25 +99,23 @@
                         </thead>
         
                         <tbody>
-                            @foreach($orientadores as $orientador)
+                            @foreach($professores as $professor)
                                 <tr>
                                     <th scope="row">
-                                        <a href="{{ route('public.orientador.perfil', Hashids::encode($orientador->id)) }}">
-                                            {{ $orientador->name }}
+                                        <a href="{{ route('public.orientador.perfil', Hashids::encode($professor->id)) }}">
+                                            {{ $professor->name }}
                                         </a>
                                     </th>
-                                    <td>{{ $orientador->email }}</td>
-                                    <td>{{ $orientador->area_de_interesse }}</td>
+                                    <td>{{ $professor->email }}</td>
+                                    <td>{{ $professor->area_de_interesse }}</td>
 
                                     <td>
-                                        <form action="{{ route('aluno.solicitar-professor.tcc') }}" method="post">
-                                            @csrf
-                                            <input value="{{ $orientador->id }}" id="prof_solicitado" name="prof_solicitado" type="hidden">
-                                            <button class="btn btn-primary">
-                                                Solicitar
-                                                <i class="fas fa-paper-plane fa-fw"></i>
-                                            </button>
-                                        </form>
+                                        <!-- Chamar modal enviar solicitacao -->
+                                        <button title="Solicitar" type="button" class="btn btn-primary" data-toggle="modal"
+                                            data-target="#enviarSolicitacao" data-nome="{{ $professor->name }}" data-id="{{ $professor->id }}">
+                                            Solicitar
+                                            <i class="fas fa-paper-plane fa-fw"></i>
+                                        </button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -117,14 +125,18 @@
             
                 <!-- Paginação -->
                 <div class="d-flex justify-content-center">
-                    {{ $orientadores->links() }}
+                    {{ $professores->links() }}
                 </div>
 
             @else
-                <p>Nenhum orientador encontrado</p>
+                <p>Nenhum professor encontrado</p>
             @endif
 
         @endisset    
     </div>
 
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('js/modal-solicitacao-orientador.js') }}"></script>
 @endsection

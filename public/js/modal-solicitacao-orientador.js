@@ -1,4 +1,4 @@
-$('#removerProfessor').on('show.bs.modal', function (event) {
+$('#enviarSolicitacao').on('show.bs.modal', function (event) {
   let button = $(event.relatedTarget)
   let nome = button.data('nome')
   let id = button.data('id')
@@ -6,16 +6,14 @@ $('#removerProfessor').on('show.bs.modal', function (event) {
   let modal = $(this)
 
   modal.find('.modal-nome').text(nome)
-  modal.find('.id').val(id)
+  modal.find('.prof_solicitado').val(id)
 })
 
-$('#removerAluno').on('show.bs.modal', function (event) {
+$('#cancelarSolicitacao').on('show.bs.modal', function (event) {
   let button = $(event.relatedTarget)
   let nome = button.data('nome')
-  let id = button.data('id')
 
   let modal = $(this)
 
   modal.find('.modal-nome').text(nome)
-  modal.find('.id').val(id)
 })

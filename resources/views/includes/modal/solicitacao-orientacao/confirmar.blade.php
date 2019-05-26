@@ -1,23 +1,23 @@
-<div class="modal fade" id="removerAluno" tabindex="-1" role="dialog" aria-labelledby="removerAlunoLabel" aria-hidden="true">
+<div class="modal fade" id="enviarSolicitacao" tabindex="-1" role="dialog" aria-labelledby="enviarSolicitacaoLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="removerAlunoLabel">Remover Aluno</h5>
+                <h5 class="modal-title" id="enviarSolicitacaoLabel">Enviar Solicitação</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                Você realmente deseja remover
+                Você realmente deseja enviar uma Solicitação de Orientação de Tcc para
                 <span class="modal-nome text-primary font-weight-bold"></span>
                 ?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
-                <form method="POST" action="{{ route('coordenador.remover.aluno') }}">
+                <form method="POST" action="{{ route('aluno.solicitar-professor.tcc') }}">
                     @csrf
-                    @method('DELETE')
-                    <input hidden value="" class="id" id="id" name="id">
+                    
+                    <input hidden value="" class="prof_solicitado" id="prof_solicitado" name="prof_solicitado">
                     <button type="submit" class="btn btn-primary">Sim</button>
                 </form>
             </div>

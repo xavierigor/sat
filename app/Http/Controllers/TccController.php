@@ -67,7 +67,7 @@ class TccController extends Controller
             // Se for pesquisado algum nome de orientador
             if(request()->has('name')){
             
-                $orientadores = Professor::where('name', 'LIKE', '%' . request('name') . '%')
+                $professores = Professor::where('name', 'LIKE', '%' . request('name') . '%')
                                 ->where('disponivel_orient', true)
                                 ->orderBy('created_at', 'desc')
                                 ->paginate($this->TotalItensPágina)
@@ -75,12 +75,12 @@ class TccController extends Controller
     
             } else{
 
-                $orientadores = Professor::where('disponivel_orient', true)
+                $professores = Professor::where('disponivel_orient', true)
                                 ->orderBy('created_at', 'desc')
                                 ->paginate($this->TotalItensPágina);
             }
 
-            return view('aluno.tcc.orientador')->with('orientadores', $orientadores);
+            return view('aluno.tcc.orientador')->with('professores', $professores);
             
         }
 
