@@ -54,6 +54,13 @@
     padding: 20px;
 }
 
+
+/* Quando a sidebar estiver sobrepondo o conteudo (tela pequena) */
+.overlaid{
+    background: rgba(0, 0, 0, 0.432);
+}
+
+
 @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
