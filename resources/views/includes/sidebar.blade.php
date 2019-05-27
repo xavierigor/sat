@@ -104,15 +104,18 @@
                         <li class="{{ Request::is('aluno/alterar/senha') ? 'active' : ''}}"><a href="{{ route('aluno.alterar.senha') }}">Alterar Senha</a></li>
                     </ul>
 
-                    <li data-toggle="collapse" data-target="#tcc-aluno" class="collapsed {{ Request::is('aluno/visualizar/tcc') || Request::is('aluno/editar/tcc') || Request::is('aluno/orientador/tcc') ? 'active' : '' }}">
+                    <li data-toggle="collapse" data-target="#tcc-aluno" 
+                    class="collapsed {{ Request::is('aluno/visualizar/tcc') || Request::is('aluno/editar/tcc') || Request::is('aluno/orientador/tcc') || Request::is('aluno/documentos/tcc') ? 'active' : '' }}">
                         <a href="#" class="dropdown-option">
                             <i class="fas fa-scroll fa-fw"></i> TCC <i class="fas fa-chevron-down fa-fw"></i>
                         </a>
                     </li>
-                    <ul class="sub-menu collapse {{ Request::is('aluno/visualizar/tcc') || Request::is('aluno/editar/tcc') || Request::is('aluno/orientador/tcc') ? 'show' : '' }}" class="sub-menu collapse" id="tcc-aluno">
+                    <ul class="sub-menu collapse {{ Request::is('aluno/visualizar/tcc') || Request::is('aluno/editar/tcc') || Request::is('aluno/orientador/tcc') || Request::is('aluno/documentos/tcc') ? 'show' : '' }}" 
+                    class="sub-menu collapse" id="tcc-aluno">
                         <li class="{{ Request::is('aluno/visualizar/tcc') ? 'active' : ''}}"><a href="{{ route('aluno.visualizar.tcc') }}">Visualizar</a></li>
                         <li class="{{ Request::is('aluno/editar/tcc') ? 'active' : ''}}"><a href="{{ route('aluno.editar.tcc') }}">Editar</a></li>
                         <li class="{{ Request::is('aluno/orientador/tcc') ? 'active' : ''}}"><a href="{{ route('aluno.orientador.tcc') }}">Orientador</a></li>
+                        <li class="{{ Request::is('aluno/documentos/tcc') ? 'active' : ''}}"><a href="{{ route('aluno.documentos.tcc') }}">Documentos</a></li>
                     </ul>
 
                 @endif

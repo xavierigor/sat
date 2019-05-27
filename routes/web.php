@@ -80,4 +80,5 @@ Route::prefix('/aluno')->group(function() {
     Route::get('/orientador/tcc', 'TccController@orientador')->name('aluno.orientador.tcc');
     Route::post('/solicitar-professor/tcc', 'TccController@solicitarProfessor')->name('aluno.solicitar-professor.tcc');
     Route::get('/cancelar-solicitacao/tcc', 'TccController@cancelarSolicitacao')->name('aluno.cancelar-solicitacao.tcc');
+    Route::get('/documentos/tcc', 'TccController@documentos')->name('aluno.documentos.tcc');
 });

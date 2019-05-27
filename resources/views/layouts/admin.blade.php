@@ -38,10 +38,20 @@
 
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
+    <!-- cdn plugin para tratar campo de arquivos bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"></script> 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="{{ asset('js/sidebar.js') }}"></script>
     <script src="{{ asset('js/toastr.min.js') }}"></script>
     
+
+    <!-- plugin para tratar campo de arquivos bootstrap -->
+    <script >
+        $(document).ready(function () {
+            bsCustomFileInput.init()
+        })
+    </script>
+
     @yield('scripts')
     @include('includes.messages')
 </body>

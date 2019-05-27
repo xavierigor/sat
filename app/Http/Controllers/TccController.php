@@ -101,6 +101,10 @@ class TccController extends Controller
         return redirect()->back()->with(session()->flash('error', 'Erro ao cancelar Solicitação de Orientação de TCC.'));
     }
 
+    public function documentos()
+    {
+        return view('aluno.tcc.documentos');
+    }
 
     // POST'S
     
