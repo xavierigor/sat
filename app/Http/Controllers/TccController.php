@@ -88,9 +88,10 @@ class TccController extends Controller
 
     public function cancelarSolicitacao()
     {
-        $aluno = Auth::user();
-    
-        $tcc = Tcc::where('user_id', $aluno->id)->first();
+        // O método torna 'null' o camp 'prof_solicitado' da tabela TCC do aluno
+        // Depois retorna para a página com uma mensagem (feedback) de sucesso ou erro
+
+        $tcc = Auth::user()->tcc;
         $tcc->prof_solicitado = null;
     
         if($tcc->save()) {
@@ -128,9 +129,10 @@ class TccController extends Controller
 
     public function solicitarProfessor(Request $request)
     {
-        $aluno = Auth::user();
-    
-        $tcc = Tcc::where('user_id', $aluno->id)->first();
+        // O método armazena o id passado via requisição 'POST' no campo 'prof_solicitado' da tabela TCC do aluno
+        // Depois retorna para a página com uma mensagem (feedback) de sucesso ou erro
+
+        $tcc = Auth::user()->tcc;
         $tcc->prof_solicitado = $request->prof_solicitado;
     
         if($tcc->save()) {

@@ -21,7 +21,7 @@
     <link rel="stylesheet" href={{asset('css/main.css')}}>
 </head>
 <body>
-    @include('includes.navbar')
+    @include('includes.navs.navbar')
 
     <div class="container py-4" id="main">
         <div class="shadow-sm">

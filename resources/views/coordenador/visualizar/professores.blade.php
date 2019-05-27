@@ -27,8 +27,8 @@
     </div>
 
     @if($professores->count() > 0)
-        @include('includes.modal.visualizarProfessor')
-        @include('includes.modal.removerProfessor')
+        @include('includes.modal.visualizacao-usuario.verProfessor')
+        @include('includes.modal.remocao-usuario.removerProfessor')
 
 
         <div class="table-responsive text-center">

@@ -34,6 +34,8 @@ class AlunoController extends Controller
 
     // Alterar dados
     public function update(Request $request) {
+
+        // valida os dados passados pelo formulário
         $this->validate($request, [
             'name' => 'required|max:100',
             // 'email' => 'required|email|unique:users|max:100',
@@ -44,38 +46,42 @@ class AlunoController extends Controller
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
+        // Armazena os dados no BD
         $aluno = Auth::user();
         $aluno->name = $request->name;
         $aluno->email = $request->email;
         $aluno->data_nasc = $request->data_nasc;
         $aluno->telefone = $request->telefone;
 
+        // Verifica se foi foi alterada a foto e se é válida
         if($request->hasFile('image') && $request->file('image')->isValid()){
             
+            // Verifica se o aluno já tinha foto e remove imagem antiga do diretório
             if($aluno->image){
-                // remove old img from directory
                 unlink(storage_path('app/public/perfil/users/'.$aluno->image));
             }
 
+            // concatena id, nome do usuário e extensão para ter o nome que será salvo para a imagem no BD
             $name = $aluno->id.kebab_case($aluno->name);
-
             $extension = $request->image->extension();
             $nameFile = "{$name}.{$extension}";
 
+            // Salva o nome da imagem no BD e o arquivo na pasta 'Storage' do servidor
             $aluno->image = $nameFile;
             $upload = $request->image->storeAs('perfil/users', $nameFile);
 
-            // Se upload não funcionar
+            // Se upload não funcionar retorna erro
             if(! $upload) {
                 return redirect()->back()->with(session()->flash('error', 'Erro ao fazer upload de imagem.'));
             }
-            // dd($nameFile);
         }
+
+        // Retorna mensagem de sucesso ou erro (feedback)
 
         if($aluno->save()) {
             return redirect()->back()->with(session()->flash('success', 'Dados Atualizados.'));
         }
-
+        
         return redirect()->back()->with(session()->flash('error', 'Erro ao atualizar dados.'));
     }
 
@@ -83,12 +89,15 @@ class AlunoController extends Controller
     public function salvarSenha(Request $request) {
         $aluno = Auth::user();
 
+        // Valida dados passados pelo form
         $this->validate($request, [
             'senha_atual' => 'required|max:100',
             'nova_senha' => 'required|max:100|min:6|confirmed',
         ]);
 
         if(Hash::check($request->senha_atual, $aluno->password)) {
+            
+            // Armazena a senha criptografada
             $aluno->password = Hash::make($request->nova_senha);
             if($aluno->save()) {
                 return redirect()->back()->with(session()->flash('success', 'Senha Alterada.'));

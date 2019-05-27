@@ -22,7 +22,7 @@
     <link rel="stylesheet" href={{asset('css/auth.css')}}>
 </head>
 <body>
-    {{-- @include('includes.navbar') --}}
+    {{-- @include('includes.navs.navbar') --}}
     
 
     <div class="container wrapper">

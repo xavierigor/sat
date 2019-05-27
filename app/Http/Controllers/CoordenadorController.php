@@ -10,6 +10,7 @@ use App\Tcc;
 class CoordenadorController extends Controller
 {
 
+    // Variavel que armazena o numero de itens que sera mostrado na paginação
     private $TotalItensPágina = 5;
     
     public function __construct() {
@@ -28,9 +29,9 @@ class CoordenadorController extends Controller
         if(request()->has('name')){
             
             $professores = Professor::where('name', 'LIKE', '%' . request('name') . '%')
-                ->orderBy('created_at', 'desc')
-                ->paginate($this->TotalItensPágina)
-                ->appends('name', request('name'));
+                                    ->orderBy('created_at', 'desc')
+                                    ->paginate($this->TotalItensPágina)
+                                    ->appends('name', request('name'));
 
         } else {
             $professores = Professor::orderBy('created_at', 'desc')->paginate($this->TotalItensPágina);
@@ -46,17 +47,22 @@ class CoordenadorController extends Controller
 
     // Get's User/Aluno
     public function visualizarAlunos() {
+
+        // verifica se foi foi passado 'name' como GET (quando é pesquisa algo no campo de busca)
         if(request()->has('name')){
             
+            // Busca alunos (Users) com o nome pesquisado, retorna ordenados e paginados e
+            // usa o método 'appends' para persistir a pesquisa quando trocada a página
             $alunos = User::where('name', 'LIKE', '%' . request('name') . '%')
-                        ->orderBy('created_at', 'desc')
-                        ->paginate($this->TotalItensPágina)
-                        ->appends('name', request('name'));
+                            ->orderBy('created_at', 'desc')
+                            ->paginate($this->TotalItensPágina)
+                            ->appends('name', request('name'));
 
         } else{
             $alunos = User::orderBy('created_at', 'desc')->paginate($this->TotalItensPágina);
         }
         
+        // Retorna para a página uma varivel com os aluno (Users) que serão exibidos
         return view('coordenador.visualizar.alunos')->with('alunos', $alunos);
     }
 
@@ -100,6 +106,7 @@ class CoordenadorController extends Controller
     // Post's User/Aluno
 
     public function salvarAluno(Request $request) {
+        // valida dados passados pelo form
         $this->validate($request, [
             'name' => 'required|max:100',
             'email' => 'required|email|unique:users|max:100',
@@ -107,16 +114,20 @@ class CoordenadorController extends Controller
             'data_nasc' => 'required|date|date_format:Y-m-d',
         ]);
             
+        // salva dados no BD
         $aluno = new User;
         $aluno->name = $request->name;
         $aluno->email = $request->email;
+        // salva senha criptografada
         $aluno->password = bcrypt(str_replace('/', '', date('d/m/Y',(strtotime($request->data_nasc)))));
         $aluno->matricula = $request->matricula;
         $aluno->data_nasc = $request->data_nasc;
 
+        // verifica se dados de aluno foram salvos
         if($aluno->save()) {
-            $tcc = new Tcc;
 
+            // cria novo tupla na tabela TCC e associa ao aluno salvo (com o id)
+            $tcc = new Tcc;
             $tcc->user_id = $aluno->id;
             $tcc->save();
 
@@ -127,6 +138,8 @@ class CoordenadorController extends Controller
     }
     
     public function removerAluno(Request $request) {        
+
+        // Remove aluno (User) do BD
         if(User::destroy($request->id)) {
             return redirect()->back()->with(session()->flash('success', 'Aluno removido.'));
         }

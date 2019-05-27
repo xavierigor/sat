@@ -24,8 +24,8 @@
     <link rel="stylesheet" href="{{ asset('css/toastr.min.css') }}">
 </head>
 <body>
-    @include('includes.navbar')
-    @include('includes.sidebar')
+    @include('includes.navs.navbar')
+    @include('includes.navs.sidebar')
     
     <div class="container-fluid" id="main">
         <div class="header">
