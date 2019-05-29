@@ -8,17 +8,16 @@
 
 @section('content')
 <div class="container">
-    <div class="row p-3 text-center text-md-left">
-        <div class="col-md-4 col-sm-12">
+    <div class="row p-3 text-center">
+        <div class="col-xl-4 col-sm-12 col-md-12">
         @if(Auth::user()->image)
             ​<img src="{{ asset('storage/perfil/professores/' . Auth::user()->image) }}" class="rounded-circle" alt="{{Auth::user()->image}}" width="180px" height="180px">
-            <!-- ​<img src="{{ asset('storage/perfil/professores/​Auth::user()->image') }}" class="rounded-circle" alt="{{Auth::user()->image}}" width="180" height="180"> -->
         @else
         ​   <img src="{{ asset('images/user.png') }}" class="rounded-circle" alt="avatar" width="180" height="180">
         @endif
         </div>
-        <div class="col-md-8 col-sm-12 row">
-            <div class="col-md-6 col-sm-12 pt-4">
+        <div class="col-xl-8 col-sm-12 col-md-12 text-md-left row">
+            <div class="col-md-7 col-sm-12 pt-4">
                 <h5>
                     <i class="fas fa-user-circle fa-fw"></i>
                     {{ Auth::user()->name }}
@@ -36,7 +35,7 @@
                     @endif
                 </h5>
             </div>
-            <div class="col-md-6 col-sm-12 pt-4">
+            <div class="col-md-5 col-sm-12 pt-4">
                 <h5>
                     <i class="fas fa-calendar-alt fa-fw"></i>
                     {{ DateTime::createFromFormat('Y-m-d', Auth::user()->data_nasc)->format('d/m/Y') }}
