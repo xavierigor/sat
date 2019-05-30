@@ -2,6 +2,10 @@
 
 @section('title', 'Painel de Controle')
 
+@section('header')
+<i class="fas fa-tachometer-alt fa-fw mr-2"></i> Painel de Controle
+@endsection
+
 @section('content')
     <div>
         @if (session('status'))

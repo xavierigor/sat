@@ -5,8 +5,8 @@
         </span>
     @endif
 
-    <div class="navbar-brand">
-        <a href={{route('public.index')}}>
+    <div >
+        <a class="navbar-brand" href={{route('public.index')}}>
             <img draggable="false" src="{{ asset('images/logo.png') }}" alt="logo" class="img-fluid">
         </a>
     </div>

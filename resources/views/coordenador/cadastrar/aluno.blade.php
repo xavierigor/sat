@@ -3,7 +3,7 @@
 @section('title', 'Cadastrar Aluno')
 
 @section('header')
-<i class="fas fa-user-graduate fa-fw"></i> Cadastrar Aluno
+<i class="fas fa-user-graduate fa-fw mr-2"></i> Aluno <i class="fas fa-angle-right fa-fw"></i> Cadastrar
 @endsection
 
 @section('content')

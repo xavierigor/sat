@@ -100,8 +100,12 @@ nav .navbar-nav .entrar a {
     font-size: 1.3em;
 }
 
-#main .header i {
+/* #main .header i {
     margin-right: .5rem !important;
+} */
+
+#main .header a {
+    color: white;
 }
 
 /* Conteúdo da Página */

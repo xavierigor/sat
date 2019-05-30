@@ -3,7 +3,7 @@
 @section('title', 'Documentos Modelo')
 
 @section('header')
-    <i class="far fa-file-alt fa-fw"></i> Documentos Modelo
+    <i class="far fa-file-alt fa-fw mr-2"></i> Documentos Modelo
 @endsection
 
 @section('content')

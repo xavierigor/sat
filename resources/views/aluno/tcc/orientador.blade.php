@@ -1,9 +1,9 @@
 @extends('layouts.admin')
 
-@section('title', 'Orientador')
+@section('title', 'Orientador TCC')
 
 @section('header')
-<i class="fas fa-scroll fa-fw"></i> Orientador
+<i class="fas fa-scroll fa-fw mr-2"></i> Tcc <i class="fas fa-angle-right fa-fw"></i> Orientador
 @endsection
 
 @section('content')

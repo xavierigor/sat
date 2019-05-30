@@ -3,7 +3,7 @@
 @section('title', 'Alterar Senha')
 
 @section('header')
-<i class="fas fa-key fa-fw"></i> Alterar Senha
+<i class="fas fa-key fa-fw mr-2"></i> Perfil <i class="fas fa-angle-right fa-fw"></i> Alterar Senha
 @endsection
 
 @section('content')

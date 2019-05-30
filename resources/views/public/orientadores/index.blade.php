@@ -3,7 +3,7 @@
 @section('title', 'Orientadores')
 
 @section('header')
-<i class="fas fa-user fa-fw"></i> Orientadores
+<i class="fas fa-user fa-fw mr-2"></i> Orientadores
 @endsection
 
 @section('content')

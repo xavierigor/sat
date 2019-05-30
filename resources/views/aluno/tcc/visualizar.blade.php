@@ -1,9 +1,9 @@
 @extends('layouts.admin')
 
-@section('title', 'Visualizar Tcc')
+@section('title', 'Visualizar TCC')
 
 @section('header')
-<i class="fas fa-scroll fa-fw"></i> Visualizar Tcc
+<i class="fas fa-scroll fa-fw mr-2"></i> Tcc <i class="fas fa-angle-right fa-fw"></i> Visualizar
 @endsection
 
 @section('content')

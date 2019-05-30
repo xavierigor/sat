@@ -1,9 +1,9 @@
 @extends('layouts.admin')
 
-@section('title', 'Documentos Tcc')
+@section('title', 'Documentos TCC')
 
 @section('header')
-<i class="fas fa-scroll fa-fw"></i> Documentos Tcc
+<i class="fas fa-scroll fa-fw mr-2"></i> Tcc <i class="fas fa-angle-right fa-fw"></i> Documentos
 @endsection
 
 @section('content')

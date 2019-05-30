@@ -3,7 +3,7 @@
 @section('title', 'Professores Cadastrados')
 
 @section('header')
-<i class="fas fa-user fa-fw"></i> Professores Cadastrados
+<i class="fas fa-user fa-fw mr-2"></i> Professor <i class="fas fa-angle-right fa-fw"></i> Professores Cadastrados
 @endsection
 
 @section('content')

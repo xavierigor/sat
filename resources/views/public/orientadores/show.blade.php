@@ -3,7 +3,7 @@
 @section('title', $orientador->name)
 
 @section('header')
-<i class="fas fa-user fa-fw"></i> {{ $orientador->name }}
+<i class="fas fa-user fa-fw mr-2"></i> <a href="{{ route("public.orientadores") }}" class="" >Orientadores</a> <i class="fas fa-angle-right fa-fw"></i> {{ $orientador->name }}
 @endsection
 
 @section('content')
