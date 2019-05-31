@@ -3,7 +3,7 @@
 @section('title', 'Visualizar Perfil')
 
 @section('header')
-<i class="fas fa-user-graduate fa-fw mr-2"></i> Perfil <i class="fas fa-angle-right fa-fw"></i> Visualizar Perfil
+<i class="fas fa-user-graduate fa-fw mr-2"></i> Perfil <i class="fas fa-angle-right fa-fw"></i> Visualizar
 @endsection
 
 @section('content')

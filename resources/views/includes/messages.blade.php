@@ -1,9 +1,11 @@
-@if(Session::has('success') || Session::has('error'))
+@if(Session::has('success') || Session::has('error') || Session::has('info'))
     <script>
         @if(Session::get('success'))
             toastr.success("{{ Session::get('success') }}", "Sucesso")
         @elseif(Session::get('error'))
             toastr.error("{{ Session::get('error') }}", "Erro")
+        @elseif(Session::get('info'))
+            toastr.info("{{ Session::get('info') }}")
         @endif
     </script>
 @endif

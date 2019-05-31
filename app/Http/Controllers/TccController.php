@@ -96,7 +96,7 @@ class TccController extends Controller
     
         if($tcc->save()) {
     
-            return redirect()->back()->with(session()->flash('success', 'Solicitação de Orientação de TCC Cancelada.'));
+            return redirect()->back()->with(session()->flash('info', 'Solicitação de Orientação de TCC Cancelada.'));
         } 
     
         return redirect()->back()->with(session()->flash('error', 'Erro ao cancelar Solicitação de Orientação de TCC.'));
@@ -137,7 +137,7 @@ class TccController extends Controller
     
         if($tcc->save()) {
     
-            return redirect()->back()->with(session()->flash('success', 'Solicitação de Orientação de TCC enviada.'));
+            return redirect()->back()->with(session()->flash('info', 'Solicitação de Orientação de TCC enviada.'));
         } 
     
         return redirect()->back()->with(session()->flash('error', 'Erro ao Solicitar Orientação de TCC.'));

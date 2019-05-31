@@ -3,7 +3,7 @@
 @section('title', 'Editar Perfil')
 
 @section('header')
-<i class="fas fa-user-graduate fa-fw mr-2"></i> Perfil <i class="fas fa-angle-right fa-fw"></i> Editar Perfil
+<i class="fas fa-user-graduate fa-fw mr-2"></i> Perfil <i class="fas fa-angle-right fa-fw"></i> Editar 
 @endsection
 
 @section('content')

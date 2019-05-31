@@ -11,10 +11,10 @@
     <div class="text-center mb-5">
         <form action="{{ route('coordenador.visualizar.alunos') }}" name="buscarNome" method="get"
             enctype="multipart/form-data">
-            @csrf
+            {{-- @csrf --}}
             <div class="form-inline justify-content-center">
                 <div class="form-group mr-2 w-50">
-                    <input class="form-control w-100" type="text" name="name">
+                    <input value="{{ request('n') }}" class="form-control w-100" placeholder="Nome do aluno" type="text" name="n">
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary" value="Buscar">
@@ -35,7 +35,6 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th scope="col">#</th>
                         <th scope="col">Nome</th>
                         <th scope="col">Email</th>
                         <th scope="col">Matrícula</th>
@@ -46,7 +45,6 @@
                 <tbody>
                     @foreach($alunos as $aluno)
                         <tr>
-                            <th scope="row">{{ $aluno->id }}</th>
                             <td>{{ $aluno->name }}</td>
                             <td>{{ $aluno->email }}</td>
                             <td>{{ $aluno->matricula }}</td>

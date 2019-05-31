@@ -26,18 +26,18 @@ class CoordenadorController extends Controller
     
     public function visualizarProfessores() {
 
-        if(request()->has('name')){
+        if(request()->has('n')){
             
-            $professores = Professor::where('name', 'LIKE', '%' . request('name') . '%')
+            $professores = Professor::where('name', 'LIKE', '%' . request('n') . '%')
                                     ->orderBy('created_at', 'desc')
                                     ->paginate($this->TotalItensPágina)
-                                    ->appends('name', request('name'));
+                                    ->appends('n', request('n'));
 
         } else {
             $professores = Professor::orderBy('created_at', 'desc')->paginate($this->TotalItensPágina);
         }
 
-        return view('coordenador.visualizar.professores')->with('professores', $professores);
+        return view('coordenador.visualizar.professores')->with('professores', $professores)->withInput(request()->only('n'));
     }
 
     public function cadastrarProfessor() {
@@ -49,21 +49,21 @@ class CoordenadorController extends Controller
     public function visualizarAlunos() {
 
         // verifica se foi foi passado 'name' como GET (quando é pesquisa algo no campo de busca)
-        if(request()->has('name')){
+        if(request()->has('n')){
             
             // Busca alunos (Users) com o nome pesquisado, retorna ordenados e paginados e
             // usa o método 'appends' para persistir a pesquisa quando trocada a página
-            $alunos = User::where('name', 'LIKE', '%' . request('name') . '%')
+            $alunos = User::where('name', 'LIKE', '%' . request('n') . '%')
                             ->orderBy('created_at', 'desc')
                             ->paginate($this->TotalItensPágina)
-                            ->appends('name', request('name'));
+                            ->appends('n', request('n'));
 
         } else{
             $alunos = User::orderBy('created_at', 'desc')->paginate($this->TotalItensPágina);
         }
         
         // Retorna para a página uma varivel com os aluno (Users) que serão exibidos
-        return view('coordenador.visualizar.alunos')->with('alunos', $alunos);
+        return view('coordenador.visualizar.alunos')->with('alunos', $alunos)->withInput(request()->only('n'));
     }
 
     public function cadastrarAluno() {
