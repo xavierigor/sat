@@ -8,6 +8,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <!-- Navicon -->
+    <link rel="shortcut icon" href="{{asset("images/favicon.png")}}">
+
     <title>@yield('title') - {{ config('app.name') }}</title>
 
     <!-- Fonts -->
