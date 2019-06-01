@@ -68,10 +68,9 @@
             <div class="text-center mb-5">
                 <form action="{{ route('aluno.orientador.tcc') }}" name="buscarNome" method="get"
                 enctype="multipart/form-data">
-                    @csrf
                     <div class="form-inline justify-content-center">
                         <div class="form-group mr-2 w-50">
-                            <input class="form-control w-100" placeholder="Nome do professor" type="text" name="name">
+                            <input value="{{ request('n') }}" class="form-control w-100" placeholder="Nome do orientador" type="text" name="n">
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary" value="Buscar">

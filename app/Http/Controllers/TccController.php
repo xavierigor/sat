@@ -65,13 +65,13 @@ class TccController extends Controller
         } else {
 
             // Se for pesquisado algum nome de orientador
-            if(request()->has('name')){
+            if(request()->has('n')){
             
-                $professores = Professor::where('name', 'LIKE', '%' . request('name') . '%')
+                $professores = Professor::where('name', 'LIKE', '%' . request('n') . '%')
                                 ->where('disponivel_orient', true)
                                 ->orderBy('created_at', 'desc')
                                 ->paginate($this->TotalItensPágina)
-                                ->appends('name', request('name'));
+                                ->appends('n', request('n'));
     
             } else{
 
@@ -80,7 +80,7 @@ class TccController extends Controller
                                 ->paginate($this->TotalItensPágina);
             }
 
-            return view('aluno.tcc.orientador')->with('professores', $professores);
+            return view('aluno.tcc.orientador')->with('professores', $professores)->withInput(request()->only('n'));
             
         }
 

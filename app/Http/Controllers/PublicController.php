@@ -32,12 +32,12 @@ class PublicController extends Controller
     public function orientadores() {
 
         // Se for pesquisado algum nome de professor
-        if(request()->has('name')){
+        if(request()->has('n')){
             
-            $orientadores = Professor::where('name', 'LIKE', '%' . request('name') . '%')
+            $orientadores = Professor::where('name', 'LIKE', '%' . request('n') . '%')
                             ->orderBy('created_at', 'desc')
                             ->paginate($this->TotalItensPágina)
-                            ->appends('name', request('name'));
+                            ->appends('n', request('n'));
 
         } else{
 
@@ -45,7 +45,7 @@ class PublicController extends Controller
                             ->paginate($this->TotalItensPágina);
         }
 
-        return view('public.orientadores.index')->with(['orientadores' => $orientadores]);
+        return view('public.orientadores.index')->with('orientadores', $orientadores)->withInput(request()->only('n'));
     }
 
     public function perfilOrientador($id) {
