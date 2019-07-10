@@ -83,6 +83,8 @@ Route::prefix('/aluno')->group(function() {
     Route::post('/editar/tcc', 'TccController@atualizar')->name('aluno.atualizar.tcc');
     Route::get('/visualizar/tcc', 'TccController@visualizar')->name('aluno.visualizar.tcc');
     Route::get('/documentos/tcc', 'TccController@documentos')->name('aluno.documentos.tcc');
+    Route::post('/documentos/tcc', 'TccController@storeDocumento')->name('aluno.store.documento');
+    Route::delete('/documentos/tcc', 'TccController@destroyDocumento')->name('aluno.destroy.documento');
     
     Route::get('/orientador/tcc', 'TccController@orientador')->name('aluno.orientador.tcc');
     Route::get('/tcc/cancelar-orientacao', 'TccController@cancelarOrientacao')->name('aluno.tcc.cancelar-orientacao');

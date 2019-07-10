@@ -7,6 +7,8 @@ use Auth;
 use App\Tcc;
 use App\Professor;
 use App\Solicitacao;
+use Storage;
+use Validator;
 
 
 class TccController extends Controller
@@ -90,10 +92,88 @@ class TccController extends Controller
 
     public function documentos()
     {
-        return view('aluno.tcc.documentos');
+        $tcc = Auth::user()->tcc;
+
+        $termo_de_compromisso = $tcc->termo_de_compromisso;
+        $rel_acompanhamento = $tcc->rel_acompanhamento;
+
+        return view('aluno.tcc.documentos')
+        ->with(['termo_de_compromisso' => $termo_de_compromisso, 'rel_acompanhamento' => $rel_acompanhamento]);
     }
 
+    
     // POST'S
+    public function storeDocumento(Request $request)
+    {
+        $tcc = Auth::user()->tcc;
+
+        if($request->hasFile('termo_de_compromisso')){
+            // Pegar nome do arquivo com extensão
+            $termo_compromisso_filenameWithExt = $request->file('termo_de_compromisso')->getClientOriginalName();
+
+            // Pegar apenas o nome do arquivo
+            $termo_compromisso_filename = pathinfo($termo_compromisso_filenameWithExt, PATHINFO_FILENAME);
+
+            // Pegar apenas a extensão
+            $termo_compromisso_ext = $request->file('termo_de_compromisso')->getClientOriginalExtension();
+            
+            $termo_compromisso_fileNameToStore = $termo_compromisso_filename.'_'.time().'.'.$termo_compromisso_ext;
+            $termo_compromisso_path = $request->file('termo_de_compromisso')->storeAs('documentos/tcc', $termo_compromisso_fileNameToStore);
+        } else {
+            $termo_compromisso_fileNameToStore = $tcc->termo_de_compromisso;
+        }
+
+        if($request->hasFile('rel_acompanhamento')) {
+            $rel_acompanhamento_filenameWithExt = $request->file('rel_acompanhamento')->getClientOriginalName();
+
+            $rel_acompanhamento_filename = pathinfo($rel_acompanhamento_filenameWithExt, PATHINFO_FILENAME);
+
+            $rel_acompanhamento_ext = $request->file('rel_acompanhamento')->getClientOriginalExtension();
+            
+            $rel_acompanhamento_fileNameToStore = $rel_acompanhamento_filename.'_'.time().'.'.$rel_acompanhamento_ext;
+            $rel_acompanhamento_path = $request->file('rel_acompanhamento')->storeAs('documentos/tcc', $rel_acompanhamento_fileNameToStore);
+        } else {
+            $rel_acompanhamento_fileNameToStore = $tcc->rel_acompanhamento;
+        }
+
+        $this->validate($request, [
+            'termo_de_compromisso' => 'max:10000|nullable|mimes:pdf,odt,doc,docx|required_without_all:rel_acompanhamento',
+            'rel_acompanhamento' => 'max:10000|nullable|mimes:pdf,odt,doc,docx|required_without_all:termo_de_compromisso',
+        ],
+        [
+            'required_without_all' => 'Pelo menos um dos campos é obrigatório'
+        ]);
+
+        // Se já houver um arquivo armazenado
+        if($request->hasFile('termo_de_compromisso') && $tcc->termo_de_compromisso != null) {
+            Storage::delete('documentos/tcc/'.$tcc->termo_de_compromisso);
+        }
+        if($request->hasFile('rel_acompanhamento') && $tcc->rel_acompanhamento != null) {
+            Storage::delete('documentos/tcc/'.$tcc->rel_acompanhamento);
+        }
+        $tcc->termo_de_compromisso = $termo_compromisso_fileNameToStore ?? null;
+        $tcc->rel_acompanhamento = $rel_acompanhamento_fileNameToStore ?? null;
+
+        if(!$tcc->save()) {
+            return redirect()->back()->with(session()->flash('error', 'Erro ao realizar upload do(s) arquivo(s).'));
+        }
+
+        return redirect()->back()->with(session()->flash('success', 'Upload realizado com sucesso.'));
+    }
+
+    public function destroyDocumento(Request $request)
+    {
+        $tcc = Auth::user()->tcc;
+
+        if(Storage::delete('documentos/tcc/'.$tcc->{$request->documento})){
+            $tcc->{$request->documento} = null;
+            $tcc->save();
+
+            return redirect()->back()->with(session()->flash('success', 'Arquivo removido.'));
+        }
+
+        return redirect()->back()->with(session()->flash('error', 'Houve um erro ao remover o arquivo.'));
+    }
     
     public function atualizar(Request $request)
     {
