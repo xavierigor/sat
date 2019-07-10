@@ -13,6 +13,9 @@
         <!-- Se já existe um orientador associado ao aluno -->
         @isset($orientador)
 
+            <!-- Importar modal cancelar Orientacao -->
+            @include('includes.modal.orientacao.cancelar')
+
             <div class="row  text-center text-md-left">
                 <div class="col-md-3 col-ms-12">
                     @if($orientador->orientador_foto)
@@ -22,10 +25,18 @@
                     @endif
                 </div>
                 <div class="col-md-8 col-ms-12 pt-2">
-                    <h3>Você já tem um orientador.</h3>
+                    <h3>Você tem um orientador.</h3>
                     <a href="{{ route('public.orientador.perfil', Hashids::encode($orientador->orientador_id)) }}">
                         {{ $orientador->orientador_nome }}
                     </a>
+                    <br>
+                    <br>
+                    <!-- Chamar modal cancelar orientação -->
+                    <button title="Cancelar" type="button" class="btn btn-danger" data-toggle="modal"
+                        data-target="#cancelarOrientacao" data-nome="{{ $orientador->orientador_nome }}">
+                        Cancelar Orientação
+                        <i class="fas fa-times fa-fw"></i>
+                    </button>
                 </div>
             </div>
             <hr>
@@ -137,5 +148,6 @@
 @endsection
 
 @section('scripts')
+    <script src="{{ asset('js/modal-orientacao.js') }}"></script>
     <script src="{{ asset('js/modal-solicitacao-orientador.js') }}"></script>
 @endsection

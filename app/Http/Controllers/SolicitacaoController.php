@@ -8,6 +8,7 @@ use Auth;
 use App\Solicitacao;
 use App\User;
 use App\Professor;
+use App\Tcc;
 
 class SolicitacaoController extends Controller
 {
@@ -41,10 +42,36 @@ class SolicitacaoController extends Controller
 
     public function aceitarSolicitacao(Request $request)
     {
+        $solicitacao = Solicitacao::where('id', $request->solicitacao_id)->first();
+        
+        // Mudar campo 'professor solicitado' no Tcc do aluno para null
+        $aluno = User::where('id', $request->aluno_id)->first();
+        $aluno->tcc->prof_solicitado = null;
+        $aluno->tcc->orientador_id = Auth::guard('professor')->user()->id;
+        
+        // Deletar solicitacao de orientacao com id informado E atualizar campos tcc do aluno
+        if($solicitacao->delete() && $aluno->tcc->save()) {
+            return redirect()->back()->with(session()->flash('info', 'Solicitação de Orientação de TCC recusada.'));
+        } 
+    
+        return redirect()->back()->with(session()->flash('error', 'Erro ao recusar Solicitação de Orientação de TCC.'));
+
     }
 
     public function recusarSolicitacao(Request $request)
     {
+        $solicitacao = Solicitacao::where('id', $request->solicitacao_id)->first();
+        
+        // Mudar campo 'professor solicitado' no Tcc do aluno para null
+        $aluno = User::where('id', $request->aluno_id)->first();
+        $aluno->tcc->prof_solicitado = null;
+        
+        // Deletar solicitacao de orientacao com id informado E atualizar campo tcc do aluno
+        if($solicitacao->delete() && $aluno->tcc->save()) {
+            return redirect()->back()->with(session()->flash('info', 'Solicitação de Orientação de TCC recusada.'));
+        } 
+    
+        return redirect()->back()->with(session()->flash('error', 'Erro ao recusar Solicitação de Orientação de TCC.'));
     }
     
 }

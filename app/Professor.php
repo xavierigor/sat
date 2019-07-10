@@ -11,17 +11,18 @@ class Professor extends Authenticatable
     protected $table = 'professores';
 
     public function orientandos() {
-        return $this->hasMany('App\User');
+        // return $this->hasMany('App\User');
+        return $this->hasMany('App\Orientando');
     }
     
-    public function solicitacoes() {
-        return $this->hasMany('App\Solicitacao');
-    }
     
     public function tccs() {
         return $this->belongsToMany('App\Tcc');
     }
     
+    public function solicitacoes() {
+        return $this->hasMany('App\Solicitacao');
+    }
 
     use Notifiable;
 

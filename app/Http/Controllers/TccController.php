@@ -41,7 +41,7 @@ class TccController extends Controller
 
         if($tcc->orientador_id){
 
-            $professor = Professor::where('id', $tcc->orientador)->first();
+            $professor = Professor::where('id', $tcc->orientador_id)->first();
             
             $orientador = (object) [
                 'orientador_id' => $tcc->orientador_id,
@@ -145,17 +145,29 @@ class TccController extends Controller
         $tcc = Auth::user()->tcc;
         $tcc->prof_solicitado = null;
     
-        if($tcc->save()) {
+        // Deletar solicitacao de orientacao com id de aluno autenticado
+        $solicitacao = Solicitacao::where([
+            ['solicitante_id', '=', Auth::user()->id],
+            ['tipo_solicitacao', '=', 'orientacao']
+        ]);
 
-            // Deletar solicitacao de orientacao com id de aluno autenticado
-            Solicitacao::where([
-                ['solicitante_id', '=', Auth::user()->id],
-                ['tipo_solicitacao', '=', 'orientacao']
-            ])->delete();
-    
+        if($tcc->save() && $solicitacao->delete() ) {    
             return redirect()->back()->with(session()->flash('info', 'Solicitação de Orientação de TCC Cancelada.'));
         } 
     
         return redirect()->back()->with(session()->flash('error', 'Erro ao cancelar Solicitação de Orientação de TCC.'));
     }
+
+    public function cancelarOrientacao()
+    {
+        $tcc = Auth::user()->tcc;
+        $tcc->orientador_id = null;
+    
+        if($tcc->save()) {
+            return redirect()->back()->with(session()->flash('info', 'Orientação de TCC Cancelada.'));
+        } 
+    
+        return redirect()->back()->with(session()->flash('error', 'Erro ao cancelar Orientação de TCC.'));
+    }
+    
 }

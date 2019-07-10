@@ -82,8 +82,11 @@ Route::prefix('/aluno')->group(function() {
     Route::get('/editar/tcc', 'TccController@editar')->name('aluno.editar.tcc');
     Route::post('/editar/tcc', 'TccController@atualizar')->name('aluno.atualizar.tcc');
     Route::get('/visualizar/tcc', 'TccController@visualizar')->name('aluno.visualizar.tcc');
+    Route::get('/documentos/tcc', 'TccController@documentos')->name('aluno.documentos.tcc');
+    
     Route::get('/orientador/tcc', 'TccController@orientador')->name('aluno.orientador.tcc');
+    Route::get('/tcc/cancelar-orientacao', 'TccController@cancelarOrientacao')->name('aluno.tcc.cancelar-orientacao');
+
     Route::post('/solicitar-professor/tcc', 'TccController@solicitarProfessor')->name('aluno.solicitar-professor.tcc');
     Route::get('/cancelar-solicitacao/tcc', 'TccController@cancelarSolicitacao')->name('aluno.cancelar-solicitacao.tcc');
-    Route::get('/documentos/tcc', 'TccController@documentos')->name('aluno.documentos.tcc');
 });

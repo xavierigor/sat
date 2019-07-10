@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSolicitacaosTable extends Migration
+class CreateSolicitacoesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateSolicitacaosTable extends Migration
      */
     public function up()
     {
-        Schema::create('solicitacaos', function (Blueprint $table) {
+        Schema::create('solicitacoes', function (Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->string('tipo_solicitacao')->default('orientacao'); // Orientação ou Coorientação
@@ -35,7 +35,7 @@ class CreateSolicitacaosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('solicitacaos');
+        Schema::dropIfExists('solicitacoes');
     }
 
     

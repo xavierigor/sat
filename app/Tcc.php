@@ -11,7 +11,8 @@ class Tcc extends Model
     }
 
     public function orientador() {
-        return $this->belongsTo('App\Professor');
+        return $this->hasOne('App\Professor');
+        // return $this->belongsTo('App\Professor');
     }
 
     protected $fillable = [

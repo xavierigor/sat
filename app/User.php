@@ -17,7 +17,7 @@ class User extends Authenticatable
     }
 
     public function solicitacao() {
-        return $this->belongsToMany('App\Solicitacao');
+        return $this->hasMany('App\Solicitacao');
     }
 
     use Notifiable;

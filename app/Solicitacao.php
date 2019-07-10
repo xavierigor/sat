@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Solicitacao extends Model
 {
+    protected $table = 'solicitacoes';
+
     public function professor() {
         return $this->belongsTo('App\Professor');
     }

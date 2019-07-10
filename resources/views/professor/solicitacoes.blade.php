@@ -20,8 +20,8 @@
 
                     <div class="row text-center text-md-left">
                         <div class="col-md-2 col-ms-12 d-flex">
-                            @if($solicitacao->aluno_image)
-                                ​<img src="{{ asset('storage/perfil/alunos/' . $solicitacao->aluno_image) }}" class="rounded-circle m-auto" width="80px" height="80px">
+                            @if($solicitacao->aluno_foto)
+                                ​<img src="{{ asset('storage/perfil/users/' . $solicitacao->aluno_foto) }}" class="rounded-circle m-auto" width="80px" height="80px">
                             @else
                             ​    <img src="{{ asset('images/user.png') }}" class="rounded-circle m-auto" alt="avatar" width="80px" height="80px">
                             @endif
@@ -35,13 +35,17 @@
                             <br>
                             <!-- Chamar modal aceitar solicitacao -->
                             <button title="Solicitar" type="button" class="btn btn-success" data-toggle="modal"
-                                data-target="#aceitarSolicitacao" data-nome="{{ $solicitacao->aluno_nome }}" data-id="{{ $solicitacao->aluno_id }}">
+                                data-target="#aceitarSolicitacao" data-nome="{{ $solicitacao->aluno_nome }}" 
+                                data-alunoid="{{ $solicitacao->aluno_id }}"  data-tiposolic="{{ $solicitacao->tipo_solicitacao }}"
+                                data-idsolic="{{ $solicitacao->id }}">
                                 Aceitar
                                 <i class="fas fa-paper-plane fa-fw"></i>
                             </button>
                             <!-- Chamar modal cancelar solicitacao -->
                             <button title="Recusar" type="button" class="btn btn-danger" data-toggle="modal"
-                                data-target="#recusarSolicitacao" data-nome="{{ $solicitacao->aluno_nome }}">
+                                data-target="#recusarSolicitacao" data-nome="{{ $solicitacao->aluno_nome }}"
+                                data-alunoid="{{ $solicitacao->aluno_id }}"  data-tiposolic="{{ $solicitacao->tipo_solicitacao }}"
+                                data-idsolic="{{ $solicitacao->id }}">
                                 Recusar
                                 <i class="fas fa-times fa-fw"></i>
                             </button>
