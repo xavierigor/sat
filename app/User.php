@@ -16,6 +16,10 @@ class User extends Authenticatable
         return $this->hasOne('App\Tcc');
     }
 
+    public function solicitacao() {
+        return $this->belongsToMany('App\Solicitacao');
+    }
+
     use Notifiable;
 
     /**

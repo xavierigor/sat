@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Tcc;
 use App\Professor;
+use App\Solicitacao;
 
 
 class TccController extends Controller
@@ -86,21 +87,6 @@ class TccController extends Controller
 
     }
 
-    public function cancelarSolicitacao()
-    {
-        // O método torna 'null' o camp 'prof_solicitado' da tabela TCC do aluno
-        // Depois retorna para a página com uma mensagem (feedback) de sucesso ou erro
-
-        $tcc = Auth::user()->tcc;
-        $tcc->prof_solicitado = null;
-    
-        if($tcc->save()) {
-    
-            return redirect()->back()->with(session()->flash('info', 'Solicitação de Orientação de TCC Cancelada.'));
-        } 
-    
-        return redirect()->back()->with(session()->flash('error', 'Erro ao cancelar Solicitação de Orientação de TCC.'));
-    }
 
     public function documentos()
     {
@@ -136,11 +122,40 @@ class TccController extends Controller
         $tcc->prof_solicitado = $request->prof_solicitado;
     
         if($tcc->save()) {
-    
+
+            // Criar nova solicitação
+            $solicitacao = new Solicitacao;
+            // $solicitacao->data_solicitacao = date('Y-m-d H:i:s');
+            $solicitacao->tipo_solicitacao = "orientacao";
+            $solicitacao->solicitante_id = Auth::user()->id;
+            $solicitacao->solicitado_id = $request->prof_solicitado;
+            $solicitacao->save();
+
             return redirect()->back()->with(session()->flash('info', 'Solicitação de Orientação de TCC enviada.'));
         } 
     
         return redirect()->back()->with(session()->flash('error', 'Erro ao Solicitar Orientação de TCC.'));
     }
     
+    public function cancelarSolicitacao()
+    {
+        // O método torna 'null' o camp 'prof_solicitado' da tabela TCC do aluno
+        // Depois retorna para a página com uma mensagem (feedback) de sucesso ou erro
+
+        $tcc = Auth::user()->tcc;
+        $tcc->prof_solicitado = null;
+    
+        if($tcc->save()) {
+
+            // Deletar solicitacao de orientacao com id de aluno autenticado
+            Solicitacao::where([
+                ['solicitante_id', '=', Auth::user()->id],
+                ['tipo_solicitacao', '=', 'orientacao']
+            ])->delete();
+    
+            return redirect()->back()->with(session()->flash('info', 'Solicitação de Orientação de TCC Cancelada.'));
+        } 
+    
+        return redirect()->back()->with(session()->flash('error', 'Erro ao cancelar Solicitação de Orientação de TCC.'));
+    }
 }

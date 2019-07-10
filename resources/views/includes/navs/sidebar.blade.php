@@ -53,15 +53,16 @@
                         </a>
                     </li>
 
-                    <li data-toggle="collapse" data-target="#perfil-prof" class="collapsed {{ Request::is('professor/editar') || Request::is('professor/perfil') || Request::is('professor/alterar/senha') ? 'active' : '' }}">
+                    <li data-toggle="collapse" data-target="#perfil-prof" class="collapsed {{ Request::is('professor/editar') || Request::is('professor/perfil') || Request::is('professor/alterar/senha') || Request::is('professor/solicitacoes') ? 'active' : '' }}">
                         <a href="#" class="dropdown-option">
                             <i class="fas fa-user fa-fw"></i> Perfil <i class="fas fa-chevron-down fa-fw"></i>
                         </a>
                     </li>
-                    <ul class="sub-menu collapse {{ Request::is('professor/editar') || Request::is('professor/perfil') || Request::is('professor/alterar/senha') ? 'show' : '' }}" id="perfil-prof">
+                    <ul class="sub-menu collapse {{ Request::is('professor/editar') || Request::is('professor/perfil') || Request::is('professor/alterar/senha') || Request::is('professor/solicitacoes')? 'show' : '' }}" id="perfil-prof">
                         <li class="{{ Request::is('professor/perfil') ? 'active' : ''}}"><a href="{{ route('professor.perfil') }}">Visualizar</a></li>
                         <li class="{{ Request::is('professor/editar') ? 'active' : ''}}"><a href="{{ route('professor.editar') }}">Editar Perfil</a></li>
                         <li class="{{ Request::is('professor/alterar/senha') ? 'active' : ''}}"><a href="{{ route('professor.alterar.senha') }}">Alterar Senha</a></li>
+                        <li class="{{ Request::is('professor/solicitacoes') ? 'active' : ''}}"><a href="{{ route('professor.solicitacoes') }}">Solicitações</a></li>
                     </ul>
         
                     <li data-toggle="collapse" data-target="#orientandos" class="collapsed {{ Request::is('*/cadastrar/professor') || Request::is('*/visualizar/professores') ? 'active' : '' }}">

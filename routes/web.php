@@ -64,6 +64,11 @@ Route::prefix('/professor')->group(function() {
     Route::post('/editar', 'ProfessorController@update')->name('professor.update');
     Route::get('/alterar/senha', 'ProfessorController@alterarSenha')->name('professor.alterar.senha');
     Route::post('/alterar/senha', 'ProfessorController@salvarSenha')->name('professor.salvar.senha');
+
+    Route::get('/solicitacoes', 'SolicitacaoController@solicitacoes')->name('professor.solicitacoes');
+    Route::post('/aceitar-solicitacao', 'SolicitacaoController@aceitarSolicitacao')->name('professor.solicitacao.aceitar');
+    Route::post('/recusar-solicitacao', 'SolicitacaoController@recusarSolicitacao')->name('professor.solicitacao.recusar');
+
 });
 
 Route::prefix('/aluno')->group(function() {

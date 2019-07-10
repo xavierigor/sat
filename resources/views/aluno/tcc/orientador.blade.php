@@ -35,9 +35,9 @@
         @isset($profSolicitado)
     
             <!-- Importar modal cancelar solicitacao -->
-            @include('includes.modal.solicitacao-orientacao.cancelar')
+            @include('includes.modal.solicitar-orientacao.cancelar')
 
-            <div class="row  text-center text-md-left">
+            <div class="row text-center text-md-left">
                 <div class="col-md-3 col-ms-12">
                     @if($profSolicitado->prof_solicitado_foto)
                         ​<img src="{{ asset('storage/perfil/professores/' . $profSolicitado->prof_solicitado_foto) }}" class="rounded-circle" alt="{{Auth::user()->image}}" width="180px" height="180px">
@@ -85,7 +85,7 @@
             @if($professores->count() > 0)
 
                 <!-- Importar modal confirmar envio de solicitacao -->
-                @include('includes.modal.solicitacao-orientacao.confirmar')
+                @include('includes.modal.solicitar-orientacao.confirmar')
             
                 <div class="table-responsive">
                     <table class="table table-hover">
