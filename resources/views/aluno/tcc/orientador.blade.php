@@ -33,7 +33,8 @@
                     <br>
                     <!-- Chamar modal cancelar orientação -->
                     <button title="Cancelar" type="button" class="btn btn-danger" data-toggle="modal"
-                        data-target="#cancelarOrientacao" data-nome="{{ $orientador->orientador_nome }}">
+                        data-target="#cancelarOrientacao" data-nome="{{ $orientador->orientador_nome }}"
+                        data-id="{{ $orientador->orientador_id }}">
                         Cancelar Orientação
                         <i class="fas fa-times fa-fw"></i>
                     </button>
@@ -46,7 +47,7 @@
         @isset($profSolicitado)
     
             <!-- Importar modal cancelar solicitacao -->
-            @include('includes.modal.solicitar-orientacao.cancelar')
+            @include('includes.modal.solicitar-co-orientacao.cancelar')
 
             <div class="row text-center text-md-left">
                 <div class="col-md-3 col-ms-12">
@@ -64,7 +65,8 @@
                     <br>
                     <!-- Chamar modal cancelar solicitacao -->
                     <button title="Cancelar" type="button" class="btn btn-danger" data-toggle="modal"
-                        data-target="#cancelarSolicitacao" data-nome="{{ $profSolicitado->prof_solicitado_nome }}">
+                        data-target="#cancelarSolicitacao" data-nome="{{ $profSolicitado->prof_solicitado_nome }}"
+                        data-id="{{ $profSolicitado->prof_solicitado }}" data-tiposolicitacao="orientacao">
                         Cancelar Solicitação
                         <i class="fas fa-times fa-fw"></i>
                     </button>
@@ -96,7 +98,7 @@
             @if($professores->count() > 0)
 
                 <!-- Importar modal confirmar envio de solicitacao -->
-                @include('includes.modal.solicitar-orientacao.confirmar')
+                @include('includes.modal.solicitar-co-orientacao.confirmar')
             
                 <div class="table-responsive">
                     <table class="table table-hover">
@@ -122,7 +124,8 @@
                                     <td>
                                         <!-- Chamar modal enviar solicitacao -->
                                         <button title="Solicitar" type="button" class="btn btn-primary" data-toggle="modal"
-                                            data-target="#enviarSolicitacao" data-nome="{{ $professor->name }}" data-id="{{ $professor->id }}">
+                                            data-target="#enviarSolicitacao" data-nome="{{ $professor->name }}" 
+                                            data-id="{{ $professor->id }}" data-tiposolicitacao="orientacao">
                                             Solicitar
                                             <i class="fas fa-paper-plane fa-fw"></i>
                                         </button>
@@ -148,6 +151,6 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/modal-orientacao.js') }}"></script>
-    <script src="{{ asset('js/modal-solicitacao-orientador.js') }}"></script>
+    <script src="{{ asset('js/modal-co-orientacao.js') }}"></script>
+    <script src="{{ asset('js/modal-solicitacao-co-orientador.js') }}"></script>
 @endsection

@@ -24,7 +24,12 @@ class CreateProfessoresTable extends Migration
             $table->string('image')->nullable();
             $table->string('area_de_interesse')->nullable();
             $table->string('termo_de_responsabilidade')->nullable();
+
+            $table->integer('num_orientandos')->default(0);
+            $table->integer('num_coorientandos')->default(0);
             $table->boolean('disponivel_orient')->default(true);
+            $table->boolean('disponivel_coorient')->default(true);
+
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

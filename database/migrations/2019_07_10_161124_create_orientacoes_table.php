@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOrientandosTable extends Migration
+class CreateOrientacoesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateOrientandosTable extends Migration
      */
     public function up()
     {
-        Schema::create('orientandos', function (Blueprint $table) {
+        Schema::create('orientacoes', function (Blueprint $table) {
             $table->bigIncrements('id');
             
             $table->unsignedBigInteger('orientador_id');
@@ -33,6 +33,6 @@ class CreateOrientandosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('orientandos');
+        Schema::dropIfExists('orientacoes');
     }
 }

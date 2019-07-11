@@ -8,11 +8,11 @@ class Solicitacao extends Model
 {
     protected $table = 'solicitacoes';
 
-    public function professor() {
+    public function solicitado() {
         return $this->belongsTo('App\Professor');
     }
     
-    public function aluno() {
+    public function solicitante() {
         return $this->belongsTo('App\User');
     }
 

@@ -28,7 +28,7 @@
                         </div>
                         
                         <div class="col-md-10 col-ms-12 pt-4">
-                            <h5>Solicitação de orientação de TCC recebida</h5>
+                            <h5>Solicitação de {{$solicitacao->tipo_solicitacao}} de TCC recebida</h5>
                             <a href="#">
                                 <h5>{{ $solicitacao->aluno_nome }}</h5>
                             </a>

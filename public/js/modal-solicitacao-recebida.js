@@ -9,6 +9,7 @@ $('#aceitarSolicitacao').on('show.bs.modal', function (event) {
   let modal = $(this)
 
   modal.find('.modal-nome').text(nome)
+  modal.find('.model-tipo-solicitacao').text(tipo_solicitacao)
 
   modal.find('.aluno_id').val(aluno_id)
   modal.find('.tipo_solicitacao').val(tipo_solicitacao)
@@ -26,6 +27,7 @@ $('#recusarSolicitacao').on('show.bs.modal', function (event) {
   let modal = $(this)
 
   modal.find('.modal-nome').text(nome)
+  modal.find('.model-tipo-solicitacao').text(tipo_solicitacao)
 
   modal.find('.aluno_id').val(aluno_id)
   modal.find('.tipo_solicitacao').val(tipo_solicitacao)

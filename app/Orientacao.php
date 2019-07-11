@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Orientando extends Model
+class Orientacao extends Model
 {
-    protected $table = 'orientandos';
+    protected $table = 'orientacoes';
 
     public function orientador() {
         return $this->belongsTo('App\Professor');

@@ -12,9 +12,11 @@ class Professor extends Authenticatable
 
     public function orientandos() {
         // return $this->hasMany('App\User');
-        return $this->hasMany('App\Orientando');
+        return $this->hasMany('App\Orientacao');
     }
-    
+    public function coorientandos() {
+        return $this->hasMany('App\Coorientacao');
+    }
     
     public function tccs() {
         return $this->belongsToMany('App\Tcc');
@@ -32,7 +34,7 @@ class Professor extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'data_nasc', 'telefone', 'image'
     ];
 
     /**
