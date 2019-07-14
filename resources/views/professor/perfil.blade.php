@@ -7,16 +7,17 @@
 @endsection
 
 @section('content')
+
 <div class="container">
     <div class="row p-3 text-center">
-        <div class="col-xl-4 col-sm-12 col-md-12">
+        <div class="col-xl-4 col-sm-12 col-md-12 d-flex">
         @if(Auth::user()->image)
-            ​<img src="{{ asset('storage/perfil/professores/' . Auth::user()->image) }}" class="rounded-circle" alt="{{Auth::user()->image}}" width="180px" height="180px">
+            ​<img src="{{ asset('storage/perfil/professores/' . Auth::user()->image) }}" class="img-perfil" alt="imagem do perfil">
         @else
-        ​   <img src="{{ asset('images/user.png') }}" class="rounded-circle" alt="avatar" width="180" height="180">
+        ​   <img src="{{ asset('images/user.png') }}" class="img-perfil" alt="imagem do perfil">
         @endif
         </div>
-        <div class="col-xl-8 col-sm-12 col-md-12 text-md-left row">
+        <div class="col-xl-8 col-sm-12 col-md-12 text-md-left row d-flex mx-auto">
             <div class="col-md-7 col-sm-12 pt-4">
                 <h5>
                     <i class="fas fa-user-circle fa-fw"></i>
@@ -49,7 +50,7 @@
     </div>
     <hr>
     <div class="row p-3">
-        <div>
+        <div class="col-md-12">
             <h5>Área de Interesse:</h5>
             <p>{{ Auth::user()->area_de_interesse ? Auth::user()->area_de_interesse : 'Não especificada' }}</p>
         </div>

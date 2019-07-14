@@ -21,8 +21,8 @@
             <li class="nav-item {{ Request::is('agenda-tccs') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('public.agenda') }}">Agenda de TCC's</a>
             </li>
-            <li class="nav-item {{ Request::is('orientadores') || Request::is('orientador/*') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('public.orientadores') }}">Orientadores</a>
+            <li class="nav-item {{ Request::is('professores') || Request::is('professores/*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('public.professores') }}">Professores</a>
             </li>
             <li class="nav-item {{ Request::is('documentos-modelo') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('public.documentosModelo') }}">Documentos Modelo</a>

@@ -11,44 +11,62 @@
     <div class="todas_solicitacoes">
 
         @isset($todas_solicitacoes)
-            <!-- Importar modal aceitar recusar solicitacao -->
-            @include('includes.modal.solicitacao-orientacao.aceitar')
-            @include('includes.modal.solicitacao-orientacao.recusar')
+            <!-- Importar modal aceitar/recusar solicitacao -->
+            @include('includes.modal.solicitacao-recebida.aceitar')
+            @include('includes.modal.solicitacao-recebida.recusar')
 
             @if($todas_solicitacoes->count() > 0)
                 @foreach($todas_solicitacoes as $solicitacao)
+                
+                    <div class="row text-center text-center">
 
-                    <div class="row text-center text-md-left">
-                        <div class="col-md-2 col-ms-12 d-flex">
-                            @if($solicitacao->aluno_foto)
-                                ​<img src="{{ asset('storage/perfil/users/' . $solicitacao->aluno_foto) }}" class="rounded-circle m-auto" width="80px" height="80px">
+                        <div class="col-md-3 col-ms-12 d-flex ">
+                            @if($solicitacao->solicitante->foto)
+                                ​<img src="{{ asset('storage/perfil/users/' . $solicitacao->solicitante->foto) }}" class="img-perfil-solicitacao" alt="imagem do perfil">
                             @else
-                            ​    <img src="{{ asset('images/user.png') }}" class="rounded-circle m-auto" alt="avatar" width="80px" height="80px">
+                            ​    <img src="{{ asset('images/user.png') }}" class="img-perfil-solicitacao" alt="imagem do perfil">
                             @endif
                         </div>
                         
-                        <div class="col-md-10 col-ms-12 pt-4">
-                            <h5>Solicitação de {{$solicitacao->tipo_solicitacao}} de TCC recebida</h5>
-                            <a href="#">
-                                <h5>{{ $solicitacao->aluno_nome }}</h5>
-                            </a>
-                            <br>
-                            <!-- Chamar modal aceitar solicitacao -->
-                            <button title="Solicitar" type="button" class="btn btn-success" data-toggle="modal"
-                                data-target="#aceitarSolicitacao" data-nome="{{ $solicitacao->aluno_nome }}" 
-                                data-alunoid="{{ $solicitacao->aluno_id }}"  data-tiposolic="{{ $solicitacao->tipo_solicitacao }}"
-                                data-idsolic="{{ $solicitacao->id }}">
-                                Aceitar
-                                <i class="fas fa-paper-plane fa-fw"></i>
-                            </button>
-                            <!-- Chamar modal cancelar solicitacao -->
-                            <button title="Recusar" type="button" class="btn btn-danger" data-toggle="modal"
-                                data-target="#recusarSolicitacao" data-nome="{{ $solicitacao->aluno_nome }}"
-                                data-alunoid="{{ $solicitacao->aluno_id }}"  data-tiposolic="{{ $solicitacao->tipo_solicitacao }}"
-                                data-idsolic="{{ $solicitacao->id }}">
-                                Recusar
-                                <i class="fas fa-times fa-fw"></i>
-                            </button>
+                        <div class="col-md-9 col-ms-12 p-2 text-md-left ">
+                            
+                            <div class="m-auto ">
+                                @if($solicitacao->tipo_solicitacao == "orientacao")
+                                    <h5 class="d-inline-block">
+                                        Orientar TCC de
+                                        <a href="#" class="d-inline-block ml-1">
+                                            <h5>{{ $solicitacao->solicitante->name }}</h5>
+                                        </a>?
+                                    </h5>
+                                @elseif($solicitacao->tipo_solicitacao == "coorientacao")
+                                    <h5 class="d-inline-block">
+                                        Coorientar TCC de
+                                        <a href="#" class="d-inline-block ml-1">
+                                            <h5>{{ $solicitacao->solicitante->name }}</h5>
+                                        </a>?
+                                    </h5>
+                                @endif
+                            </div>
+
+                            <div class="m-auto ">
+                                <!-- Chamar modal aceitar solicitacao -->
+                                <button title="Aceitar" type="button" class="btn btn-success" data-toggle="modal"
+                                    data-target="#aceitarSolicitacao" data-nome="{{ $solicitacao->solicitante->name }}" 
+                                    data-alunoid="{{ $solicitacao->solicitante->id }}"  data-tiposolic="{{ $solicitacao->tipo_solicitacao }}"
+                                    data-idsolic="{{ $solicitacao->id }}">
+                                    Aceitar
+                                    <i class="fas fa-check fa-fw"></i>
+                                </button>
+                                <!-- Chamar modal cancelar solicitacao -->
+                                <button title="Recusar" type="button" class="btn btn-danger" data-toggle="modal"
+                                    data-target="#recusarSolicitacao" data-nome="{{ $solicitacao->solicitante->name }}"
+                                    data-alunoid="{{ $solicitacao->solicitante->id }}"  data-tiposolic="{{ $solicitacao->tipo_solicitacao }}"
+                                    data-idsolic="{{ $solicitacao->id }}">
+                                    Recusar
+                                    <i class="fas fa-times fa-fw"></i>
+                                </button>
+                            </div>
+
                         </div>
                     </div>
                     <hr>
@@ -61,7 +79,7 @@
                 </div>
 
             @else
-                <p>Nenhuma solicitação de orientação de Tcc recebida.</p>
+                <p>Nenhuma solicitação recebida.</p>
             @endif
         @endisset 
     </div>

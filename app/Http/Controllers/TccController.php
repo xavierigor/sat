@@ -41,52 +41,50 @@ class TccController extends Controller
         // O método verifica se o aluno já tem orientador ou solicitação enviada e
         // retorna para a view uma variável contendo apenas o que será mostrado na tela
 
-        $tcc = Auth::user()->tcc;
+        // Buscando se há algum orientador e seu dados
+        $orientacao = Orientacao::select('id', 'orientador_id')
+                                ->where("aluno_id", Auth::user()->id)
+                                ->with(['orientador:id,name,image'])
+                                ->first();
+                     
+        if($orientacao){
+            return view('aluno.tcc.orientador')->with('orientacao', $orientacao);
 
-        if($tcc->orientador_id){
-
-            $professor = Professor::where('id', $tcc->orientador_id)->first();
-            
-            $orientador = (object) [
-                'orientador_id' => $tcc->orientador_id,
-                'orientador_nome' => $professor->name,
-                'orientador_foto' => $professor->image,
-            ];
-
-            return view('aluno.tcc.orientador')->with('orientador', $orientador);
-
-        } else if($tcc->prof_solicitado){
-            
-            $professor = Professor::where('id', $tcc->prof_solicitado)->first();
-
-            $profSolicitado = (object) [
-                'prof_solicitado' => $tcc->prof_solicitado,
-                'prof_solicitado_nome' => $professor->name,
-                'prof_solicitado_foto' => $professor->image,
-            ];
-
-            return view('aluno.tcc.orientador')->with('profSolicitado', $profSolicitado);
-            
         } else {
 
-            // Se for pesquisado algum nome de orientador
-            if(request()->has('n')){
-            
-                $professores = Professor::where('name', 'LIKE', '%' . request('n') . '%')
-                                ->where('disponivel_orient', true)
-                                ->orderBy('created_at', 'desc')
-                                ->paginate($this->TotalItensPágina)
-                                ->appends('n', request('n'));
-    
-            } else{
+            // Buscando se há algum professor solicitado e seu dados
+            $solicitacao = Solicitacao::select('id', 'solicitado_id')
+                                        ->where([['solicitante_id', '=', Auth::user()->id],
+                                                ['tipo_solicitacao', '=', 'orientacao']])
+                                        ->with(['solicitado:id,name,image'])
+                                        ->first();
 
-                $professores = Professor::where('disponivel_orient', true)
-                                ->orderBy('created_at', 'desc')
-                                ->paginate($this->TotalItensPágina);
+            if($solicitacao){
+                return view('aluno.tcc.orientador')->with('solicitacao', $solicitacao);
+            
+            } else {
+
+                // Se for pesquisado algum nome de orientador
+                if(request()->has('n')){
+                
+                    $professores = Professor::select('id', 'name', 'email', 'area_de_interesse')
+                                            ->where('name', 'LIKE', '%' . request('n') . '%')
+                                            ->where('disponivel_orient', true)
+                                            ->orderBy('name', 'asc')
+                                            ->paginate($this->TotalItensPágina)
+                                            ->appends('n', request('n'));
+        
+                } else{
+
+                    $professores = Professor::select('id', 'name', 'email', 'area_de_interesse')
+                                            ->where('disponivel_orient', true)
+                                            ->orderBy('name', 'asc')
+                                            ->paginate($this->TotalItensPágina);
+                }
+
+                return view('aluno.tcc.orientador')->with('professores', $professores)->withInput(request()->only('n'));
+                
             }
-
-            return view('aluno.tcc.orientador')->with('professores', $professores)->withInput(request()->only('n'));
-            
         }
 
     }
@@ -95,39 +93,39 @@ class TccController extends Controller
     {
 
         
-        $coorientacoes = Coorientacao::where('aluno_id', Auth::user()->id)
-                                        ->with(['coorientador'])->get();
+        $coorientacoes = Coorientacao::select('id', 'coorientador_id')
+                                        ->where("aluno_id", Auth::user()->id)
+                                        ->with(['coorientador:id,name,image'])
+                                        ->get();
 
-        $solicitacoes = Solicitacao::where([['solicitante_id', '=', Auth::user()->id],
+        $solicitacoes = Solicitacao::select('id', 'solicitado_id')
+                                    ->where([['solicitante_id', '=', Auth::user()->id],
                                             ['tipo_solicitacao', '=', 'coorientacao']])
-                                    ->with('solicitado')->get();
-
-
-        return view('aluno.tcc.coorientadores.ver')->with(['solicitacoes' => $solicitacoes,
-                                                        'coorientacoes' => $coorientacoes]);
-    }
-
-    public function solicitarCoorientadores()
-    {
+                                    ->with(['solicitado:id,name,image'])
+                                    ->get();
 
         // Se for pesquisado algum nome de coorientador
         if(request()->has('n')){
             
-            $professores = Professor::where('name', 'LIKE', '%' . request('n') . '%')
-                            ->where('disponivel_coorient', true)
-                            ->orderBy('created_at', 'desc')
-                            ->paginate($this->TotalItensPágina)
-                            ->appends('n', request('n'));
+            $professores = Professor::select('id', 'name', 'email', 'area_de_interesse')
+                                    ->where([['name', '=', request('n')],
+                                            ['disponivel_coorient', '=', true]])
+                                    ->orderBy('name', 'asc')
+                                    ->paginate($this->TotalItensPágina)
+                                    ->appends('n', request('n'));
 
         } else{
 
-            $professores = Professor::where('disponivel_coorient', true)
-                            ->orderBy('created_at', 'desc')
-                            ->paginate($this->TotalItensPágina);
+            $professores = Professor::select('id', 'name', 'email', 'area_de_interesse')
+                                    ->where('disponivel_coorient', true)
+                                    ->orderBy('name', 'asc')
+                                    ->paginate($this->TotalItensPágina);
         }
 
-        return view('aluno.tcc.coorientadores.solicitar')->with('professores', $professores)
-                                                    ->withInput(request()->only('n'));
+        return view('aluno.tcc.coorientadores')->with(['solicitacoes' => $solicitacoes,
+                                                        'coorientacoes' => $coorientacoes,
+                                                        'professores' => $professores])
+                                                ->withInput(request()->only('n'));
     }
 
     public function documentos()
@@ -143,6 +141,25 @@ class TccController extends Controller
 
     
     // POST'S
+
+    public function atualizar(Request $request)
+    {
+        $this->validate($request, [
+            'titulo' => 'max:300',
+            'area_de_pesquisa' => 'max:300',
+        ]);
+            
+        $tcc = Auth::user()->tcc;
+        $tcc->titulo = $request->titulo;
+        $tcc->area_de_pesquisa = $request->area_de_pesquisa;
+        
+        if($tcc->save()) {
+            return redirect()->back()->with(session()->flash('success', 'Dados do TCC Atualizados.'));
+        } 
+
+        return redirect()->back()->with(session()->flash('error', 'Erro ao Atualizar dados do TCC.'));
+    }
+
     public function storeDocumento(Request $request)
     {
         $tcc = Auth::user()->tcc;
@@ -206,104 +223,31 @@ class TccController extends Controller
         $tcc = Auth::user()->tcc;
 
         if(Storage::delete('documentos/tcc/'.$tcc->{$request->documento})){
+            
             $tcc->{$request->documento} = null;
-            $tcc->save();
+            
+            if($tcc->save()){
+                return redirect()->back()->with(session()->flash('success', 'Arquivo removido.'));
+            } else {
+                return redirect()->back()->with(session()->flash('error', 'Houve um erro ao remover o arquivo.'));
+            }
 
-            return redirect()->back()->with(session()->flash('success', 'Arquivo removido.'));
         }
 
         return redirect()->back()->with(session()->flash('error', 'Houve um erro ao remover o arquivo.'));
     }
     
-    public function atualizar(Request $request)
-    {
-        $this->validate($request, [
-            'titulo' => 'max:300',
-            'area_de_pesquisa' => 'max:300',
-        ]);
-            
-        $tcc = Auth::user()->tcc;
-        $tcc->titulo = $request->titulo;
-        $tcc->area_de_pesquisa = $request->area_de_pesquisa;
-        
-        if($tcc->save()) {
-            return redirect()->back()->with(session()->flash('success', 'Dados do TCC Atualizados.'));
-        } 
-
-        return redirect()->back()->with(session()->flash('error', 'Erro ao Atualizar dados do TCC.'));
-    }
-
-    public function solicitarProfessor(Request $request)
-    {
-        // O método armazena o id passado via requisição 'POST' no campo 'prof_solicitado' da tabela TCC do aluno
-        // Depois retorna para a página com uma mensagem (feedback) de sucesso ou erro
-        
-        if($request->tipo_solicitacao == "orientacao"){
-            $tcc = Auth::user()->tcc;
-            $tcc->prof_solicitado = $request->prof_solicitado;
-        
-            // Criar nova solicitação
-            $solicitacao = new Solicitacao;
-            // $solicitacao->data_solicitacao = date('Y-m-d H:i:s');
-            $solicitacao->tipo_solicitacao = $request->tipo_solicitacao;
-            $solicitacao->solicitante_id = Auth::user()->id;
-            $solicitacao->solicitado_id = $request->prof_solicitado;
-
-            if($tcc->save() && $solicitacao->save()){
-                return redirect()->back()->with(session()->flash('info', 'Solicitação de Orientação de TCC enviada.'));
-            } 
-    
-            return redirect()->back()->with(session()->flash('error', 'Erro ao Solicitar Orientação de TCC.'));
-
-        } else if ($request->tipo_solicitacao == "coorientacao") {
-           
-            // Criar nova solicitação
-            $solicitacao = new Solicitacao;
-            $solicitacao->tipo_solicitacao = $request->tipo_solicitacao;
-            $solicitacao->solicitante_id = Auth::user()->id;
-            $solicitacao->solicitado_id = $request->prof_solicitado;
-
-            if($solicitacao->save()){
-                return redirect()->back()->with(session()->flash('info', 'Solicitação de Coorientação de TCC enviada.'));
-            } 
-    
-            return redirect()->back()->with(session()->flash('error', 'Erro ao Solicitar Coorientação de TCC.'));
-
-        }
-    }
-    
-    public function cancelarSolicitacao(Request $request)
-    {
-        // O método torna 'null' o camp 'prof_solicitado' da tabela TCC do aluno
-        // Depois retorna para a página com uma mensagem (feedback) de sucesso ou erro
-
-        $tcc = Auth::user()->tcc;
-        $tcc->prof_solicitado = null;
-    
-        // Deletar solicitacao de co-orientacao com id de aluno autenticado
-        $solicitacao = Solicitacao::where([
-            ['solicitante_id', '=', Auth::user()->id],
-            ['solicitado_id', '=', $request->prof_solicitado],
-            ['tipo_solicitacao', '=', $request->tipo_solicitacao]
-        ]);
-
-        if($tcc->save() && $solicitacao->delete() ) {    
-            return redirect()->back()->with(session()->flash('info', 'Solicitação de ' . $request->tipo_solicitacao . ' de TCC Cancelada.'));
-        } 
-    
-        return redirect()->back()->with(session()->flash('error', 'Erro ao cancelar Solicitação de' . $request->tipo_solicitacao . ' de TCC.'));
-    }
-
     public function cancelarOrientacao(Request $request)
     {
         $tcc = Auth::user()->tcc;
 
         $orientacao = Orientacao::where([
             ['aluno_id', '=', Auth::user()->id],
-            ['orientador_id', '=', $tcc->orientador_id]
+            ['orientador_id', '=', $request->orientador_id]
         ]);
         
         $tcc->orientador_id = null;
+        
     
         if($orientacao->delete() && $tcc->save()) {
             return redirect()->back()->with(session()->flash('info', 'Orientação de TCC Cancelada.'));
@@ -325,6 +269,58 @@ class TccController extends Controller
         } 
     
         return redirect()->back()->with(session()->flash('error', 'Erro ao cancelar Coorientação de TCC.'));
+    }
+    
+    public function solicitarProfessor(Request $request)
+    {
+        // Cria nova solicitação com o tipo recebido via resquest - post
+        // Depois retorna para a página com uma mensagem (feedback) de sucesso ou erro
+           
+        // Criar nova solicitação
+        $solicitacao = new Solicitacao;
+        $solicitacao->tipo_solicitacao = $request->tipo_solicitacao;
+        $solicitacao->solicitante_id = Auth::user()->id;
+        $solicitacao->solicitado_id = $request->prof_solicitado;
+
+        // Verificar tipo para Mensagem
+        if($request->tipo_solicitacao == "orientacao"){
+            $tipo_solicitacao = "Orientação";
+        } else if ($request->tipo_solicitacao == "coorientacao"){
+            $tipo_solicitacao = "Coorientação";
+        }
+
+        if($solicitacao->save()){
+            return redirect()->back()->with(session()->flash('info', 'Solicitação de ' . $tipo_solicitacao . ' de TCC enviada.'));
+        } 
+
+        return redirect()->back()->with(session()->flash('error', 'Erro ao Solicitar ' . $tipo_solicitacao . ' de TCC.'));
+
+    }
+    
+    public function cancelarSolicitacao(Request $request)
+    {
+        // Deleta solicitação de orientação ou coorientação
+        // depois retorna para a página com uma mensagem (feedback) de sucesso ou erro
+    
+        // Deletar solicitacao de co-o-rientacao com id de aluno autenticado
+        $solicitacao = Solicitacao::where([
+            ['solicitante_id', '=', Auth::user()->id],
+            ['solicitado_id', '=', $request->prof_solicitado],
+            ['tipo_solicitacao', '=', $request->tipo_solicitacao]
+        ]);
+
+        // Verificar tipo para Mensagem
+        if($request->tipo_solicitacao == "orientacao"){
+            $tipo_solicitacao = "Orientação";
+        } else if ($request->tipo_solicitacao == "coorientacao"){
+            $tipo_solicitacao = "Coorientação";
+        }
+
+        if($solicitacao->delete()) {    
+            return redirect()->back()->with(session()->flash('info', 'Solicitação de ' . $tipo_solicitacao . ' de TCC Cancelada.'));
+        } 
+    
+        return redirect()->back()->with(session()->flash('error', 'Erro ao cancelar Solicitação de' . $tipo_solicitacao . ' de TCC.'));
     }
     
 }

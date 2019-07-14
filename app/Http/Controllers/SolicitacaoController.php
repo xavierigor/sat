@@ -20,36 +20,24 @@ class SolicitacaoController extends Controller
 
 
     public function solicitacoes(){
-        // Buscando solicitacoes atribuidas ao professor autenticado
-        $todas_solicitacoes = Solicitacao::Where('solicitado_id', Auth::guard('professor')->user()->id )
+        // Buscando solicitacoes atribuidas ao professor autenticado + os dados do solicitante definidos no "WITH"
+        $todas_solicitacoes = Solicitacao::select('id', 'tipo_solicitacao', 'solicitante_id')
+                                            ->Where('solicitado_id', Auth::guard('professor')->user()->id )
+                                            ->with('solicitante:id,name,image')
                                             ->orderBy('created_at', 'desc')
                                             ->paginate($this->TotalItensPágina);
 
-        // Adicionando atributos extras na collection $todas_solicitacoes para enviar pra view
-        $todas_solicitacoes->map(function ($solicitacao) {
-            $aluno = User::where('id', $solicitacao->solicitante_id)->first();
-
-            // $solicitacao['id_solicitacao'] = $solicitacao->id;
-            $solicitacao['aluno_id'] = $solicitacao->solicitante_id;
-            $solicitacao['aluno_nome'] = $aluno->name;
-            $solicitacao['aluno_foto'] = $aluno->image;
-            return $solicitacao;
-        });
-
-
-        // dd($todas_solicitacoes);
         return view('professor.solicitacoes')->with('todas_solicitacoes', $todas_solicitacoes);
     }
-
 
     public function aceitarSolicitacao(Request $request)
     {
         $solicitacao = Solicitacao::where('id', $request->solicitacao_id)->first();
-        
+    
+        // Verificar se é orientacao ou coorientacao
         if($request->tipo_solicitacao == "orientacao"){
             // Mudar campo 'professor solicitado' no Tcc do aluno para null
             $aluno = User::where('id', $request->aluno_id)->first();
-            $aluno->tcc->prof_solicitado = null;
             $aluno->tcc->orientador_id = Auth::guard('professor')->user()->id;
 
             // Criar nova orientacao
@@ -84,23 +72,18 @@ class SolicitacaoController extends Controller
     {
         $solicitacao = Solicitacao::where('id', $request->solicitacao_id)->first();
         
+        // Verificar tipo para mensagem
         if($request->tipo_solicitacao == "orientacao"){
-            // Mudar campo 'professor solicitado' no Tcc do aluno para null
-            $aluno = User::where('id', $request->aluno_id)->first();
-            $aluno->tcc->prof_solicitado = null;
-            
-            // Deletar solicitacao de orientacao com id informado E atualizar campo tcc do aluno
-            if($solicitacao->delete() && $aluno->tcc->save()) {
-                return redirect()->back()->with(session()->flash('info', 'Solicitação de Orientação de TCC recusada.'));
-            } 
-            return redirect()->back()->with(session()->flash('error', 'Erro ao recusar Solicitação de Orientação de TCC.'));
-
+            $tipo_solicitacao = "Orientação";            
         } else if ($request->tipo_solicitacao == "coorientacao") {
-            if($solicitacao->delete()) {
-                return redirect()->back()->with(session()->flash('info', 'Solicitação de Coorientação de TCC recusada.'));
-            }
-            return redirect()->back()->with(session()->flash('error', 'Erro ao recusar Solicitação de Coorientação de TCC.'));
+            $tipo_solicitacao = "Coorientação";
         }
+            
+        // Deletar solicitacao com id informado
+        if($solicitacao->delete()) {
+            return redirect()->back()->with(session()->flash('info', 'Solicitação de ' . $tipo_solicitacao . ' de TCC recusada.'));
+        }
+        return redirect()->back()->with(session()->flash('error', 'Erro ao recusar Solicitação de ' . $tipo_solicitacao . ' de TCC.'));
     
     }
     

@@ -28,15 +28,19 @@ class CoordenadorController extends Controller
 
         if(request()->has('n')){
             
-            $professores = Professor::where('name', 'LIKE', '%' . request('n') . '%')
-                                    ->orderBy('created_at', 'desc')
+            $professores = Professor::select('id', 'name', 'email', 'data_nasc', 'matricula', 'telefone', 'image', 'area_de_interesse')
+                                    ->where('name', 'LIKE', '%' . request('n') . '%')
+                                    ->orderBy('name', 'asc')
                                     ->paginate($this->TotalItensPágina)
                                     ->appends('n', request('n'));
 
         } else {
-            $professores = Professor::orderBy('created_at', 'desc')->paginate($this->TotalItensPágina);
+            $professores = Professor::select('id', 'name', 'email', 'data_nasc', 'matricula', 'telefone', 'image', 'area_de_interesse')
+                                    ->orderBy('name', 'asc')
+                                    ->paginate($this->TotalItensPágina);
         }
 
+        // dd($professores);
         return view('coordenador.visualizar.professores')->with('professores', $professores)->withInput(request()->only('n'));
     }
 
@@ -53,15 +57,19 @@ class CoordenadorController extends Controller
             
             // Busca alunos (Users) com o nome pesquisado, retorna ordenados e paginados e
             // usa o método 'appends' para persistir a pesquisa quando trocada a página
-            $alunos = User::where('name', 'LIKE', '%' . request('n') . '%')
-                            ->orderBy('created_at', 'desc')
+            $alunos = User::select('id', 'name', 'email', 'data_nasc', 'matricula', 'telefone', 'image')
+                            ->where('name', 'LIKE', '%' . request('n') . '%')
+                            ->orderBy('name', 'asc')
                             ->paginate($this->TotalItensPágina)
                             ->appends('n', request('n'));
 
         } else{
-            $alunos = User::orderBy('created_at', 'desc')->paginate($this->TotalItensPágina);
+            $alunos = User::select('id', 'name', 'email', 'data_nasc', 'matricula', 'telefone', 'image')
+                            ->orderBy('name', 'asc')
+                            ->paginate($this->TotalItensPágina);
         }
-        
+
+        // dd($alunos);
         // Retorna para a página uma varivel com os aluno (Users) que serão exibidos
         return view('coordenador.visualizar.alunos')->with('alunos', $alunos)->withInput(request()->only('n'));
     }
@@ -123,15 +131,18 @@ class CoordenadorController extends Controller
         $aluno->matricula = $request->matricula;
         $aluno->data_nasc = $request->data_nasc;
 
+        
         // verifica se dados de aluno foram salvos
         if($aluno->save()) {
-
             // cria novo tupla na tabela TCC e associa ao aluno salvo (com o id)
             $tcc = new Tcc;
             $tcc->user_id = $aluno->id;
-            $tcc->save();
 
-            return redirect()->back()->with(session()->flash('success', 'Aluno cadastrado.'));
+            if($tcc->save()) {
+                return redirect()->back()->with(session()->flash('success', 'Aluno cadastrado.'));
+            } else {
+                return back()->with(session()->flash('error', 'Erro ao cadastrar Aluno.'));
+            }
         }
 
         return back()->with(session()->flash('error', 'Erro ao cadastrar Aluno.'));

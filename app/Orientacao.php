@@ -9,7 +9,7 @@ class Orientacao extends Model
     protected $table = 'orientacoes';
 
     public function orientador() {
-        return $this->belongsTo('App\Professor');
+        return $this->belongsTo('App\Professor', 'orientador_id');
     }
 
     protected $fillable = [

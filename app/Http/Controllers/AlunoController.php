@@ -72,7 +72,7 @@ class AlunoController extends Controller
 
             // Se upload não funcionar retorna erro
             if(! $upload) {
-                return redirect()->back()->with(session()->flash('error', 'Erro ao fazer upload de imagem.'));
+                return redirect()->back()->with(session()->flash('error', 'Erro ao fazer Upload de Imagem.'));
             }
         }
 
@@ -82,7 +82,7 @@ class AlunoController extends Controller
             return redirect()->back()->with(session()->flash('success', 'Dados Atualizados.'));
         }
         
-        return redirect()->back()->with(session()->flash('error', 'Erro ao atualizar dados.'));
+        return redirect()->back()->with(session()->flash('error', 'Erro ao Atualizar Dados.'));
     }
 
     // Alterar Senha

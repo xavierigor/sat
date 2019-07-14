@@ -118,3 +118,18 @@ nav .navbar-nav .entrar a {
     min-height: 70vh;
     padding: 20px 40px;
 }
+
+/* Imagem de usuário */
+.img-perfil{
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    margin: auto;
+}
+
+.img-perfil-solicitacao{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin: auto;
+}

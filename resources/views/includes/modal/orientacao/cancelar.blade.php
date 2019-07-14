@@ -14,12 +14,9 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
-                <!-- <a href="{{ route('aluno.tcc.cancelar-orientacao') }}" type="submit" class="btn btn-primary">
-                    Sim
-                </a> -->
                 <form method="POST" action="{{ route('aluno.tcc.cancelar-orientacao') }}">
                     @csrf
-                    <input hidden value="" class="prof_solicitado" id="prof_solicitado" name="prof_solicitado">
+                    <input hidden value="" class="orientador_id" id="orientador_id" name="orientador_id">
                     <button type="submit" class="btn btn-primary">Sim</button>
                 </form>
             </div>

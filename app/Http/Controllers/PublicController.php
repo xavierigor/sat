@@ -29,32 +29,37 @@ class PublicController extends Controller
         return view('public.documentosModelo');
     }
 
-    public function orientadores() {
+    public function professores() {
 
         // Se for pesquisado algum nome de professor
         if(request()->has('n')){
             
-            $orientadores = Professor::where('name', 'LIKE', '%' . request('n') . '%')
-                            ->orderBy('created_at', 'desc')
+            $professores = Professor::select('id', 'name', 'email', 'area_de_interesse')
+                            ->where('name', 'LIKE', '%' . request('n') . '%')
+                            ->orderBy('name', 'asc')
                             ->paginate($this->TotalItensPágina)
                             ->appends('n', request('n'));
 
         } else{
 
-            $orientadores = Professor::orderBy('created_at', 'desc')
+            $professores = Professor::select('id', 'name', 'email', 'area_de_interesse')
+                            ->orderBy('name', 'asc')
                             ->paginate($this->TotalItensPágina);
         }
 
-        return view('public.orientadores.index')->with('orientadores', $orientadores)->withInput(request()->only('n'));
+        return view('public.professores.index')->with('professores', $professores)->withInput(request()->only('n'));
     }
 
-    public function perfilOrientador($id) {
+    public function perfilProfessor($id) {
         try {
-            $orientador = Professor::where('id', Hashids::decode($id))->first();
+            $professor = Professor::select('id', 'name', 'email', 'telefone', 'area_de_interesse', 'image')
+                                    ->where('id', Hashids::decode($id))
+                                    ->first();
+
         } catch(\Exception $e) {
             return abort(404);
         }
 
-        return view('public.orientadores.show')->with('orientador', $orientador);
+        return view('public.professores.perfil')->with('professor', $professor);
     }
 }

@@ -8,68 +8,79 @@
 
 @section('content')
 
-    <div class="orientadores">
+    <div class="orientador">
 
         <!-- Se já existe um orientador associado ao aluno -->
-        @isset($orientador)
+        @isset($orientacao)
 
             <!-- Importar modal cancelar Orientacao -->
             @include('includes.modal.orientacao.cancelar')
 
-            <div class="row  text-center text-md-left">
-                <div class="col-md-3 col-ms-12">
-                    @if($orientador->orientador_foto)
-                        ​<img src="{{ asset('storage/perfil/professores/' . $orientador->orientador_foto) }}" class="rounded-circle" alt="{{Auth::user()->image}}" width="180px" height="180px">
+            <div class="row p-3 text-center">
+                <div class="col-xl-4 col-sm-12 col-md-6 d-flex">
+                    @if($orientacao->orientador->image)
+                        ​<img src="{{ asset('storage/perfil/professores/' . $orientacao->orientador->image) }}" class="img-perfil" alt="imagem do perfil">
                     @else
-                    ​    <img src="{{ asset('images/user.png') }}" class="rounded-circle" alt="avatar" width="180px" height="180px">
+                    ​    <img src="{{ asset('images/user.png') }}" class="img-perfil" alt="imagem do perfil">
                     @endif
                 </div>
-                <div class="col-md-8 col-ms-12 pt-2">
-                    <h3>Você tem um orientador.</h3>
-                    <a href="{{ route('public.orientador.perfil', Hashids::encode($orientador->orientador_id)) }}">
-                        {{ $orientador->orientador_nome }}
-                    </a>
-                    <br>
-                    <br>
-                    <!-- Chamar modal cancelar orientação -->
-                    <button title="Cancelar" type="button" class="btn btn-danger" data-toggle="modal"
-                        data-target="#cancelarOrientacao" data-nome="{{ $orientador->orientador_nome }}"
-                        data-id="{{ $orientador->orientador_id }}">
-                        Cancelar Orientação
-                        <i class="fas fa-times fa-fw"></i>
-                    </button>
+                <div class="col-xl-8 col-sm-12 col-md-6 text-md-left row d-flex m-auto">
+                    <div class="col-md-12 col-sm-12 pt-4">
+                        <div class="m-auto ">
+                            <h4 class="d-inline-block">
+                                <a class="d-inline-block" href="{{ route('public.professores.perfil', Hashids::encode($orientacao->orientador->id)) }}">
+                                    <h4>{{ $orientacao->orientador->name }}</h4>
+                                </a>
+                                é o seu orientador.
+                            </h4>
+                        </div>
+                        <br>
+                        <div class="m-auto ">
+                            <!-- Chamar modal cancelar orientação -->
+                            <button title="Cancelar" type="button" class="btn btn-danger" data-toggle="modal"
+                                data-target="#cancelarOrientacao" data-nome="{{ $orientacao->orientador->name }}"
+                                data-id="{{ $orientacao->orientador->id }}">
+                                Cancelar Orientação
+                                <i class="fas fa-times fa-fw"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <hr>
         @endisset
 
         <!-- Se existe um professor solicitado pelo aluno -->
-        @isset($profSolicitado)
+        @isset($solicitacao)
     
             <!-- Importar modal cancelar solicitacao -->
-            @include('includes.modal.solicitar-co-orientacao.cancelar')
+            @include('includes.modal.solicitar-co-o-rientacao.cancelar')
 
-            <div class="row text-center text-md-left">
-                <div class="col-md-3 col-ms-12">
-                    @if($profSolicitado->prof_solicitado_foto)
-                        ​<img src="{{ asset('storage/perfil/professores/' . $profSolicitado->prof_solicitado_foto) }}" class="rounded-circle" alt="{{Auth::user()->image}}" width="180px" height="180px">
+            <div class="row text-center text-center">
+                <div class="col-md-3 col-ms-12 d-flex ">
+                    @if($solicitacao->solicitado->image)
+                        ​<img src="{{ asset('storage/perfil/professores/' . $solicitacao->solicitado->image) }}" class="img-perfil-solicitacao" alt="imagem do perfil">
                     @else
-                    ​    <img src="{{ asset('images/user.png') }}" class="rounded-circle" alt="avatar" width="180px" height="180px">
+                    ​    <img src="{{ asset('images/user.png') }}" class="img-perfil-solicitacao" alt="imagem do perfil">
                     @endif
                 </div>
-                <div class="col-md-9 col-ms-12 pt-4">
-                    <h5>Solicitação de orientação de TCC enviada</h5>
-                    <a href="{{ route('public.orientador.perfil', Hashids::encode($profSolicitado->prof_solicitado)) }}">
-                        <h5>{{ $profSolicitado->prof_solicitado_nome }}</h5>
-                    </a>
-                    <br>
-                    <!-- Chamar modal cancelar solicitacao -->
-                    <button title="Cancelar" type="button" class="btn btn-danger" data-toggle="modal"
-                        data-target="#cancelarSolicitacao" data-nome="{{ $profSolicitado->prof_solicitado_nome }}"
-                        data-id="{{ $profSolicitado->prof_solicitado }}" data-tiposolicitacao="orientacao">
-                        Cancelar Solicitação
-                        <i class="fas fa-times fa-fw"></i>
-                    </button>
+                <div class="col-md-9 col-ms-12 p-2 text-md-left ">
+                    <div class="m-auto ">
+                        <h5 class="d-inline-block mr-1">
+                            Solicitação de orientação de TCC enviada para
+                            <a class="d-inline-block" href="{{ route('public.professores.perfil', Hashids::encode($solicitacao->solicitado->id)) }}">
+                                <h5>{{ $solicitacao->solicitado->name }}</h5>
+                            </a>.
+                        </h5>
+                    </div>
+                    <div class="m-auto ">
+                        <!-- Chamar modal cancelar solicitacao -->
+                        <button title="Cancelar" type="button" class="btn btn-danger" data-toggle="modal"
+                            data-target="#cancelarSolicitacao" data-nome="{{ $solicitacao->solicitado->name }}"
+                            data-id="{{ $solicitacao->solicitado->id }}" data-tiposolicitacao="orientacao">
+                            Cancelar Solicitação
+                            <i class="fas fa-times fa-fw"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
             <br>
@@ -98,7 +109,7 @@
             @if($professores->count() > 0)
 
                 <!-- Importar modal confirmar envio de solicitacao -->
-                @include('includes.modal.solicitar-co-orientacao.confirmar')
+                @include('includes.modal.solicitar-co-o-rientacao.confirmar')
             
                 <div class="table-responsive">
                     <table class="table table-hover">
@@ -114,7 +125,7 @@
                             @foreach($professores as $professor)
                                 <tr>
                                     <th scope="row">
-                                        <a href="{{ route('public.orientador.perfil', Hashids::encode($professor->id)) }}">
+                                        <a href="{{ route('public.professores.perfil', Hashids::encode($professor->id)) }}">
                                             {{ $professor->name }}
                                         </a>
                                     </th>
@@ -151,6 +162,6 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/modal-co-orientacao.js') }}"></script>
-    <script src="{{ asset('js/modal-solicitacao-co-orientador.js') }}"></script>
+    <script src="{{ asset('js/modal-co-o-rientacao.js') }}"></script>
+    <script src="{{ asset('js/modal-solicitacao-co-o-rientador.js') }}"></script>
 @endsection

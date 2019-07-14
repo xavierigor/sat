@@ -8,7 +8,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                Você realmente deseja recusar a Solicitação de <span class="model-tipo-solicitacao"></span> de TCC recebida de
+                Você realmente deseja recusar a solicitação de <span class="model-tipo-solicitacao"></span> de TCC recebida de
                 <span class="modal-nome text-primary font-weight-bold"></span>
                 ?
             </div>

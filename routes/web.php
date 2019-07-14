@@ -16,8 +16,8 @@ Route::get('/', 'PublicController@index')->name('public.index');
 Route::get('/agenda-tccs', 'PublicController@agenda')->name('public.agenda');
 Route::get('/iniciar-sessao', 'PublicController@escolhaLogin')->name('public.escolhaLogin');
 Route::get('/documentos-modelo', 'PublicController@documentosModelo')->name('public.documentosModelo');
-Route::get('/orientadores', 'PublicController@orientadores')->name('public.orientadores');
-Route::get('/orientador/{id}', 'PublicController@perfilOrientador')->name('public.orientador.perfil');
+Route::get('/professores', 'PublicController@professores')->name('public.professores');
+Route::get('/professores/{id}', 'PublicController@perfilprofessor')->name('public.professores.perfil');
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
