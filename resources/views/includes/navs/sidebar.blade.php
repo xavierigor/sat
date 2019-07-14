@@ -65,25 +65,17 @@
                         <li class="{{ Request::is('professor/solicitacoes') ? 'active' : ''}}"><a href="{{ route('professor.solicitacoes') }}">Solicitações</a></li>
                     </ul>
         
-                    <li data-toggle="collapse" data-target="#orientandos" class="collapsed {{ Request::is('*/cadastrar/professor') || Request::is('*/visualizar/professores') ? 'active' : '' }}">
-                        <a href="#" class="dropdown-option">
-                            <i class="fas fa-user-graduate fa-fw"></i> Orientandos <i class="fas fa-chevron-down fa-fw"></i>
+                    <li data-toggle="collapse" class="collapsed {{ Request::is('professor/orientandos') ? 'active' : '' }}">
+                        <a href="{{ route('professor.orientandos') }}" class="dropdown-option">
+                            <i class="fas fa-user-graduate fa-fw"></i> Orientandos
                         </a>
                     </li>
-                    <ul class="sub-menu collapse" id="orientandos">
-                        <li><a href="#">Opção 1</a></li>
-                        <li><a href="#">Opção 2</a></li>
-                    </ul>
         
-                    <li data-toggle="collapse" data-target="#doc-prof" class="collapsed">
-                        <a href="#" class="dropdown-option">
-                            <i class="fas fa-file-pdf fa-fw"></i> Documentos <i class="fas fa-chevron-down fa-fw"></i>
+                    <li data-toggle="collapse" class="collapsed {{ Request::is('professor/documentos') ? 'active' : '' }}">
+                        <a href="{{ route('professor.documentos') }}" class="dropdown-option">
+                            <i class="fas fa-file-pdf fa-fw"></i> Documentos 
                         </a>
                     </li>
-                    <ul class="sub-menu collapse" id="doc-prof">
-                        <li><a href="#">Opção 1</a></li>
-                        <li><a href="#">Opção 2</a></li>
-                    </ul>
 
                 @elseif(Auth::guard(null))
 
@@ -106,18 +98,18 @@
                     </ul>
 
                     <li data-toggle="collapse" data-target="#tcc-aluno" 
-                    class="collapsed {{ Request::is('aluno/visualizar/tcc') || Request::is('aluno/editar/tcc') || Request::is('aluno/orientador/tcc') || Request::is('aluno/tcc/coorientadores') || Request::is('aluno/documentos/tcc') ? 'active' : '' }}">
+                    class="collapsed {{ Request::is('aluno/tcc/visualizar') || Request::is('aluno/tcc/editar') || Request::is('aluno/tcc/orientador') || Request::is('aluno/tcc/coorientadores') || Request::is('aluno/tcc/documentos') ? 'active' : '' }}">
                         <a href="#" class="dropdown-option">
                             <i class="fas fa-scroll fa-fw"></i> TCC <i class="fas fa-chevron-down fa-fw"></i>
                         </a>
                     </li>
-                    <ul class="sub-menu collapse {{ Request::is('aluno/visualizar/tcc') || Request::is('aluno/editar/tcc') || Request::is('aluno/orientador/tcc') || Request::is('aluno/tcc/coorientadores') || Request::is('aluno/documentos/tcc') ? 'show' : '' }}" 
+                    <ul class="sub-menu collapse {{ Request::is('aluno/tcc/visualizar') || Request::is('aluno/tcc/editar') || Request::is('aluno/tcc/orientador') || Request::is('aluno/tcc/coorientadores') || Request::is('aluno/tcc/documentos') ? 'show' : '' }}" 
                     class="sub-menu collapse" id="tcc-aluno">
-                        <li class="{{ Request::is('aluno/visualizar/tcc') ? 'active' : ''}}"><a href="{{ route('aluno.visualizar.tcc') }}">Visualizar</a></li>
-                        <li class="{{ Request::is('aluno/editar/tcc') ? 'active' : ''}}"><a href="{{ route('aluno.editar.tcc') }}">Editar</a></li>
-                        <li class="{{ Request::is('aluno/orientador/tcc') ? 'active' : ''}}"><a href="{{ route('aluno.orientador.tcc') }}">Orientador</a></li>
+                        <li class="{{ Request::is('aluno/tcc/visualizar') ? 'active' : ''}}"><a href="{{ route('aluno.visualizar.tcc') }}">Visualizar</a></li>
+                        <li class="{{ Request::is('aluno/tcc/editar') ? 'active' : ''}}"><a href="{{ route('aluno.editar.tcc') }}">Editar</a></li>
+                        <li class="{{ Request::is('aluno/tcc/orientador') ? 'active' : ''}}"><a href="{{ route('aluno.orientador.tcc') }}">Orientador</a></li>
                         <li class="{{ Request::is('aluno/tcc/coorientadores') ? 'active' : ''}}"><a href="{{ route('aluno.tcc.coorientadores') }}">Coorientadores</a></li>
-                        <li class="{{ Request::is('aluno/documentos/tcc') ? 'active' : ''}}"><a href="{{ route('aluno.documentos.tcc') }}">Documentos</a></li>
+                        <li class="{{ Request::is('aluno/tcc/documentos') ? 'active' : ''}}"><a href="{{ route('aluno.documentos.tcc') }}">Documentos</a></li>
                     </ul>
 
                 @endif

@@ -15,16 +15,18 @@
         <small class="form-text text-muted mb-4">
             <span class="text-danger">*</span> Apenas arquivos: pdf, odt, doc, docx
         </small>
-        <form action="{{ route('aluno.store.documento') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('aluno.store.documentos') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="termo_de_compromisso" class="d-block font-weight-bold">Termo de Compromisso</label>
 
                 @if($termo_de_compromisso)
-                    <a class="d-block mb-2" target="_blank" 
-                    href="{{asset('storage/documentos/tcc/'.$termo_de_compromisso)}}">
-                        {{$termo_de_compromisso}}
-                    </a>
+                    <div class="d-block mb-2">
+                        <a target="_blank" 
+                        href="{{asset('storage/documentos/tcc/'.$termo_de_compromisso)}}">
+                            {{$termo_de_compromisso}}
+                        </a>
+                    </div>
                 @endif
                 <input type="file" name="termo_de_compromisso" id="termo_de_compromisso" 
                 class="d-inline-block {{ $errors->has('termo_de_compromisso') ? 'border-danger' : ''}}">
@@ -51,10 +53,12 @@
             <div class="form-group mt-5">
                 <label for="rel_acompanhamento" class="d-block font-weight-bold">Relatório de Acompanhamento</label>
                 @if($rel_acompanhamento)
-                    <a class="d-block mb-2" target="_blank" 
-                    href="{{asset('storage/documentos/tcc/'.$rel_acompanhamento)}}">
-                        {{$rel_acompanhamento}}
-                    </a>
+                    <div class="d-block mb-2">
+                        <a target="_blank" 
+                        href="{{asset('storage/documentos/tcc/'.$rel_acompanhamento)}}">
+                            {{$rel_acompanhamento}}
+                        </a>
+                    </div>
                 @endif
                 <input type="file" name="rel_acompanhamento" id="rel_acompanhamento" 
                 class="d-inline-block {{ $errors->has('rel_acompanhamento') ? 'border-danger' : ''}}">

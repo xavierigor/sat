@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Orientacao;
+use App\User;
 use Auth;
 use Hash;
+use Storage;
 
 class ProfessorController extends Controller
 {
@@ -20,14 +23,79 @@ class ProfessorController extends Controller
         return view('professor.perfil');
     }
 
+    
     public function editar() {
         return view('professor.editar');
     }
-
+    
     public function alterarSenha() {
         return view('professor.alterarSenha');
     }
 
+    public function orientandos() {
+        $orientandos = Auth::user()->getOrientandos();
+
+        return view('professor.orientandos')->with('orientandos', $orientandos);
+    }
+
+    public function documentos() {
+        $termo_de_responsabilidade = Auth::user()->termo_de_responsabilidade;
+
+        return view('professor.documentos')->with('termo_de_responsabilidade', $termo_de_responsabilidade);
+    }
+
+
+    public function storeDocumentos(Request $request)
+    {
+        $professor = Auth::user();
+
+        if($request->hasFile('termo_de_responsabilidade')){
+            $filenameWithExt = $request->file('termo_de_responsabilidade')->getClientOriginalName();
+
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+
+            $ext = $request->file('termo_de_responsabilidade')->getClientOriginalExtension();
+            
+            $fileNameToStore = $filename.'_'.time().'.'.$ext;
+            $path = $request->file('termo_de_responsabilidade')->storeAs('documentos/professor', $fileNameToStore);
+        } else {
+            $fileNameToStore = $professor->termo_de_responsabilidade;
+        }
+
+        $this->validate($request, [
+            'termo_de_responsabilidade' => 'max:10000|required|mimes:pdf,odt,doc,docx',
+        ]);
+
+        if($request->hasFile('termo_de_responsabilidade') && $professor->termo_de_responsabilidade != null) {
+            Storage::delete('documentos/professor/'.$professor->termo_de_responsabilidade);
+        }
+
+        $professor->termo_de_responsabilidade = $fileNameToStore ?? null;
+
+        if(!$professor->save()) {
+            return redirect()->back()->with(session()->flash('error', 'Erro ao realizar upload do(s) arquivo(s).'));
+        }
+
+        return redirect()->back()->with(session()->flash('success', 'Upload realizado com sucesso.'));
+    }
+
+    public function destroyDocumento(Request $request)
+    {
+        $professor = Auth::user();
+
+        if(Storage::delete('documentos/professor/'.$professor->{$request->documento})){
+            
+            $professor->{$request->documento} = null;
+            
+            if($professor->save()){
+                return redirect()->back()->with(session()->flash('success', 'Arquivo removido.'));
+            } else {
+                return redirect()->back()->with(session()->flash('error', 'Houve um erro ao remover o arquivo.'));
+            }
+        }
+
+        return redirect()->back()->with(session()->flash('error', 'Houve um erro ao remover o arquivo.'));
+    }
 
     public function update(Request $request) {
         $this->validate($request, [

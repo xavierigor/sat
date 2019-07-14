@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Auth;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -14,6 +15,16 @@ class Professor extends Authenticatable
         // return $this->hasMany('App\User');
         return $this->hasMany('App\Orientacao');
     }
+
+    // Criei essa função para retornar os orientandos do professor
+    public function getOrientandos() {
+        $orientandos_id = Orientacao::where('orientador_id', Auth::user()->id)->pluck('aluno_id');
+
+        $orientandos = User::whereIn('id', $orientandos_id)->get();
+
+        return $orientandos;
+    }
+
     public function coorientandos() {
         return $this->hasMany('App\Coorientacao');
     }

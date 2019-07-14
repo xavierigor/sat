@@ -20,7 +20,10 @@ class CreateTccsTable extends Migration
             $table->string('termo_de_compromisso')->nullable();
             $table->string('rel_acompanhamento')->nullable();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('orientador_id')->nullable();
+
+            // Acho que isso não é necessário, já que agora existe a tabela orientacoes
+            $table->unsignedBigInteger('orientador_id')->nullable(); 
+
             $table->unsignedBigInteger('prof_solicitado')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('orientador_id')->references('id')->on('professores');
