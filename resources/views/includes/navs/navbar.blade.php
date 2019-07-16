@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light" id="nav">
+<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light" id="nav">
     @if((Auth::guard('coordenador')->check() && Request::is('coordenador', 'coordenador/*')) || (Auth::guard('professor')->check() && Request::is('professor', 'professor/*')) || (Auth::check() && Request::is('aluno', 'aluno/*')))
         <span class="toggle-sidebar" onclick="toggleSidebar()">
             <i class="fas fa-bars fa-lg"></i>

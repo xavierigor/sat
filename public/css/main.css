@@ -93,6 +93,11 @@ nav .navbar-nav .entrar a {
 }
 /* Navbar */
 
+#main{
+    /* Tamanho da navbar */
+    margin-top: 61px;
+    transition: all 7s;
+}
 
 /* Cabeçalho da Página */
 #main .header {

@@ -36,34 +36,72 @@ class SolicitacaoController extends Controller
     
         // Verificar se é orientacao ou coorientacao
         if($request->tipo_solicitacao == "orientacao"){
-            // Mudar campo 'professor solicitado' no Tcc do aluno para null
-            $aluno = User::where('id', $request->aluno_id)->first();
-            $aluno->tcc->orientador_id = Auth::guard('professor')->user()->id;
+            
+            // Verificar se pode orientar
+            if(Auth::guard('professor')->user()->disponivel_orient == true){
 
-            // Criar nova orientacao
-            $orientacao = new Orientacao;
-            $orientacao->orientador_id = Auth::guard('professor')->user()->id;
-            $orientacao->aluno_id = $request->aluno_id;
-                    
-            // Deletar solicitacao de orientacao com id informado, criar novo orientacao e atualizar campos tcc do aluno
-            if($solicitacao->delete() && $aluno->tcc->save() && $orientacao->save()) {
-                return redirect()->back()->with(session()->flash('info', 'Solicitação de Orientação de TCC aceita.'));
+                //Verificar se não já é orientador. Evitar erro de dupla solicitação
+                $orientador = Orientacao::where([['orientador_id', '=', Auth::guard('professor')->user()->id],
+                                                ['aluno_id', '=', $request->aluno_id]])
+                                                ->first();
+                if(!$orientador){
+
+                    // Mudar campo 'orientador_id'
+                    $aluno = User::where('id', $request->aluno_id)->first();
+                    $aluno->tcc->orientador_id = Auth::guard('professor')->user()->id;
+
+                    // Criar nova orientacao
+                    $orientacao = new Orientacao;
+                    $orientacao->orientador_id = Auth::guard('professor')->user()->id;
+                    $orientacao->aluno_id = $request->aluno_id;
+                            
+                    // Deletar solicitacao de orientacao com id informado, criar novo orientacao e atualizar campos tcc do aluno
+                    if($solicitacao->delete() && $aluno->tcc->save() && $orientacao->save()) {
+                        
+                        // Atualizando dados de orientador
+                        Auth::guard('professor')->user()->num_orientandos = Auth::guard('professor')->user()->num_orientandos + 1;
+                        if(Auth::guard('professor')->user()->num_orientandos >= 5){
+                            Auth::guard('professor')->user()->disponivel_orient = false;
+                        }
+                        Auth::guard('professor')->user()->save();
+
+                        return redirect()->back()->with(session()->flash('info', 'Solicitação de Orientação de TCC aceita.'));
+                    } 
+
+                    return redirect()->back()->with(session()->flash('error', 'Erro ao aceitar Solicitação de Orientação de TCC.'));
+
+                } else {
+                    $solicitacao->delete();
+                    return redirect()->back()->with(session()->flash('error', 'Erro ao aceitar Solicitação de Orientação de TCC. Você já é orientador deste aluno.'));
+                }
+
+            } else {
+                return redirect()->back()->with(session()->flash('error', 'Erro ao aceitar Solicitação de Orientação de TCC. Você já atingiu o número máximo de orientandos.'));
             } 
 
-            return redirect()->back()->with(session()->flash('error', 'Erro ao aceitar Solicitação de Orientação de TCC.'));
-            
         } else if ($request->tipo_solicitacao == "coorientacao") {
-
-            // Criar nova coorientacao
-            $coorientacao = new Coorientacao;
-            $coorientacao->coorientador_id = Auth::guard('professor')->user()->id;
-            $coorientacao->aluno_id = $request->aluno_id;
-                    
-            if($solicitacao->delete() && $coorientacao->save()) {
-                return redirect()->back()->with(session()->flash('info', 'Solicitação de Coorientação de TCC aceita.'));
-            } 
             
-            return redirect()->back()->with(session()->flash('error', 'Erro ao aceitar Solicitação de Coorientação de TCC.'));
+            //Verificar se não já é coorientador. Evitar erro de dupla solicitação
+            $coorientador = Coorientacao::where([['coorientador_id', '=', Auth::guard('professor')->user()->id],
+                                            ['aluno_id', '=', $request->aluno_id]])
+                                            ->first();
+            if(!$coorientador){
+
+                // Criar nova coorientacao
+                $coorientacao = new Coorientacao;
+                $coorientacao->coorientador_id = Auth::guard('professor')->user()->id;
+                $coorientacao->aluno_id = $request->aluno_id;
+                        
+                if($solicitacao->delete() && $coorientacao->save()) {
+                    return redirect()->back()->with(session()->flash('info', 'Solicitação de Coorientação de TCC aceita.'));
+                } 
+                
+                return redirect()->back()->with(session()->flash('error', 'Erro ao aceitar Solicitação de Coorientação de TCC.'));
+            
+            } else {
+                $solicitacao->delete();
+                return redirect()->back()->with(session()->flash('error', 'Erro ao aceitar Solicitação de Coorientação de TCC. Você já é coorientador deste aluno.'));
+            }
         }
 
     }
@@ -80,7 +118,7 @@ class SolicitacaoController extends Controller
         }
             
         // Deletar solicitacao com id informado
-        if($solicitacao->delete()) {
+        if($solicitacao->delete()) {            
             return redirect()->back()->with(session()->flash('info', 'Solicitação de ' . $tipo_solicitacao . ' de TCC recusada.'));
         }
         return redirect()->back()->with(session()->flash('error', 'Erro ao recusar Solicitação de ' . $tipo_solicitacao . ' de TCC.'));

@@ -103,13 +103,31 @@ class TccController extends Controller
                                             ['tipo_solicitacao', '=', 'coorientacao']])
                                     ->with(['solicitado:id,name,image'])
                                     ->get();
+                                
+        // Coletando o id de todos os professores coorientadores ou já solicitados pelo aluno
+        // para não exibilos na lista de solicitar
+        $indisponiveis_solicitar = collect();
+
+        if($coorientacoes){
+            foreach ($coorientacoes as $corientacao) {
+                $indisponiveis_solicitar->add($corientacao->coorientador->id);
+            }
+        }
+        
+        if($solicitacoes){
+            foreach ($solicitacoes as $solicitacao) {
+                $indisponiveis_solicitar->add($solicitacao->solicitado->id);
+            }
+        }
 
         // Se for pesquisado algum nome de coorientador
         if(request()->has('n')){
+
             
             $professores = Professor::select('id', 'name', 'email', 'area_de_interesse')
-                                    ->where([['name', '=', request('n')],
+                                    ->where([['name', 'LIKE', '%' . request('n') . '%'],
                                             ['disponivel_coorient', '=', true]])
+                                    ->whereNotIn( 'id', $indisponiveis_solicitar)
                                     ->orderBy('name', 'asc')
                                     ->paginate($this->TotalItensPágina)
                                     ->appends('n', request('n'));
@@ -118,6 +136,7 @@ class TccController extends Controller
 
             $professores = Professor::select('id', 'name', 'email', 'area_de_interesse')
                                     ->where('disponivel_coorient', true)
+                                    ->whereNotIn( 'id', $indisponiveis_solicitar)
                                     ->orderBy('name', 'asc')
                                     ->paginate($this->TotalItensPágina);
         }
@@ -275,25 +294,37 @@ class TccController extends Controller
     {
         // Cria nova solicitação com o tipo recebido via resquest - post
         // Depois retorna para a página com uma mensagem (feedback) de sucesso ou erro
-           
-        // Criar nova solicitação
-        $solicitacao = new Solicitacao;
-        $solicitacao->tipo_solicitacao = $request->tipo_solicitacao;
-        $solicitacao->solicitante_id = Auth::user()->id;
-        $solicitacao->solicitado_id = $request->prof_solicitado;
-
+        
         // Verificar tipo para Mensagem
         if($request->tipo_solicitacao == "orientacao"){
             $tipo_solicitacao = "Orientação";
         } else if ($request->tipo_solicitacao == "coorientacao"){
             $tipo_solicitacao = "Coorientação";
         }
+        
+        $solicitacao = Solicitacao::where([['solicitante_id', '=', Auth::user()->id],
+                                           ['solicitado_id', '=', $request->prof_solicitado],
+                                           ['tipo_solicitacao', '=', $request->tipo_solicitacao]])
+                                    ->get();
+        
+        // verificar se já foi enviada uma solicitação para esse professor para evitar erro de varios clicks no botao
+        if($solicitacao->count() > 0){
+            return redirect()->back()->with(session()->flash('error', 'Erro ao Solicitar ' . $tipo_solicitacao . ' de TCC. Você só pode enviar uma solicitação para cada professor.'));
+        
+        } else {
 
-        if($solicitacao->save()){
-            return redirect()->back()->with(session()->flash('info', 'Solicitação de ' . $tipo_solicitacao . ' de TCC enviada.'));
-        } 
-
-        return redirect()->back()->with(session()->flash('error', 'Erro ao Solicitar ' . $tipo_solicitacao . ' de TCC.'));
+            // Criar nova solicitação
+            $solicitacao = new Solicitacao;
+            $solicitacao->tipo_solicitacao = $request->tipo_solicitacao;
+            $solicitacao->solicitante_id = Auth::user()->id;
+            $solicitacao->solicitado_id = $request->prof_solicitado;
+    
+            if($solicitacao->save()){
+                return redirect()->back()->with(session()->flash('info', 'Solicitação de ' . $tipo_solicitacao . ' de TCC enviada.'));
+            } 
+    
+            return redirect()->back()->with(session()->flash('error', 'Erro ao Solicitar ' . $tipo_solicitacao . ' de TCC.'));
+        }
 
     }
     

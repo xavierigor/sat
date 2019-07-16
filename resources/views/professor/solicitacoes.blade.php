@@ -47,25 +47,28 @@
                                     </h5>
                                 @endif
                             </div>
-
-                            <div class="m-auto ">
-                                <!-- Chamar modal aceitar solicitacao -->
-                                <button title="Aceitar" type="button" class="btn btn-success" data-toggle="modal"
-                                    data-target="#aceitarSolicitacao" data-nome="{{ $solicitacao->solicitante->name }}" 
-                                    data-alunoid="{{ $solicitacao->solicitante->id }}"  data-tiposolic="{{ $solicitacao->tipo_solicitacao }}"
-                                    data-idsolic="{{ $solicitacao->id }}">
-                                    Aceitar
-                                    <i class="fas fa-check fa-fw"></i>
-                                </button>
-                                <!-- Chamar modal cancelar solicitacao -->
-                                <button title="Recusar" type="button" class="btn btn-danger" data-toggle="modal"
-                                    data-target="#recusarSolicitacao" data-nome="{{ $solicitacao->solicitante->name }}"
-                                    data-alunoid="{{ $solicitacao->solicitante->id }}"  data-tiposolic="{{ $solicitacao->tipo_solicitacao }}"
-                                    data-idsolic="{{ $solicitacao->id }}">
-                                    Recusar
-                                    <i class="fas fa-times fa-fw"></i>
-                                </button>
-                            </div>
+                            @if($solicitacao->tipo_solicitacao == "orientacao" && Auth::guard('professor')->user()->disponivel_orient == false)
+                                <p>Você já atingiu o número máximo de orientandos.</p>
+                            @else
+                                <div class="m-auto ">
+                                    <!-- Chamar modal aceitar solicitacao -->
+                                    <button title="Aceitar" type="button" class="btn btn-success" data-toggle="modal"
+                                        data-target="#aceitarSolicitacao" data-nome="{{ $solicitacao->solicitante->name }}" 
+                                        data-alunoid="{{ $solicitacao->solicitante->id }}"  data-tiposolic="{{ $solicitacao->tipo_solicitacao }}"
+                                        data-idsolic="{{ $solicitacao->id }}">
+                                        Aceitar
+                                        <i class="fas fa-check fa-fw"></i>
+                                    </button>
+                                    <!-- Chamar modal cancelar solicitacao -->
+                                    <button title="Recusar" type="button" class="btn btn-danger" data-toggle="modal"
+                                        data-target="#recusarSolicitacao" data-nome="{{ $solicitacao->solicitante->name }}"
+                                        data-alunoid="{{ $solicitacao->solicitante->id }}"  data-tiposolic="{{ $solicitacao->tipo_solicitacao }}"
+                                        data-idsolic="{{ $solicitacao->id }}">
+                                        Recusar
+                                        <i class="fas fa-times fa-fw"></i>
+                                    </button>
+                                </div>
+                            @endif
 
                         </div>
                     </div>
