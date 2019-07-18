@@ -14,13 +14,16 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
-                <form method="POST" action="{{ route('professor.solicitacao.aceitar') }}">
+                <form class="form-prevent-mult-submits" method="POST" action="{{ route('professor.solicitacao.aceitar') }}">
                     @csrf
                     <input hidden value="" class="tipo_solicitacao" id="tipo_solicitacao" name="tipo_solicitacao">
                     <input hidden value="" class="solicitacao_id" id="solicitacao_id" name="solicitacao_id">
                     <input hidden value="" class="aluno_id" id="aluno_id" name="aluno_id">
                     
-                    <button type="submit" class="btn btn-primary">Sim</button>
+                    <button type="submit" class="btn btn-primary button-prevent-mult-submits">
+                        <i style="display: none;" class="spinner-submit fa fa-spinner fa-spin"></i>
+                        Sim
+                    </button>
                 </form>
             </div>
         </div>

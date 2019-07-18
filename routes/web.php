@@ -85,27 +85,20 @@ Route::prefix('/aluno')->group(function() {
     Route::get('/alterar/senha', 'AlunoController@alterarSenha')->name('aluno.alterar.senha');
     Route::post('/alterar/senha', 'AlunoController@salvarSenha')->name('aluno.salvar.senha');
 
-    Route::get('tcc/editar', 'TccController@editar')->name('aluno.editar.tcc');
-    Route::post('tcc/editar', 'TccController@atualizar')->name('aluno.atualizar.tcc');
-    Route::get('tcc/visualizar', 'TccController@visualizar')->name('aluno.visualizar.tcc');
-    Route::get('tcc/documentos', 'TccController@documentos')->name('aluno.documentos.tcc');
-    Route::post('tcc/documentos', 'TccController@storeDocumentos')->name('aluno.store.documentos');
-    Route::delete('tcc/documentos', 'TccController@destroyDocumento')->name('aluno.destroy.documento');
-    // Route::get('/editar/tcc', 'TccController@editar')->name('aluno.editar.tcc');
-    // Route::post('/editar/tcc', 'TccController@atualizar')->name('aluno.atualizar.tcc');
-    // Route::get('/visualizar/tcc', 'TccController@visualizar')->name('aluno.visualizar.tcc');
-    // Route::get('/documentos/tcc', 'TccController@documentos')->name('aluno.documentos.tcc');
-    // Route::post('/documentos/tcc', 'TccController@storeDocumento')->name('aluno.store.documento');
-    // Route::delete('/documentos/tcc', 'TccController@destroyDocumento')->name('aluno.destroy.documento');
+    Route::get('/tcc/editar', 'TccController@editar')->name('aluno.editar.tcc');
+    Route::post('/tcc/editar', 'TccController@atualizar')->name('aluno.atualizar.tcc');
+    Route::get('/tcc/visualizar', 'TccController@visualizar')->name('aluno.visualizar.tcc');
     
-    Route::post('/solicitar-professor/tcc', 'TccController@solicitarProfessor')->name('aluno.solicitar-professor.tcc');
-    Route::post('/cancelar-solicitacao/tcc', 'TccController@cancelarSolicitacao')->name('aluno.cancelar-solicitacao.tcc');
+    Route::get('/tcc/documentos', 'TccController@documentos')->name('aluno.documentos.tcc');
+    Route::post('/tcc/documentos/salvar', 'TccController@storeDocumento')->name('aluno.store.documentos');
+    Route::delete('/tcc/documentos/excluir', 'TccController@destroyDocumento')->name('aluno.destroy.documento');
     
-    Route::get('tcc/orientador', 'TccController@orientador')->name('aluno.orientador.tcc');
-    Route::post('/tcc/cancelar-orientacao', 'TccController@cancelarOrientacao')->name('aluno.tcc.cancelar-orientacao');
+    Route::post('/tcc/solicitar-professor', 'TccController@solicitarProfessor')->name('aluno.solicitar-professor.tcc');
+    Route::post('/tcc/cancelar-solicitacao', 'TccController@cancelarSolicitacao')->name('aluno.cancelar-solicitacao.tcc');
     
-    Route::get('/tcc/coorientadores/solicitar', 'TccController@solicitarCoorientadores')->name('aluno.tcc.coorientadores.solicitar');
+    Route::get('/tcc/orientador', 'TccController@orientador')->name('aluno.orientador.tcc');
+    Route::post('/tcc/cancelar-orientacao', 'TccController@cancelarOrientacao')->name('aluno.cancelar-orientacao.tcc');
     
-    Route::get('/tcc/coorientadores', 'TccController@coorientadores')->name('aluno.tcc.coorientadores');
-    Route::post('/tcc/cancelar-coorientacao', 'TccController@cancelarCoorientacao')->name('aluno.tcc.cancelar-coorientacao');
+    Route::get('/tcc/coorientadores', 'TccController@coorientadores')->name('aluno.coorientadores.tcc');
+    Route::post('/tcc/coorientadores/cancelar-coorientacao', 'TccController@cancelarCoorientacao')->name('aluno.cancelar-coorientacao.tcc');
 });

@@ -98,7 +98,7 @@
             <br><br>
             
             <div class="text-center mb-5">
-                <form action="{{ route('aluno.tcc.coorientadores') }}" name="buscarNome" method="get"
+                <form action="{{ route('aluno.coorientadores.tcc') }}" name="buscarNome" method="get"
                 enctype="multipart/form-data">
                     <div class="form-inline justify-content-center">
                         <div class="form-group mr-2 w-50">

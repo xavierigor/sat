@@ -14,11 +14,14 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
-                <form method="POST" action="{{ route('professor.destroy.documento') }}">
+                <form class="form-prevent-mult-submits" method="POST" action="{{ route('professor.destroy.documento') }}">
                     @csrf
                     @method('DELETE')
                     <input hidden value="" class="documento" name="documento">
-                    <button type="submit" class="btn btn-primary">Sim</button>
+                    <button type="submit" class="btn btn-primary button-prevent-mult-submits">
+                        <i style="display: none;" class="spinner-submit fa fa-spinner fa-spin"></i>
+                        Sim
+                    </button>
                 </form>
             </div>
         </div>

@@ -301,30 +301,18 @@ class TccController extends Controller
         } else if ($request->tipo_solicitacao == "coorientacao"){
             $tipo_solicitacao = "Coorientação";
         }
-        
-        $solicitacao = Solicitacao::where([['solicitante_id', '=', Auth::user()->id],
-                                           ['solicitado_id', '=', $request->prof_solicitado],
-                                           ['tipo_solicitacao', '=', $request->tipo_solicitacao]])
-                                    ->get();
-        
-        // verificar se já foi enviada uma solicitação para esse professor para evitar erro de varios clicks no botao
-        if($solicitacao->count() > 0){
-            return redirect()->back()->with(session()->flash('error', 'Erro ao Solicitar ' . $tipo_solicitacao . ' de TCC. Você só pode enviar uma solicitação para cada professor.'));
-        
-        } else {
 
-            // Criar nova solicitação
-            $solicitacao = new Solicitacao;
-            $solicitacao->tipo_solicitacao = $request->tipo_solicitacao;
-            $solicitacao->solicitante_id = Auth::user()->id;
-            $solicitacao->solicitado_id = $request->prof_solicitado;
-    
-            if($solicitacao->save()){
-                return redirect()->back()->with(session()->flash('info', 'Solicitação de ' . $tipo_solicitacao . ' de TCC enviada.'));
-            } 
-    
-            return redirect()->back()->with(session()->flash('error', 'Erro ao Solicitar ' . $tipo_solicitacao . ' de TCC.'));
-        }
+        // Criar nova solicitação
+        $solicitacao = new Solicitacao;
+        $solicitacao->tipo_solicitacao = $request->tipo_solicitacao;
+        $solicitacao->solicitante_id = Auth::user()->id;
+        $solicitacao->solicitado_id = $request->prof_solicitado;
+
+        if($solicitacao->save()){
+            return redirect()->back()->with(session()->flash('info', 'Solicitação de ' . $tipo_solicitacao . ' de TCC enviada.'));
+        } 
+
+        return redirect()->back()->with(session()->flash('error', 'Erro ao Solicitar ' . $tipo_solicitacao . ' de TCC.'));
 
     }
     

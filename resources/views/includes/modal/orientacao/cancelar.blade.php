@@ -14,10 +14,14 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
-                <form method="POST" action="{{ route('aluno.tcc.cancelar-orientacao') }}">
+                <form class="form-prevent-mult-submits" method="POST" action="{{ route('aluno.cancelar-orientacao.tcc') }}">
                     @csrf
                     <input hidden value="" class="orientador_id" id="orientador_id" name="orientador_id">
-                    <button type="submit" class="btn btn-primary">Sim</button>
+                    
+                    <button type="submit" class="btn btn-primary button-prevent-mult-submits">
+                        <i style="display: none;" class="spinner-submit fa fa-spinner fa-spin"></i>
+                        Sim
+                    </button>
                 </form>
             </div>
         </div>

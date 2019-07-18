@@ -8,7 +8,7 @@
 
 @section('content')
 <div>
-    <form method="POST" action="{{ route('aluno.update') }}" enctype="multipart/form-data">
+    <form class="form-prevent-mult-submits" method="POST" action="{{ route('aluno.update') }}" enctype="multipart/form-data">
         @csrf
         <div class="form-row">
             <div class="form-group col-md-8">
@@ -57,7 +57,10 @@
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary mt-3">Salvar Alterações</button>
+        <button type="submit" class="btn btn-primary mt-3 button-prevent-mult-submits">
+            <i style="display: none;" class="spinner-submit fa fa-spinner fa-spin"></i>
+            Salvar Alterações
+        </button>
     </form>
 </div>
 @endsection

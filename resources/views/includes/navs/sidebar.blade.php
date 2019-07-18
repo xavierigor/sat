@@ -108,7 +108,7 @@
                         <li class="{{ Request::is('aluno/tcc/visualizar') ? 'active' : ''}}"><a href="{{ route('aluno.visualizar.tcc') }}">Visualizar</a></li>
                         <li class="{{ Request::is('aluno/tcc/editar') ? 'active' : ''}}"><a href="{{ route('aluno.editar.tcc') }}">Editar</a></li>
                         <li class="{{ Request::is('aluno/tcc/orientador') ? 'active' : ''}}"><a href="{{ route('aluno.orientador.tcc') }}">Orientador</a></li>
-                        <li class="{{ Request::is('aluno/tcc/coorientadores') ? 'active' : ''}}"><a href="{{ route('aluno.tcc.coorientadores') }}">Coorientadores</a></li>
+                        <li class="{{ Request::is('aluno/tcc/coorientadores') ? 'active' : ''}}"><a href="{{ route('aluno.coorientadores.tcc') }}">Coorientadores</a></li>
                         <li class="{{ Request::is('aluno/tcc/documentos') ? 'active' : ''}}"><a href="{{ route('aluno.documentos.tcc') }}">Documentos</a></li>
                     </ul>
 

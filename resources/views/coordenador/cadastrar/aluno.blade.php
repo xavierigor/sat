@@ -17,7 +17,7 @@
         
         <small class="d-block mb-3">Os campos com <span class="text-danger">*</span> são obrigatórios</small>
 
-        <form method="POST" action="{{ route('coordenador.salvar.aluno') }}">
+        <form class="form-prevent-mult-submits" method="POST" action="{{ route('coordenador.salvar.aluno') }}">
             @csrf
             <div class="form-row">
                 <div class="form-group col-md-8">
@@ -52,7 +52,10 @@
                 </div>
             </div>
             
-            <button type="submit" class="btn btn-primary">Cadastrar</button>
+            <button type="submit" class="btn btn-primary button-prevent-mult-submits">
+                <i style="display: none;" class="spinner-submit fa fa-spinner fa-spin"></i>
+                Cadastrar
+            </button>
         </form>
     </div>
 

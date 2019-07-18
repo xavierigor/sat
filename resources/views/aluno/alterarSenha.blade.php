@@ -8,7 +8,7 @@
 
 @section('content')
 <div>
-    <form action="{{ route('aluno.salvar.senha') }}" method="post">
+    <form class="form-prevent-mult-submits" action="{{ route('aluno.salvar.senha') }}" method="post">
         @csrf
         <div class="form-row">
             <div class="form-group col-md-12">
@@ -36,7 +36,10 @@
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary">Salvar</button>
+        <button type="submit" class="btn btn-primary button-prevent-mult-submits">
+            <i style="display: none;" class="spinner-submit fa fa-spinner fa-spin"></i>
+            Salvar
+        </button>
     </form>
 </div>
 @endsection
