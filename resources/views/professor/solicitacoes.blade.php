@@ -32,19 +32,19 @@
                             
                             <div class="m-auto ">
                                 @if($solicitacao->tipo_solicitacao == "orientacao")
-                                    <h5 class="d-inline-block">
+                                    <h6 class="d-inline-block">
                                         Orientar TCC de
-                                        <a href="#" class="d-inline-block ml-1">
-                                            <h5>{{ $solicitacao->solicitante->name }}</h5>
+                                        <a href="#" class="d-inline-block">
+                                            <h6>{{ $solicitacao->solicitante->name }}</h6>
                                         </a>?
-                                    </h5>
+                                    </h6>
                                 @elseif($solicitacao->tipo_solicitacao == "coorientacao")
-                                    <h5 class="d-inline-block">
+                                    <h6 class="d-inline-block">
                                         Coorientar TCC de
-                                        <a href="#" class="d-inline-block ml-1">
-                                            <h5>{{ $solicitacao->solicitante->name }}</h5>
+                                        <a href="#" class="d-inline-block">
+                                            <h6>{{ $solicitacao->solicitante->name }}</h6>
                                         </a>?
-                                    </h5>
+                                    </h6>
                                 @endif
                             </div>
                             @if($solicitacao->tipo_solicitacao == "orientacao" && Auth::guard('professor')->user()->disponivel_orient == false)
@@ -52,7 +52,7 @@
                             @else
                                 <div class="m-auto ">
                                     <!-- Chamar modal aceitar solicitacao -->
-                                    <button title="Aceitar" type="button" class="btn btn-success" data-toggle="modal"
+                                    <button title="Aceitar" type="button" class="btn btn-outline-success btn-sm" data-toggle="modal"
                                         data-target="#aceitarSolicitacao" data-nome="{{ $solicitacao->solicitante->name }}" 
                                         data-alunoid="{{ $solicitacao->solicitante->id }}"  data-tiposolic="{{ $solicitacao->tipo_solicitacao }}"
                                         data-idsolic="{{ $solicitacao->id }}">
@@ -60,7 +60,7 @@
                                         <i class="fas fa-check fa-fw"></i>
                                     </button>
                                     <!-- Chamar modal cancelar solicitacao -->
-                                    <button title="Recusar" type="button" class="btn btn-danger" data-toggle="modal"
+                                    <button title="Recusar" type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal"
                                         data-target="#recusarSolicitacao" data-nome="{{ $solicitacao->solicitante->name }}"
                                         data-alunoid="{{ $solicitacao->solicitante->id }}"  data-tiposolic="{{ $solicitacao->tipo_solicitacao }}"
                                         data-idsolic="{{ $solicitacao->id }}">

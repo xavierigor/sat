@@ -15,10 +15,10 @@
                 enctype="multipart/form-data">
                 <div class="form-inline justify-content-center">
                     <div class="form-group mr-2 w-50">
-                        <input value="{{ request('n') }}" class="form-control w-100" placeholder="Nome do professor" type="text" name="n">
+                        <input value="{{ request('n') }}" class="form-control form-control-sm w-100" placeholder="Nome do professor" type="text" name="n">
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary" value="Buscar">
+                        <button type="submit" class="btn btn-outline-primary btn-sm" value="Buscar">
                             Buscar
                             <i class="fas fa-search fa-fw ml-1"></i>
                         </button>

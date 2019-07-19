@@ -14,10 +14,10 @@
             {{-- @csrf --}}
             <div class="form-inline justify-content-center">
                 <div class="form-group mr-2 w-50">
-                    <input class="form-control w-100" placeholder="Nome do professor" type="text" name="n">
+                    <input class="form-control form-control-sm w-100" placeholder="Nome do professor" type="text" name="n">
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary" value="Buscar">
+                    <button type="submit" class="btn btn-outline-primary btn-sm" value="Buscar">
                         Buscar
                         <i class="fas fa-search fa-fw ml-1"></i>
                     </button>
@@ -49,7 +49,7 @@
                             <td>{{ $professor->email }}</td>
                             <td>{{ $professor->matricula }}</td>
                             <td>
-                                <button class="btn btn-outline-primary" data-toggle="modal" data-target="#visualizarProfessor"
+                                <button class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#visualizarProfessor"
                                     data-nome="{{ $professor->name }}" data-matricula="{{ $professor->matricula }}"
                                     data-telefone="{{ $professor->telefone }}" data-email="{{ $professor->email }}"
                                     data-image="{{ $professor->image }}"
@@ -57,10 +57,10 @@
                                     data-area_de_interesse="{{ $professor->area_de_interesse }}" title="Ver">
                                     <i class="fas fa-eye fa-fw"></i>
                                 </button>
-                                <!-- <button role="button" class="btn btn-outline-success" data-toggle="tooltip" data-placement="top" title="Editar Professor">
+                                <!-- <button role="button" class="btn btn-outline-success btn-sm" data-toggle="tooltip" data-placement="top" title="Editar Professor">
                                                 <i class="fas fa-pencil-alt fa-fw"></i>
                                             </button> -->
-                                <button title="Excluir" type="button" class="btn btn-outline-danger" data-toggle="modal"
+                                <button title="Excluir" type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal"
                                     data-target="#removerProfessor" data-nome="{{ $professor->name }}"
                                     data-id="{{ $professor->id }}">
                                     <i class="fas fa-trash-alt fa-fw"></i>

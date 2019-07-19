@@ -9,11 +9,11 @@
 @section('content')
     <div>
         <div>
-            <h5>Título</h5>
+            <h6 class="font-weight-bold">Título</h6>
             <p>{{ Auth::user()->tcc->titulo }}</p>
         </div>
         <div>
-            <h5>Área de Pesquisa</h5>
+            <h6 class="font-weight-bold">Área de Pesquisa</h6>
             <p>{{ Auth::user()->tcc->area_de_pesquisa }}</p>
         </div>
         

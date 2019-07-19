@@ -58,20 +58,20 @@ body {
 
 .wrapper .content .escolha-login a{
     text-decoration: none;
-    color: #232323;
-    border: 1px solid #232323;
+    /* color: #232323; */
+    /* border: 1px solid #232323; */
     padding: 10px;
     display: block;
 }
 
-
+/* 
 .login-form button {
     all:unset;
     padding: 10px 20px;
     border: 1px solid #FF0100;
     color: #FF0100;
     font-weight: 700;
-}
+} */
 
 @media(min-width: 768px) {
     .login-form {

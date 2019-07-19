@@ -14,10 +14,10 @@
             {{-- @csrf --}}
             <div class="form-inline justify-content-center">
                 <div class="form-group mr-2 w-50">
-                    <input value="{{ request('n') }}" class="form-control w-100" placeholder="Nome do aluno" type="text" name="n">
+                    <input value="{{ request('n') }}" class="form-control form-control-sm w-100" placeholder="Nome do aluno" type="text" name="n">
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary" value="Buscar">
+                    <button type="submit" class="btn btn-outline-primary btn-sm" value="Buscar">
                         Buscar
                         <i class="fas fa-search fa-fw ml-1"></i>
                     </button>
@@ -49,7 +49,7 @@
                             <td>{{ $aluno->email }}</td>
                             <td>{{ $aluno->matricula }}</td>
                             <td>
-                                <button href="#" role="button" class="btn btn-outline-primary" data-toggle="modal"
+                                <button href="#" role="button" class="btn btn-outline-primary btn-sm" data-toggle="modal"
                                     data-target="#visualizarAluno" data-nome="{{ $aluno->name }}"
                                     data-matricula="{{ $aluno->matricula }}" data-telefone="{{ $aluno->telefone }}"
                                     data-email="{{ $aluno->email }}" data-image="{{ $aluno->image }}"
@@ -57,10 +57,10 @@
                                     title="Ver">
                                     <i class="fas fa-eye fa-fw"></i>
                                 </button>
-                                <!-- <button role="button" class="btn btn-outline-success" data-toggle="tooltip" data-placement="top" title="Editar">
+                                <!-- <button role="button" class="btn btn-outline-success btn-sm" data-toggle="tooltip" data-placement="top" title="Editar">
                                                 <i class="fas fa-pencil-alt fa-fw"></i>
                                             </button> -->
-                                <button title="Excluir" type="button" class="btn btn-outline-danger" data-toggle="modal"
+                                <button title="Excluir" type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal"
                                     data-target="#removerAluno" data-nome="{{ $aluno->name }}" data-id="{{ $aluno->id }}">
                                     <i class="fas fa-trash-alt fa-fw"></i>
                                 </button>

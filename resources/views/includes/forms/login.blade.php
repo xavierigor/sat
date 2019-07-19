@@ -31,7 +31,7 @@
 </div> --}}
 
 <div class="form-group mb-4 row mt-4">
-    <button type="submit" class="w-100">
+    <button type="submit" class="w-100 btn btn-outline-laranja">
         {{ __('Entrar') }} <i class="fas fa-sign-in-alt ml-1"></i>
     </button>
 

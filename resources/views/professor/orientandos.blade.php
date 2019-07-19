@@ -13,10 +13,10 @@
             {{-- @csrf --}}
             <div class="form-inline justify-content-center">
                 <div class="form-group mr-2 w-50">
-                    <input value="{{ request('n') }}" class="form-control w-100" placeholder="Nome do aluno" type="text" name="n">
+                    <input value="{{ request('n') }}" class="form-control form-control-sm w-100" placeholder="Nome do aluno" type="text" name="n">
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary" value="Buscar">
+                    <button type="submit" class="btn btn-primary btn-sm" value="Buscar">
                         Buscar
                         <i class="fas fa-search fa-fw ml-1"></i>
                     </button>
@@ -56,10 +56,10 @@
                                     title="Ver">
                                     <i class="fas fa-eye fa-fw"></i>
                                 </button>
-                                <a href="#" title="Documentos" class="btn btn-outline-info">
+                                <a href="#" title="Documentos" class="btn btn-outline-info btn-sm">
                                     <i class="fas fa-file-pdf fa-fw"></i>
                                 </a>
-                                <button title="Excluir" type="button" class="btn btn-outline-danger" data-toggle="modal"
+                                <button title="Excluir" type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal"
                                     data-target="#removerAluno" data-nome="{{ $orientando->name }}" data-id="{{ $orientando->id }}">
                                     <i class="fas fa-trash-alt fa-fw"></i>
                                 </button>

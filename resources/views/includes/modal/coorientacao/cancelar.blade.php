@@ -2,7 +2,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="cancelarCoorientacaoLabel">Cancelar Orientação</h5>
+                <h6 class="modal-title font-weight-bold" id="cancelarCoorientacaoLabel">Cancelar Orientação</h6>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

@@ -19,32 +19,32 @@
         </div>
         <div class="col-xl-8 col-sm-12 col-md-12 text-md-left row d-flex mx-auto">
             <div class="col-md-7 col-sm-12 pt-4">
-                <h5>
+                <h6>
                     <i class="fas fa-user-circle fa-fw"></i>
                     {{ Auth::user()->name }}
-                </h5><br>
-                <h5>
+                </h6><br>
+                <h6>
                     <i class="fas fa-at fa-fw"></i>
                     {{ Auth::user()->email }}
-                </h5><br>
-                <h5>
+                </h6><br>
+                <h6>
                     <i class="fas fa-phone fa-fw"></i>
                     @if(Auth::user()->telefone) 
                         {{ Auth::user()->telefone }}
                     @else
                         (--) - ---- ----
                     @endif
-                </h5>
+                </h6>
             </div>
             <div class="col-md-5 col-sm-12 pt-4">
-                <h5>
+                <h6>
                     <i class="fas fa-calendar-alt fa-fw"></i>
                     {{ DateTime::createFromFormat('Y-m-d', Auth::user()->data_nasc)->format('d/m/Y') }}
-                </h5><br>
-                <h5>
+                </h6><br>
+                <h6>
                     <i class="fas fa-id-badge fa-fw"></i>
                     {{ Auth::user()->matricula }}
-                </h5>
+                </h6>
             </div>
         </div>
     </div>

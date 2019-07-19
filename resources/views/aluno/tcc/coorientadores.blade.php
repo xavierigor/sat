@@ -21,25 +21,25 @@
                 <div class="row p-3 text-center">
                     <div class="col-xl-4 col-sm-12 col-md-6 d-flex">
                         @if($coorientacao->coorientador->image)
-                            ​<img src="{{ asset('storage/perfil/professores/' . $coorientacao->coorientador->image) }}"  class="img-perfil" alt="imagem do perfil">
+                            ​<img src="{{ asset('storage/perfil/professores/' . $coorientacao->coorientador->image) }}"  class="img-perfil-media" alt="imagem do perfil">
                         @else
-                        ​    <img src="{{ asset('images/user.png') }}" class="img-perfil" alt="imagem do perfil">
+                        ​    <img src="{{ asset('images/user.png') }}" class="img-perfil-media" alt="imagem do perfil">
                         @endif
                     </div>
                     <div class="col-xl-8 col-sm-12 col-md-6 text-md-left row d-flex m-auto">
                         <div class="col-md-12 col-sm-12 pt-4">
                             <div class="m-auto ">
-                                <h4 class="d-inline-block">
+                                <h5 class="d-inline-block">
                                     <a href="{{ route('public.professores.perfil', Hashids::encode($coorientacao->coorientador->id)) }}">
                                         {{ $coorientacao->coorientador->name }}   
                                     </a>
                                     é seu coorientador.
-                                </h4>
+                                </h5>
                             </div>
                             <br>
                             <div class="m-auto ">
                                 <!-- Chamar modal cancelar orientação -->
-                                <button title="Cancelar" type="button" class="btn btn-danger" data-toggle="modal"
+                                <button title="Cancelar" type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal"
                                 data-target="#cancelarCoorientacao" data-nome="{{ $coorientacao->coorientador->name }}"
                                 data-id="{{ $coorientacao->coorientador->id }}" data-tiposolicitacao="coorientacao">
                                     Cancelar Coorientação
@@ -70,19 +70,19 @@
                     </div>
                     <div class="col-md-9 col-ms-12 p-2 text-md-left ">
                         <div class="m-auto ">
-                            <h5 class="d-inline-block mr-1">
+                            <h6 class="d-inline-block mr-1">
                                 Solicitação de coorientação de TCC enviada para 
                                 <a class="d-inline-block" href="{{ route('public.professores.perfil', Hashids::encode($solicitacao->solicitado->id)) }}">
-                                    <h5>{{ $solicitacao->solicitado->name }}</h5>
+                                    <h6>{{ $solicitacao->solicitado->name }}</h6>
                                 </a>.
-                            </h5>
+                            </h6>
                         </div>
                         <div class="m-auto ">
                             <!-- Chamar modal cancelar solicitacao -->
-                            <button title="Cancelar" type="button" class="btn btn-danger" data-toggle="modal"
+                            <button title="Cancelar" type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal"
                                 data-target="#cancelarSolicitacao" data-nome="{{ $solicitacao->solicitado->name }}"
                                 data-id="{{ $solicitacao->solicitado->id }}" data-tiposolicitacao="coorientacao">
-                                Cancelar Solicitação
+                                Cancelar
                                 <i class="fas fa-times fa-fw"></i>
                             </button>
                         </div>
@@ -102,10 +102,10 @@
                 enctype="multipart/form-data">
                     <div class="form-inline justify-content-center">
                         <div class="form-group mr-2 w-50">
-                            <input value="{{ request('n') }}" class="form-control w-100" placeholder="Nome do professor" type="text" name="n">
+                            <input value="{{ request('n') }}" class="form-control form-control-sm w-100" placeholder="Nome do professor" type="text" name="n">
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary" value="Buscar">
+                            <button type="submit" class="btn btn-outline-primary btn-sm" value="Buscar">
                                 Buscar
                                 <i class="fas fa-search fa-fw ml-1"></i>
                             </button>
@@ -142,7 +142,7 @@
 
                                     <td>
                                         <!-- Chamar modal enviar solicitacao -->
-                                        <button title="Solicitar" type="button" class="btn btn-primary" data-toggle="modal"
+                                        <button title="Solicitar" type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal"
                                             data-target="#enviarSolicitacao" data-nome="{{ $professor->name }}" 
                                             data-id="{{ $professor->id }}" data-tipoSolicitacao="coorientacao">
                                             Solicitar
