@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Orientacao;
+use App\Coorientacao;
 use App\User;
 use Auth;
 use Hash;
@@ -32,18 +33,62 @@ class ProfessorController extends Controller
         return view('professor.alterarSenha');
     }
 
-    public function orientandos() {
-        $orientandos = Auth::user()->getOrientandos();
 
-        return view('professor.orientandos')->with('orientandos', $orientandos);
+    public function orientandos() {
+        $orientacoes = Auth::user()->getOrientandos();
+        return view('professor.tcc.orientandos')->with('orientacoes', $orientacoes);
     }
+    
+    public function coorientandos() {
+        $coorientacoes = Auth::user()->getCoorientandos();
+        return view('professor.tcc.coorientandos')->with('coorientacoes', $coorientacoes);
+    }
+
+    public function cancelarOrientacao(Request $request){
+        $aluno = User::where('id', $request->orientando_id)->first();
+
+        $orientacao = Orientacao::where([
+            ['aluno_id', '=', $request->orientando_id],
+            ['orientador_id', '=', Auth::user()->id]
+        ]);
+        
+        $aluno->tcc->orientador_id = null;
+        
+        // Atualizando dados de orientador
+        Auth::guard('professor')->user()->num_orientandos -= 1;
+        
+        if($orientacao->delete() && $aluno->tcc->save() && Auth::guard('professor')->user()->save()) {
+            
+            return redirect()->back()->with(session()->flash('info', 'Orientação de TCC Cancelada.'));
+        } 
+    
+        return redirect()->back()->with(session()->flash('error', 'Erro ao cancelar Orientação de TCC.'));
+    }
+
+    public function cancelarCoorientacao(Request $request){
+
+        $coorientacao = Coorientacao::where([
+            ['aluno_id', '=', $request->coorientando_id],
+            ['coorientador_id', '=', Auth::user()->id]
+        ]);
+        
+        // Atualizando dados de orientador
+        Auth::guard('professor')->user()->num_coorientandos -= 1;
+
+        if($coorientacao->delete() && Auth::guard('professor')->user()->save()) {
+ 
+            return redirect()->back()->with(session()->flash('info', 'Coorientação de TCC Cancelada.'));
+        } 
+    
+        return redirect()->back()->with(session()->flash('error', 'Erro ao cancelar Coorientação de TCC.'));
+    }
+
 
     public function documentos() {
         $termo_de_responsabilidade = Auth::user()->termo_de_responsabilidade;
 
-        return view('professor.documentos')->with('termo_de_responsabilidade', $termo_de_responsabilidade);
+        return view('professor.tcc.documentos')->with('termo_de_responsabilidade', $termo_de_responsabilidade);
     }
-
 
     public function storeDocumentos(Request $request)
     {

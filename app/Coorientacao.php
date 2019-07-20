@@ -12,6 +12,10 @@ class Coorientacao extends Model
         return $this->belongsTo('App\Professor');
     }
 
+    public function coorientando() {
+        return $this->belongsTo('App\User', 'aluno_id');
+    }
+
     protected $fillable = [
         'coorientador_id', 'aluno_id'
     ];

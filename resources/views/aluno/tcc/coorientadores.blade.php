@@ -18,25 +18,24 @@
 
             @foreach($coorientacoes as $coorientacao)
 
-                <div class="row p-3 text-center">
-                    <div class="col-xl-4 col-sm-12 col-md-6 d-flex">
+                <div class="div-personalizada">
+                    <div class="div-img-media">
                         @if($coorientacao->coorientador->image)
                             ​<img src="{{ asset('storage/perfil/professores/' . $coorientacao->coorientador->image) }}"  class="img-perfil-media" alt="imagem do perfil">
                         @else
                         ​    <img src="{{ asset('images/user.png') }}" class="img-perfil-media" alt="imagem do perfil">
                         @endif
                     </div>
-                    <div class="col-xl-8 col-sm-12 col-md-6 text-md-left row d-flex m-auto">
-                        <div class="col-md-12 col-sm-12 pt-4">
+                    <div class="text-md-left row d-flex my-auto">
+                        <div class="col-md-12 col-sm-12">
                             <div class="m-auto ">
                                 <h5 class="d-inline-block">
-                                    <a href="{{ route('public.professores.perfil', Hashids::encode($coorientacao->coorientador->id)) }}">
+                                    <a class="d-inline-block" href="{{ route('public.professores.perfil', Hashids::encode($coorientacao->coorientador->id)) }}">
                                         {{ $coorientacao->coorientador->name }}   
                                     </a>
                                     é seu coorientador.
                                 </h5>
                             </div>
-                            <br>
                             <div class="m-auto ">
                                 <!-- Chamar modal cancelar orientação -->
                                 <button title="Cancelar" type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal"
@@ -60,15 +59,15 @@
             <!-- Importar modal cancelar solicitacao -->
             @include('includes.modal.solicitar-co-o-rientacao.cancelar')
             @foreach($solicitacoes as $solicitacao)
-                <div class="row text-center text-center">
-                    <div class="col-md-3 col-ms-12 d-flex ">
+                <div class="div-personalizada">
+                    <div class="div-img-solicitacao" >
                         @if($solicitacao->solicitado->image)
                             ​<img src="{{ asset('storage/perfil/professores/' . $solicitacao->solicitado->image) }}" class="img-perfil-solicitacao" alt="imagem do perfil">
                         @else
                         ​    <img src="{{ asset('images/user.png') }}" class="img-perfil-solicitacao" alt="imagem do perfil">
                         @endif
                     </div>
-                    <div class="col-md-9 col-ms-12 p-2 text-md-left ">
+                    <div class="text-md-left ">
                         <div class="m-auto ">
                             <h6 class="d-inline-block mr-1">
                                 Solicitação de coorientação de TCC enviada para 

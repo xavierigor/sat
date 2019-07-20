@@ -69,11 +69,15 @@ Route::prefix('/professor')->group(function() {
     Route::post('/aceitar-solicitacao', 'SolicitacaoController@aceitarSolicitacao')->name('professor.solicitacao.aceitar');
     Route::post('/recusar-solicitacao', 'SolicitacaoController@recusarSolicitacao')->name('professor.solicitacao.recusar');
 
-    Route::get('/orientandos', 'ProfessorController@orientandos')->name('professor.orientandos');
+    Route::get('/tcc/orientandos', 'ProfessorController@orientandos')->name('professor.orientandos.tcc');
+    Route::post('/tcc/orientandos/cancelar-orientacao', 'ProfessorController@cancelarOrientacao')->name('professor.cancelar-orientacao.tcc');
 
-    Route::get('/documentos', 'ProfessorController@documentos')->name('professor.documentos');
-    Route::post('/documentos', 'ProfessorController@storeDocumentos')->name('professor.store.documentos');
-    Route::delete('/documentos', 'ProfessorController@destroyDocumento')->name('professor.destroy.documento');
+    Route::get('/tcc/coorientandos', 'ProfessorController@coorientandos')->name('professor.coorientandos.tcc');
+    Route::post('/tcc/coorientandos/cancelar-coorientacao', 'ProfessorController@cancelarCoorientacao')->name('professor.cancelar-coorientacao.tcc');
+
+    Route::get('/tcc/documentos', 'ProfessorController@documentos')->name('professor.documentos.tcc');
+    Route::post('/tcc/documentos', 'ProfessorController@storeDocumentos')->name('professor.store.documentos');
+    Route::delete('/tcc/documentos', 'ProfessorController@destroyDocumento')->name('professor.destroy.documento');
 
 });
 
@@ -97,7 +101,7 @@ Route::prefix('/aluno')->group(function() {
     Route::post('/tcc/cancelar-solicitacao', 'TccController@cancelarSolicitacao')->name('aluno.cancelar-solicitacao.tcc');
     
     Route::get('/tcc/orientador', 'TccController@orientador')->name('aluno.orientador.tcc');
-    Route::post('/tcc/cancelar-orientacao', 'TccController@cancelarOrientacao')->name('aluno.cancelar-orientacao.tcc');
+    Route::post('/tcc/orientador/cancelar-orientacao', 'TccController@cancelarOrientacao')->name('aluno.cancelar-orientacao.tcc');
     
     Route::get('/tcc/coorientadores', 'TccController@coorientadores')->name('aluno.coorientadores.tcc');
     Route::post('/tcc/coorientadores/cancelar-coorientacao', 'TccController@cancelarCoorientacao')->name('aluno.cancelar-coorientacao.tcc');

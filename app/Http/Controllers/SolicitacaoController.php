@@ -18,7 +18,6 @@ class SolicitacaoController extends Controller
     private $TotalItensPágina = 10;
 
 
-
     public function solicitacoes(){
         // Buscando solicitacoes atribuidas ao professor autenticado + os dados do solicitante definidos no "WITH"
         $todas_solicitacoes = Solicitacao::select('id', 'tipo_solicitacao', 'solicitante_id')
@@ -27,7 +26,7 @@ class SolicitacaoController extends Controller
                                             ->orderBy('created_at', 'desc')
                                             ->paginate($this->TotalItensPágina);
 
-        return view('professor.solicitacoes')->with('todas_solicitacoes', $todas_solicitacoes);
+        return view('professor.tcc.solicitacoes')->with('todas_solicitacoes', $todas_solicitacoes);
     }
 
     public function aceitarSolicitacao(Request $request)
@@ -48,17 +47,16 @@ class SolicitacaoController extends Controller
                 $orientacao = new Orientacao;
                 $orientacao->orientador_id = Auth::guard('professor')->user()->id;
                 $orientacao->aluno_id = $request->aluno_id;
-                        
+                
+                // Atualizando dados de orientador
+                Auth::guard('professor')->user()->num_orientandos += 1;
+                if(Auth::guard('professor')->user()->num_orientandos >= 5){
+                    Auth::guard('professor')->user()->disponivel_orient = false;
+                }
+                                
                 // Deletar solicitacao de orientacao com id informado, criar novo orientacao e atualizar campos tcc do aluno
-                if($solicitacao->delete() && $aluno->tcc->save() && $orientacao->save()) {
+                if($solicitacao->delete() && $aluno->tcc->save() && $orientacao->save() && Auth::guard('professor')->user()->save()) {
                     
-                    // Atualizando dados de orientador
-                    Auth::guard('professor')->user()->num_orientandos = Auth::guard('professor')->user()->num_orientandos + 1;
-                    if(Auth::guard('professor')->user()->num_orientandos >= 5){
-                        Auth::guard('professor')->user()->disponivel_orient = false;
-                    }
-                    Auth::guard('professor')->user()->save();
-
                     return redirect()->back()->with(session()->flash('info', 'Solicitação de Orientação de TCC aceita.'));
                 } 
 
@@ -74,8 +72,11 @@ class SolicitacaoController extends Controller
             $coorientacao = new Coorientacao;
             $coorientacao->coorientador_id = Auth::guard('professor')->user()->id;
             $coorientacao->aluno_id = $request->aluno_id;
-                    
-            if($solicitacao->delete() && $coorientacao->save()) {
+                   
+            // Atualizando dados de orientador
+            Auth::guard('professor')->user()->num_coorientandos += 1;
+
+            if($solicitacao->delete() && $coorientacao->save() && Auth::guard('professor')->user()->save()) {
                 return redirect()->back()->with(session()->flash('info', 'Solicitação de Coorientação de TCC aceita.'));
             } 
             

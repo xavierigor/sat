@@ -18,9 +18,9 @@
             @if($todas_solicitacoes->count() > 0)
                 @foreach($todas_solicitacoes as $solicitacao)
                 
-                    <div class="row text-center text-center">
+                    <div class="div-personalizada">
 
-                        <div class="col-md-3 col-ms-12 d-flex ">
+                        <div class="div-img-solicitacao">
                             @if($solicitacao->solicitante->foto)
                                 ​<img src="{{ asset('storage/perfil/users/' . $solicitacao->solicitante->foto) }}" class="img-perfil-solicitacao" alt="imagem do perfil">
                             @else
@@ -28,7 +28,7 @@
                             @endif
                         </div>
                         
-                        <div class="col-md-9 col-ms-12 p-2 text-md-left ">
+                        <div class="text-md-left">
                             
                             <div class="m-auto ">
                                 @if($solicitacao->tipo_solicitacao == "orientacao")

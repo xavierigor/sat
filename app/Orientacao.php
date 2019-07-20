@@ -13,7 +13,7 @@ class Orientacao extends Model
     }
 
     public function orientando() {
-        return $this->hasOne('App\User', 'aluno_id');
+        return $this->belongsTo('App\User', 'aluno_id');
     }
 
     protected $fillable = [
