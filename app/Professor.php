@@ -25,7 +25,7 @@ class Professor extends Authenticatable
     }
     
     public function solicitacoes() {
-        return $this->hasMany('App\Solicitacao');
+        return $this->hasMany('App\Solicitacao', 'solicitado_id');
     }
 
     public function getOrientandos() {

@@ -18,6 +18,9 @@ class TccController extends Controller
 
     private $TotalItensPágina = 5;
 
+    public function __construct() {
+        $this->middleware('auth');
+    }
 
     // GET'S
 

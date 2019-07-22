@@ -11,6 +11,7 @@ use App\Professor;
 use App\Tcc;
 use App\Orientacao;
 use App\Coorientacao;
+use App\Mail\SolicitacaoOrientacaoAceita;
 
 class SolicitacaoController extends Controller
 {
@@ -57,6 +58,13 @@ class SolicitacaoController extends Controller
                 // Deletar solicitacao de orientacao com id informado, criar novo orientacao e atualizar campos tcc do aluno
                 if($solicitacao->delete() && $aluno->tcc->save() && $orientacao->save() && Auth::guard('professor')->user()->save()) {
                     
+                    // Enviar email
+                    \Mail::to($aluno->email)->send(new SolicitacaoOrientacaoAceita($aluno->name, Auth::guard('professor')->user()->name));
+
+                    if(count(\Mail::failures()) > 0) {
+                        return redirect()->back()->with(session()->flash('error', 'Erro ao aceitar Solicitação de Orientação de TCC.'));
+                    }
+
                     return redirect()->back()->with(session()->flash('info', 'Solicitação de Orientação de TCC aceita.'));
                 } 
 

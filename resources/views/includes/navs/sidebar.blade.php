@@ -70,7 +70,14 @@
                         </a>
                     </li>
                     <ul class="sub-menu collapse {{ Request::is('professor/tcc/orientandos') || Request::is('professor/tcc/coorientandos') || Request::is('professor/tcc/documentos') || Request::is('professor/solicitacoes') ? 'show' : '' }}" id="tcc-prof">
-                        <li class="{{ Request::is('professor/solicitacoes') ? 'active' : ''}}"><a href="{{ route('professor.solicitacoes') }}">Solicitações</a></li>
+                        <li class="{{ Request::is('professor/solicitacoes') ? 'active' : ''}}">
+                            <a href="{{ route('professor.solicitacoes') }}">
+                                Solicitações
+                                @if(Auth::guard('professor')->user()->solicitacoes->count() > 0)
+                                    <span class='ml-2 badge badge-light'>{{Auth::guard('professor')->user()->solicitacoes->count()}}</span>
+                                @endif
+                            </a>
+                        </li>
                         <li class="{{ Request::is('professor/tcc/orientandos') ? 'active' : ''}}"><a href="{{ route('professor.orientandos.tcc') }}">Orientandos</a></li>
                         <li class="{{ Request::is('professor/tcc/coorientandos') ? 'active' : ''}}"><a href="{{ route('professor.coorientandos.tcc') }}">Coorientandos</a></li>
                         <li class="{{ Request::is('professor/tcc/documentos') ? 'active' : ''}}"><a href="{{ route('professor.documentos.tcc') }}">Documentos</a></li>
