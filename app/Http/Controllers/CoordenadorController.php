@@ -154,6 +154,7 @@ class CoordenadorController extends Controller
             'email' => 'required|email|unique:users|max:100',
             'matricula' => 'required|max:9|unique:users',
             'data_nasc' => 'required|date|date_format:Y-m-d',
+            'tcc' => 'required',
         ]);
             
         // salva dados no BD
@@ -164,13 +165,13 @@ class CoordenadorController extends Controller
         $aluno->password = bcrypt(str_replace('/', '', date('d/m/Y',(strtotime($request->data_nasc)))));
         $aluno->matricula = $request->matricula;
         $aluno->data_nasc = $request->data_nasc;
-
         
         // verifica se dados de aluno foram salvos
         if($aluno->save()) {
             // cria novo tupla na tabela TCC e associa ao aluno salvo (com o id)
             $tcc = new Tcc;
             $tcc->user_id = $aluno->id;
+            $tcc->tcc = $request->tcc;
 
             if($tcc->save()) {
 

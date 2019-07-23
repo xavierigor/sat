@@ -9,6 +9,10 @@
 @section('content')
     <div>
         <div>
+            <h6 class="font-weight-bold">Disciplina</h6>
+            <p>{{ Auth::user()->tcc->tcc }}</p>
+        </div>
+        <div>
             <h6 class="font-weight-bold">Título</h6>
             <p>{{ Auth::user()->tcc->titulo }}</p>
         </div>

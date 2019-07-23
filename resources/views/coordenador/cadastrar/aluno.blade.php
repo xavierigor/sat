@@ -41,13 +41,24 @@
                     <input value="{{ old('email') }}" type="email" class="form-control form-control-sm {{ $errors->has('email') ? 'border-danger' : ''}}" id="email" name="email">
                     {!! $errors->first('email', '<small class="text-danger">:message</small>') !!}
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-3">
                     <label for="data_nasc">Data de Nascimento <span class="text-danger">*</span></label>
                     <input value="{{ old('data_nasc') }}" type="date" class="form-control form-control-sm {{ $errors->has('data_nasc') ? 'border-danger' : ''}}" id="data_nasc" name="data_nasc">
                     {!! $errors->first('data_nasc', '<small class="text-danger">:message</small>') !!}
                     <small class="form-text text-muted">
                         A data de nascimento será usada como senha no formato 
                         <span class="font-weight-bold">ddmmaaaa</span>
+                    </small>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="tcc">Tcc <span class="text-danger">*</span></label>
+                    <select value="{{ old('tcc') }}"  type="text" class="form-control form-control-sm {{ $errors->has('tcc') ? 'border-danger' : ''}}" id="tcc" name="tcc">
+                        <option {{ (old('tcc') == 'tcc 1') ? 'selected' : ''}}>tcc 1</option>
+                        <option {{ (old('tcc') == 'tcc 2') ? 'selected' : ''}}>tcc 2</option>
+                    </select>
+                    {!! $errors->first('tcc', '<small class="text-danger">:message</small>') !!}
+                    <small class="form-text text-muted">
+                        A disciplina de Tcc que o aluno está pagando
                     </small>
                 </div>
             </div>

@@ -153,13 +153,13 @@ class TccController extends Controller
 
     public function documentos()
     {
-        $tcc = Auth::user()->tcc;
+        // $tcc = Auth::user()->tcc;
 
-        $termo_de_compromisso = $tcc->termo_de_compromisso;
-        $rel_acompanhamento = $tcc->rel_acompanhamento;
+        // $termo_de_compromisso = $tcc->termo_de_compromisso;
+        // $rel_acompanhamento = $tcc->rel_acompanhamento;
 
-        return view('aluno.tcc.documentos')
-        ->with(['termo_de_compromisso' => $termo_de_compromisso, 'rel_acompanhamento' => $rel_acompanhamento]);
+        return view('aluno.tcc.documentos');
+        // ->with(['termo_de_compromisso' => $termo_de_compromisso, 'rel_acompanhamento' => $rel_acompanhamento]);
     }
 
     

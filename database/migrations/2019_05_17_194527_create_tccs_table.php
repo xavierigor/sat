@@ -15,6 +15,7 @@ class CreateTccsTable extends Migration
     {
         Schema::create('tccs', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('tcc')->default('tcc 1');
             $table->string('titulo')->default('Não definido');
             $table->string('area_de_pesquisa')->nullable();
             $table->string('termo_de_compromisso')->nullable();
