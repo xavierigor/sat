@@ -81,7 +81,19 @@
                 @endif
             @else
                 @if(Auth::guard('coordenador')->check())
-                    <li class="nav-item dropdown">
+
+                    <!-- <li class="nav-item"> -->
+                        <a href="{{ route('coordenador.notificacoes') }}" class="bottom-notification">
+                            <div class="notifications shadow-sm">
+                                <i class="fa fa-bell"></i>
+                                @if(Auth::guard('coordenador')->user()->novas_notificacoes > 0)
+                                   <span class="num">{{ Auth::guard('coordenador')->user()->novas_notificacoes }}</span>
+                                @endif
+                            </div>
+                        <!-- </a> -->
+                    </li>
+
+                    <li class="nav-item dropdown pl-2">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::guard('coordenador')->user()->name }} <span class="caret"></span>
                         </a>
@@ -105,7 +117,19 @@
                         </div>
                     </li>
                 @elseif(Auth::guard('professor')->check())
-                    <li class="nav-item dropdown">
+
+                    <!-- <li class="nav-item"> -->
+                        <a href="{{ route('professor.notificacoes') }}" class="bottom-notification">
+                            <div class="notifications shadow-sm">
+                                <i class="fa fa-bell"></i>
+                                @if(Auth::guard('professor')->user()->novas_notificacoes > 0)
+                                   <span class="num">{{ Auth::guard('professor')->user()->novas_notificacoes }}</span>
+                                @endif
+                            </div>
+                        </a>
+                    <!-- </li> -->
+
+                    <li class="nav-item dropdown pl-2">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::guard('professor')->user()->name }} <span class="caret"></span>
                         </a>
@@ -129,13 +153,25 @@
                         </div>
                     </li>
                 @else
-                    <li class="nav-item dropdown">
+                
+                    <!-- <li class="nav-item"> -->
+                        <a href="{{ route('aluno.notificacoes') }}" class="bottom-notification">
+                            <div class="notifications shadow-sm">
+                                <i class="fa fa-bell"></i>
+                                @if(Auth::user()->novas_notificacoes > 0)
+                                   <span class="num">{{ Auth::user()->novas_notificacoes }}</span>
+                                @endif
+                            </div>
+                        </a>
+                    <!-- </li> -->
+
+                    <li class="nav-item dropdown pl-2">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->name }} <span class="caret"></span>
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a href={{ route('aluno.dashboard') }} class="dropdown-item">
+                            <a href="{{ route('aluno.dashboard') }}" class="dropdown-item">
                                 <i class="fas fa-tachometer-alt mr-1 fa-fw"></i>
                                 Painel de Controle
                             </a>

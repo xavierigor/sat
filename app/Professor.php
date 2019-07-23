@@ -60,7 +60,7 @@ class Professor extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'data_nasc', 'telefone', 'image', 'num_orientandos', 'num_coorientandos'
+        'name', 'email', 'password', 'data_nasc', 'telefone', 'image', 'num_orientandos', 'num_coorientandos', 'novas_notificacoes'
     ];
 
     /**

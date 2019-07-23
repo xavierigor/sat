@@ -3,12 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
 use Auth;
+use App\User;
+use App\Notificacao;
 use Hash;
 
 class AlunoController extends Controller
 {
+
+    private $TotalNotificacoesPagina = 20;
+
+
     public function __construct() {
         $this->middleware('auth');
     }
@@ -29,6 +34,21 @@ class AlunoController extends Controller
         return view('aluno.alterarSenha');
     }
 
+    public function notificacoes(){
+
+        $todas_notificacoes = Notificacao::select('id', 'mensagem', 'updated_at')
+                                        ->where([["tipo_usuario", "=", "aluno"], 
+                                                ["notificado_id", "=", Auth::user()->id]])
+                                        ->orderBy('updated_at', 'desc')
+                                        ->paginate($this->TotalNotificacoesPagina);
+
+        $novas_notificacoes = Auth::user()->novas_notificacoes;
+        Auth::user()->novas_notificacoes = 0;
+        Auth::user()->save();
+
+        return view('aluno.notificacoes')->with('todas_notificacoes', $todas_notificacoes)
+                                        ->with('novas_notificacoes', $novas_notificacoes);
+    }
 
     // POST'S
 

@@ -16,7 +16,7 @@ class CreateSolicitacoesTable extends Migration
         Schema::create('solicitacoes', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->string('tipo_solicitacao')->default('orientacao'); // Orientação ou Coorientação
+            $table->string('tipo_solicitacao'); // Orientação ou Coorientação
             $table->unsignedBigInteger('solicitante_id');
             $table->unsignedBigInteger('solicitado_id');
 

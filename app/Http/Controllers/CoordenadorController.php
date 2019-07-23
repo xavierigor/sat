@@ -6,10 +6,15 @@ use Illuminate\Http\Request;
 use App\Professor;
 use App\User;
 use App\Tcc;
+use Auth;
+use App\Notificacao;
 
 class CoordenadorController extends Controller
 {
 
+    private $TotalNotificacoesPagina = 20;
+
+    
     // Variavel que armazena o numero de itens que sera mostrado na paginação
     private $TotalItensPágina = 5;
     
@@ -21,6 +26,23 @@ class CoordenadorController extends Controller
     public function dashboard() {
         return view('coordenador.dashboard');
     }
+
+    public function notificacoes(){
+
+        $todas_notificacoes = Notificacao::select('id', 'mensagem', 'updated_at')
+                                        ->where([["tipo_usuario", "=", "coordenador"], 
+                                                ["notificado_id", "=", Auth::guard('coordenador')->user()->id]])
+                                        ->orderBy('updated_at', 'desc')
+                                        ->paginate($this->TotalNotificacoesPagina);
+
+        $novas_notificacoes = Auth::guard('coordenador')->user()->novas_notificacoes;
+        Auth::guard('coordenador')->user()->novas_notificacoes = 0;
+        Auth::guard('coordenador')->user()->save();
+
+        return view('aluno.notificacoes')->with('todas_notificacoes', $todas_notificacoes)
+                                        ->with('novas_notificacoes', $novas_notificacoes);
+    }
+
 
     // Get's Professor
     
@@ -97,6 +119,18 @@ class CoordenadorController extends Controller
         $professor->data_nasc = $request->data_nasc;
 
         if($professor->save()) {
+
+            // Criar nova Notificacao
+            $notificacao = new Notificacao;
+            $notificacao->tipo_usuario = "professor";
+            $notificacao->notificado_id = $professor->id;
+            $notificacao->mensagem =  "Lembre-se de alterar a sua senha para a sua conta do SAT ficar mais protegida.";
+            $notificacao->save();
+
+            // Add +1 em novas solicitacoes de usuario
+            $professor->novas_notificacoes += 1;
+            $professor->save();
+            
             return redirect()->back()->with(session()->flash('success', 'Professor cadastrado.'));
         }
 
@@ -139,6 +173,18 @@ class CoordenadorController extends Controller
             $tcc->user_id = $aluno->id;
 
             if($tcc->save()) {
+
+                // Criar nova Notificacao
+                $notificacao = new Notificacao;
+                $notificacao->tipo_usuario = "aluno";
+                $notificacao->notificado_id = $aluno->id;
+                $notificacao->mensagem =  "Lembre-se de alterar a sua senha para a sua conta do SAT ficar mais protegida.";
+                $notificacao->save();
+
+                // Add +1 em novas solicitacoes de usuario
+                $aluno->novas_notificacoes += 1;
+                $aluno->save();
+
                 return redirect()->back()->with(session()->flash('success', 'Aluno cadastrado.'));
             } else {
                 return back()->with(session()->flash('error', 'Erro ao cadastrar Aluno.'));

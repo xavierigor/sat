@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Auth;
-use App\Solicitacao;
 use App\User;
 use App\Professor;
 use App\Tcc;
+use App\Solicitacao;
+use App\Notificacao;
 use App\Orientacao;
 use App\Coorientacao;
 use App\Mail\SolicitacaoOrientacaoAceita;
@@ -62,8 +63,20 @@ class SolicitacaoController extends Controller
                     \Mail::to($aluno->email)->send(new SolicitacaoOrientacaoAceita($aluno->name, Auth::guard('professor')->user()->name));
 
                     if(count(\Mail::failures()) > 0) {
-                        return redirect()->back()->with(session()->flash('error', 'Erro ao aceitar Solicitação de Orientação de TCC.'));
+                        return redirect()->back()->with(session()->flash('error', 'Erro ao enviar email de notificação.'));
                     }
+
+                    // Criar nova Notificacao
+                    $notificacao = new Notificacao;
+                    $notificacao->tipo_usuario = "aluno";
+                    $notificacao->notificado_id = $request->aluno_id;
+                    $notificacao->mensagem =  Auth::guard('professor')->user()->name . " aceitou a sua solicitação de orientação de Tcc.";
+                    $notificacao->save();
+
+                    // Add +1 em novas solicitacoes de usuario'
+                    $aluno = User::where('id', $request->aluno_id)->first();
+                    $aluno->novas_notificacoes += 1;
+                    $aluno->save();
 
                     return redirect()->back()->with(session()->flash('info', 'Solicitação de Orientação de TCC aceita.'));
                 } 
@@ -85,6 +98,19 @@ class SolicitacaoController extends Controller
             Auth::guard('professor')->user()->num_coorientandos += 1;
 
             if($solicitacao->delete() && $coorientacao->save() && Auth::guard('professor')->user()->save()) {
+
+                // Criar nova Notificacao
+                $notificacao = new Notificacao;
+                $notificacao->tipo_usuario = "aluno";
+                $notificacao->notificado_id = $request->aluno_id;
+                $notificacao->mensagem =  Auth::guard('professor')->user()->name . " aceitou a sua solicitação de coorientação de Tcc.";
+                $notificacao->save();
+
+                // Add +1 em novas solicitacoes de usuario'
+                $aluno = User::where('id', $request->aluno_id)->first();
+                $aluno->novas_notificacoes += 1;
+                $aluno->save();
+
                 return redirect()->back()->with(session()->flash('info', 'Solicitação de Coorientação de TCC aceita.'));
             } 
             
@@ -105,7 +131,20 @@ class SolicitacaoController extends Controller
         }
             
         // Deletar solicitacao com id informado
-        if($solicitacao->delete()) {            
+        if($solicitacao->delete()) {
+            
+            // Criar nova Notificacao
+            $notificacao = new Notificacao;
+            $notificacao->tipo_usuario = "aluno";
+            $notificacao->notificado_id = $request->aluno_id;
+            $notificacao->mensagem =  Auth::guard('professor')->user()->name . " recusou a sua solicitação de " . $tipo_solicitacao . " de Tcc.";
+            $notificacao->save();
+
+            // Add +1 em novas solicitacoes de usuario'
+            $aluno = User::where('id', $request->aluno_id)->first();
+            $aluno->novas_notificacoes += 1;
+            $aluno->save();
+
             return redirect()->back()->with(session()->flash('info', 'Solicitação de ' . $tipo_solicitacao . ' de TCC recusada.'));
         }
         return redirect()->back()->with(session()->flash('error', 'Erro ao recusar Solicitação de ' . $tipo_solicitacao . ' de TCC.'));

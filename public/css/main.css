@@ -65,8 +65,14 @@ nav {
     .navbar-collapse {
         padding: .5rem 1rem !important;
     }
+    .navbar-collapse ul li {
+        margin-left: auto;
+    }
+    .navbar-collapse .bottom-notification{
+        margin-left: auto;
+    }
+    
 }
-
 
 nav .navbar-brand {
     padding: 15px 82px;
@@ -194,3 +200,56 @@ nav .dropdown-menu a {
 }
 
 /* Fim solicitacoes e co-o-rientandos */
+
+
+/* Notificações */
+
+.bottom-notification {
+    position:relative;
+    /* width: 35px; */
+    /* top:30%;*/
+    /* left:70%;  */
+    /* transform:translate(-50%,-50%); */
+    /* margin: auto; */
+}
+.notifications {
+    width:32px;
+    height:32px;
+    background:#fff;
+    border-radius:30px;
+    box-sizing:border-box;
+    text-align:center;
+    /* box-shadow:0 2px 5px rgba(0,0,0,.2); */
+}
+.notifications .fa {
+    color:#cecece;
+    line-height:32px;
+    font-size:17px;
+}
+.notifications .num {
+    position:absolute;
+    top:0;
+    right:-5px;
+    width:15px;
+    height:15px;
+    border-radius:50%;
+    background:#FF0100;
+    color:#fff;
+    line-height:15px;
+    font-size:12px;
+    font-family:sans-serif;
+    text-align:center;
+}
+
+.caixa-notificacao{
+    min-height: 40px;
+    /* display: flex; */
+}
+.caixa-notificacao .data-notificacao{
+    width: 100%;
+}
+.caixa-notificacao .mensagem-notificacao{
+    width: 100%;
+}
+
+/* Fim Notificações */

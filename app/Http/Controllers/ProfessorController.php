@@ -9,9 +9,14 @@ use App\User;
 use Auth;
 use Hash;
 use Storage;
+use App\Notificacao;
 
 class ProfessorController extends Controller
 {
+
+    private $TotalNotificacoesPagina = 20;
+
+    
     public function __construct() {
         $this->middleware('auth:professor');
     }
@@ -31,6 +36,22 @@ class ProfessorController extends Controller
     
     public function alterarSenha() {
         return view('professor.alterarSenha');
+    }
+
+    public function notificacoes(){
+
+        $todas_notificacoes = Notificacao::select('id', 'mensagem', 'updated_at')
+                                        ->where([["tipo_usuario", "=", "professor"], 
+                                                ["notificado_id", "=", Auth::guard('professor')->user()->id]])
+                                        ->orderBy('updated_at', 'desc')
+                                        ->paginate($this->TotalNotificacoesPagina);
+
+        $novas_notificacoes = Auth::guard('professor')->user()->novas_notificacoes;
+        Auth::guard('professor')->user()->novas_notificacoes = 0;
+        Auth::guard('professor')->user()->save();
+
+        return view('aluno.notificacoes')->with('todas_notificacoes', $todas_notificacoes)
+                                        ->with('novas_notificacoes', $novas_notificacoes);
     }
 
 
@@ -58,6 +79,18 @@ class ProfessorController extends Controller
         Auth::guard('professor')->user()->num_orientandos -= 1;
         
         if($orientacao->delete() && $aluno->tcc->save() && Auth::guard('professor')->user()->save()) {
+
+            // Criar nova Notificacao
+            $notificacao = new Notificacao;
+            $notificacao->tipo_usuario = "aluno";
+            $notificacao->notificado_id = $request->orientando_id;
+            $notificacao->mensagem =  Auth::guard('professor')->user()->name . " cancelou a sua orientação de Tcc.";
+            $notificacao->save();
+
+            // Add +1 em novas solicitacoes de usuario
+            $aluno = User::where('id', $request->orientando_id)->first();
+            $aluno->novas_notificacoes += 1;
+            $aluno->save();
             
             return redirect()->back()->with(session()->flash('info', 'Orientação de TCC Cancelada.'));
         } 
@@ -76,6 +109,18 @@ class ProfessorController extends Controller
         Auth::guard('professor')->user()->num_coorientandos -= 1;
 
         if($coorientacao->delete() && Auth::guard('professor')->user()->save()) {
+
+            // Criar nova Notificacao
+            $notificacao = new Notificacao;
+            $notificacao->tipo_usuario = "aluno";
+            $notificacao->notificado_id = $request->coorientando_id;
+            $notificacao->mensagem =  Auth::guard('professor')->user()->name . " cancelou a sua coorientação de Tcc.";
+            $notificacao->save();
+
+            // Add +1 em novas solicitacoes de usuario
+            $aluno = User::where('id', $request->coorientando_id)->first();
+            $aluno->novas_notificacoes += 1;
+            $aluno->save();
  
             return redirect()->back()->with(session()->flash('info', 'Coorientação de TCC Cancelada.'));
         } 

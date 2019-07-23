@@ -25,6 +25,8 @@ class CreateProfessoresTable extends Migration
             $table->string('area_de_interesse')->nullable();
             $table->string('termo_de_responsabilidade')->nullable();
 
+            $table->integer('novas_notificacoes')->default(0);
+
             $table->integer('num_orientandos')->default(0);
             $table->integer('num_coorientandos')->default(0);
             $table->boolean('disponivel_orient')->default(true);

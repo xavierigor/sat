@@ -55,6 +55,9 @@ Route::prefix('/coordenador')->group(function() {
     Route::post('/cadastrar/aluno', 'CoordenadorController@salvarAluno')->name('coordenador.salvar.aluno');
     Route::get('/visualizar/alunos', 'CoordenadorController@visualizarAlunos')->name('coordenador.visualizar.alunos');
     Route::delete('/visualizar/alunos', 'CoordenadorController@removerAluno')->name('coordenador.remover.aluno');
+
+    Route::get('/notificacoes', 'CoordenadorController@notificacoes')->name('coordenador.notificacoes');
+
 });
 
 Route::prefix('/professor')->group(function() {
@@ -78,6 +81,8 @@ Route::prefix('/professor')->group(function() {
     Route::get('/tcc/documentos', 'ProfessorController@documentos')->name('professor.documentos.tcc');
     Route::post('/tcc/documentos', 'ProfessorController@storeDocumentos')->name('professor.store.documentos');
     Route::delete('/tcc/documentos', 'ProfessorController@destroyDocumento')->name('professor.destroy.documento');
+
+    Route::get('/notificacoes', 'ProfessorController@notificacoes')->name('professor.notificacoes');
 
 });
 
@@ -105,4 +110,7 @@ Route::prefix('/aluno')->group(function() {
     
     Route::get('/tcc/coorientadores', 'TccController@coorientadores')->name('aluno.coorientadores.tcc');
     Route::post('/tcc/coorientadores/cancelar-coorientacao', 'TccController@cancelarCoorientacao')->name('aluno.cancelar-coorientacao.tcc');
+
+    Route::get('/notificacoes', 'AlunoController@notificacoes')->name('aluno.notificacoes');
+
 });
