@@ -11,7 +11,9 @@
                 <div class="container">
                     <div class="row text-center">
                         <div class="col-xl-4 col-sm-12 col-md-12">
-                        ​   <img src="" class="image rounded-circle" alt="avatar" width="180" height="180">
+                            <div class="circle img-perfil">
+                            ​   <img src="" data-url="{{ asset('storage/perfil/professores') }}" class="image" alt="avatar">
+                            </div>
                         </div>
                         <div class="col-xl-8 col-sm-12 col-md-12 text-md-left row">
                             <div class="col-md-7 col-sm-12 pt-4">

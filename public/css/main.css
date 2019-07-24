@@ -45,6 +45,22 @@ body {
     background-color: rgba(0,0,0,0.04);
 }
 
+.circle {
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    display: inline-block;
+    vertical-align: bottom;
+    margin-right: 8px;
+}
+
+.circle img {
+    position: absolute;
+    bottom: 0;
+    left:0;
+    width: 100%;
+}
+
 /* Navbar */
 nav {
     font-size: .95em;
@@ -108,7 +124,6 @@ nav .dropdown-menu a {
 /* Fim Navbar */
 
 #main{
-    
     margin-top: 61px; /* Tamanho da navbar */
     /* transition: all 7s; */
 }
@@ -147,8 +162,15 @@ nav .dropdown-menu a {
 }
 
 .img-perfil-media{
-    width: 95px;
-    height: 95px;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    margin: auto;
+}
+
+.img-perfil-pequena{
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
     margin: auto;
 }
@@ -212,6 +234,11 @@ nav .dropdown-menu a {
     /* transform:translate(-50%,-50%); */
     /* margin: auto; */
 }
+
+.bottom-notification:hover .notifications .fa {
+    color: rgba(0,0,0,0.4);
+}
+
 .notifications {
     width:32px;
     height:32px;
@@ -222,7 +249,7 @@ nav .dropdown-menu a {
     /* box-shadow:0 2px 5px rgba(0,0,0,.2); */
 }
 .notifications .fa {
-    color:#cecece;
+    color:#c7c7c7;
     line-height:32px;
     font-size:17px;
 }

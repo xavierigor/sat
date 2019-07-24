@@ -73,6 +73,8 @@ Route::prefix('/professor')->group(function() {
     Route::post('/recusar-solicitacao', 'SolicitacaoController@recusarSolicitacao')->name('professor.solicitacao.recusar');
 
     Route::get('/tcc/orientandos', 'ProfessorController@orientandos')->name('professor.orientandos.tcc');
+    Route::post('/tcc/orientandos/tc', 'ProfessorController@uploadTermoCompromissoOrientando')->name('professor.upload.tc.orientando');
+    Route::post('/tcc/orientandos/ra', 'ProfessorController@uploadRelAcompanhamentoOrientando')->name('professor.upload.ra.orientando');
     Route::post('/tcc/orientandos/cancelar-orientacao', 'ProfessorController@cancelarOrientacao')->name('professor.cancelar-orientacao.tcc');
 
     Route::get('/tcc/coorientandos', 'ProfessorController@coorientandos')->name('professor.coorientandos.tcc');

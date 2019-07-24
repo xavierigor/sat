@@ -45,9 +45,13 @@
         <div class="form-row">
             <div class="form-group pr-3">
                 @if(Auth::user()->image)
-                    ​<img src="{{ asset('storage/perfil/professores/' . Auth::user()->image) }}" class="rounded-circle" alt="{{Auth::user()->image}}" width="60px" height="60px">
+                    <div class="circle img-perfil-pequena">
+                        ​<img src="{{ asset('storage/perfil/professores/' . Auth::user()->image) }}" alt="{{Auth::user()->image}}">
+                    </div>
                 @else
-                ​    <img src="{{ asset('images/user.png') }}" class="rounded-circle" alt="avatar" width="60px" height="60px">
+                    <div class="circle img-perfil-pequena">
+                ​       <img src="{{ asset('images/user.png') }}" alt="avatar">
+                    </div>
                 @endif
             </div>
             <div class="form-group">

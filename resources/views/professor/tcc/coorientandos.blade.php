@@ -17,9 +17,13 @@
             <div class="div-personalizada">
                 <div class="div-img-media">
                     @if($coorientacao->coorientando->image)
-                        ​<img src="{{ asset('storage/perfil/users/' . $coorientacao->coorientando->image) }}"  class="img-perfil-media" alt="imagem do perfil">
+                        <div class="circle img-perfil-media">
+                            ​<img src="{{ asset('storage/perfil/users/' . $coorientacao->coorientando->image) }}"  alt="imagem do perfil">
+                        </div>
                     @else
-                    ​    <img src="{{ asset('images/user.png') }}" class="img-perfil-media" alt="imagem do perfil">
+                        <div class="circle img-perfil-media">
+                        ​    <img src="{{ asset('images/user.png') }}" alt="imagem do perfil">
+                        </div>
                     @endif
                 </div>
                 <div class="text-md-left row d-flex my-auto">

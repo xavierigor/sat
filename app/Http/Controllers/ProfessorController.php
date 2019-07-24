@@ -9,6 +9,7 @@ use App\User;
 use Auth;
 use Hash;
 use Storage;
+use Validator;
 use App\Notificacao;
 
 class ProfessorController extends Controller
@@ -63,6 +64,91 @@ class ProfessorController extends Controller
     public function coorientandos() {
         $coorientacoes = Auth::user()->getCoorientandos();
         return view('professor.tcc.coorientandos')->with('coorientacoes', $coorientacoes);
+    }
+
+    public function uploadTermoCompromissoOrientando(Request $request) {
+
+        $aluno = User::where('id', $request->id)->first();
+
+        if($request->hasFile('tc')){
+            $filenameWithExt = $request->file('tc')->getClientOriginalName();
+
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+
+            $ext = $request->file('tc')->getClientOriginalExtension();
+            
+            $fileNameToStore = $filename.'_'.time().'.'.$ext;
+            $path = $request->file('tc')->storeAs('documentos/tcc', $fileNameToStore);
+        } else {
+            $fileNameToStore = $aluno->tcc->termo_de_compromisso;
+        }
+
+        $validator = Validator::make($request->all(), [
+            'tc' => 'max:10000|required|mimes:pdf,odt,doc,docx',
+        ],
+        [
+            'required' => 'O campo termo de compromisso é obrigatório.'
+        ]);
+
+        if($request->hasFile('tc') && $aluno->tcc->termo_de_compromisso != null) {
+            Storage::delete('documentos/tcc/'.$aluno->tcc->termo_de_compromisso);
+        }
+
+        $aluno->tcc->termo_de_compromisso = $fileNameToStore ?? null;
+
+        if($validator->fails()) {
+            return redirect()->back()->with(session()->flash('error', $validator->errors()->first()));
+        }
+
+        if(!$aluno->tcc->save()) {
+            return redirect()->back()->with(session()->flash('error', 'Erro ao realizar upload do arquivo.'));
+        }
+
+        return redirect()->back()->with(session()->flash('success', 'Upload realizado com sucesso.'));
+    }
+
+    public function uploadRelAcompanhamentoOrientando(Request $request) {
+        $aluno = User::where('id', $request->id)->first();
+
+        if($aluno->tcc->tcc == "tcc 2") {
+            if($request->hasFile('ra')){
+                $filenameWithExt = $request->file('ra')->getClientOriginalName();
+    
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+    
+                $ext = $request->file('ra')->getClientOriginalExtension();
+                
+                $fileNameToStore = $filename.'_'.time().'.'.$ext;
+                $path = $request->file('ra')->storeAs('documentos/tcc', $fileNameToStore);
+            } else {
+                $fileNameToStore = $aluno->tcc->rel_acompanhamento;
+            }
+    
+            $validator = Validator::make($request->all(), [
+                'tc' => 'max:10000|required|mimes:pdf,odt,doc,docx',
+            ],
+            [
+                'required' => 'O campo relatório de acompanhamento é obrigatório.'
+            ]);
+    
+            if($request->hasFile('ra') && $aluno->tcc->rel_acompanhamento != null) {
+                Storage::delete('documentos/tcc/'.$aluno->tcc->rel_acompanhamento);
+            }
+    
+            $aluno->tcc->rel_acompanhamento = $fileNameToStore ?? null;
+    
+            if($validator->fails()) {
+                return redirect()->back()->with(session()->flash('error', $validator->errors()->first()));
+            }
+    
+            if(!$aluno->tcc->save()) {
+                return redirect()->back()->with(session()->flash('error', 'Erro ao realizar upload do arquivo.'));
+            }
+    
+            return redirect()->back()->with(session()->flash('success', 'Upload realizado com sucesso.'));
+        } else {
+            return redirect()->back();
+        }
     }
 
     public function cancelarOrientacao(Request $request){
@@ -153,6 +239,10 @@ class ProfessorController extends Controller
         }
 
         $this->validate($request, [
+            'termo_de_responsabilidade' => 'max:10000|required|mimes:pdf,odt,doc,docx',
+        ]);
+
+        $validator = Validator::make($request->all(), [
             'termo_de_responsabilidade' => 'max:10000|required|mimes:pdf,odt,doc,docx',
         ]);
 

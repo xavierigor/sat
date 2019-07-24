@@ -31,7 +31,7 @@
         @include('includes.modal.remocao-usuario.removerAluno')
 
 
-        <div class="table-responsive text-center">
+        <div class="table-responsive">
             <table class="table table-hover">
                 <thead>
                     <tr>

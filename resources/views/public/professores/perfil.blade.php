@@ -12,9 +12,13 @@
     <div class="row p-3 text-center">
         <div class="col-xl-4 col-sm-12 col-md-6 d-flex">
         @if($professor->image)
-            ​<img src="{{ asset('storage/perfil/professores/' . $professor->image) }}" class="img-perfil" alt="imagem do perfil">
+            <div class="circle img-perfil">
+                ​<img src="{{ asset('storage/perfil/professores/' . $professor->image) }}" alt="imagem do perfil">
+            </div>
         @else
-        ​   <img src="{{ asset('images/user.png') }}" class="img-perfil" alt="imagem do perfil">
+            <div class="circle img-perfil">
+            ​   <img src="{{ asset('images/user.png') }}" alt="imagem do perfil">
+            </div>
         @endif
         </div>
         <div class="col-xl-8 col-sm-12 col-md-6 text-md-left row d-flex m-auto">
