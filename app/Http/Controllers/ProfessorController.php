@@ -125,7 +125,7 @@ class ProfessorController extends Controller
             }
     
             $validator = Validator::make($request->all(), [
-                'tc' => 'max:10000|required|mimes:pdf,odt,doc,docx',
+                'ra' => 'max:10000|required|mimes:pdf,odt,doc,docx',
             ],
             [
                 'required' => 'O campo relatório de acompanhamento é obrigatório.'
