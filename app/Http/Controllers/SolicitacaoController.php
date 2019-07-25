@@ -16,6 +16,11 @@ use App\Mail\SolicitacaoOrientacaoAceita;
 
 class SolicitacaoController extends Controller
 {
+
+    public function __construct() {
+        $this->middleware('auth:professor');
+    }
+
     // Variavel que armazena o numero de itens que sera mostrado na paginação
     private $TotalItensPágina = 10;
 

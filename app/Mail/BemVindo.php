@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class SolicitacaoOrientacaoAceita extends Mailable
+class BemVindo extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -17,12 +17,12 @@ class SolicitacaoOrientacaoAceita extends Mailable
      * @return void
      */
 
-    public $aluno, $professor;
+    public $nome, $userType;
 
-    public function __construct($aluno, $professor)
+    public function __construct($nome, $userType = null)
     {
-        $this->aluno = $aluno;
-        $this->professor = $professor;
+        $this->nome = $nome;
+        $this->userType = $userType;
     }
 
     /**
@@ -32,7 +32,7 @@ class SolicitacaoOrientacaoAceita extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.solicitacaoOrientacaoAceita')
-                    ->subject('Solicitação de Orientação Aceita');
+        return $this->markdown('emails.bemVindo')
+                    ->subject('Cadastro Realizado (SAT)');
     }
 }

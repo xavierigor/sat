@@ -8,6 +8,7 @@ use App\User;
 use App\Tcc;
 use Auth;
 use App\Notificacao;
+use App\Mail\BemVindo;
 
 class CoordenadorController extends Controller
 {
@@ -91,7 +92,6 @@ class CoordenadorController extends Controller
                             ->paginate($this->TotalItensPágina);
         }
 
-        // dd($alunos);
         // Retorna para a página uma varivel com os aluno (Users) que serão exibidos
         return view('coordenador.visualizar.alunos')->with('alunos', $alunos)->withInput(request()->only('n'));
     }
@@ -119,6 +119,13 @@ class CoordenadorController extends Controller
         $professor->data_nasc = $request->data_nasc;
 
         if($professor->save()) {
+
+            // Enviar email
+            \Mail::to($professor->email)->send(new BemVindo($professor->name, 'professor'));
+
+            if(count(\Mail::failures()) > 0) {
+                return redirect()->back()->with(session()->flash('error', 'Erro ao enviar email de notificação.'));
+            }
 
             // Criar nova Notificacao
             $notificacao = new Notificacao;
@@ -174,6 +181,13 @@ class CoordenadorController extends Controller
             $tcc->tcc = $request->tcc;
 
             if($tcc->save()) {
+
+                // Enviar email
+                \Mail::to($aluno->email)->send(new BemVindo($aluno->name));
+
+                if(count(\Mail::failures()) > 0) {
+                    return redirect()->back()->with(session()->flash('error', 'Erro ao enviar email de notificação.'));
+                }
 
                 // Criar nova Notificacao
                 $notificacao = new Notificacao;

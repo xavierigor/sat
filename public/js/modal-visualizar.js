@@ -35,9 +35,8 @@ $('#visualizarProfessor').on('show.bs.modal', function (event) {
   if(image != ''){
     modal.find('.image').attr('src', img_url + '/' + image)
   }else {
-    // mudar isso
-    // esse link tem q ser dinamico
-    modal.find('.image').attr('src', "http://localhost/sat/public/images/user.png" )
+    modal.find('.image').attr('src', img_url + '/../../../images/user.png')
+    // modal.find('.image').attr('src', "http://localhost/sat/public/images/user.png" )
   }
 
 })
@@ -65,19 +64,13 @@ $('#visualizarAluno').on('show.bs.modal', function (event) {
   modal.find('.email').text(email)
   modal.find('.data_nasc').text(data_nasc)
 
-  // if(image != ''){
-  //   modal.find('.image').attr('src', "http://localhost/sat/public/storage/perfil/users/" + image)
-  // } else {
-  //   modal.find('.image').attr('src', "http://localhost/sat/public/images/user.png" )
-  // }
-
   let img_url = modal.find('.image').data('url')
 
   if(image != ''){
     modal.find('.image').attr('src', img_url + '/' + image)
     console.log(img_url)
   }else {
-    modal.find('.image').attr('src', "http://localhost/sat/public/images/user.png" )
+    modal.find('.image').attr('src', img_url + '/../../../images/user.png')
   }
 
 })

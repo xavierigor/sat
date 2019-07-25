@@ -82,16 +82,16 @@
             @else
                 @if(Auth::guard('coordenador')->check())
 
-                    <!-- <li class="nav-item"> -->
-                        <a href="{{ route('coordenador.notificacoes') }}" class="bottom-notification">
+                    {{-- <li class="nav-item"> --}}
+                        <a href="{{ route('coordenador.notificacoes') }}" class="{{ Request::is('coordenador/notificacoes') ? 'active' : '' }} bottom-notification">
                             <div class="notifications shadow-sm">
                                 <i class="fa fa-bell"></i>
                                 @if(Auth::guard('coordenador')->user()->novas_notificacoes > 0)
                                    <span class="num">{{ Auth::guard('coordenador')->user()->novas_notificacoes }}</span>
                                 @endif
                             </div>
-                        <!-- </a> -->
-                    </li>
+                        </a>
+                    {{-- </li> --}}
 
                     <li class="nav-item dropdown pl-2">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -119,7 +119,7 @@
                 @elseif(Auth::guard('professor')->check())
 
                     <!-- <li class="nav-item"> -->
-                        <a href="{{ route('professor.notificacoes') }}" class="bottom-notification">
+                        <a href="{{ route('professor.notificacoes') }}" class="{{ Request::is('professor/notificacoes') ? 'active' : '' }} bottom-notification">
                             <div class="notifications shadow-sm">
                                 <i class="fa fa-bell"></i>
                                 @if(Auth::guard('professor')->user()->novas_notificacoes > 0)
@@ -155,7 +155,7 @@
                 @else
                 
                     <!-- <li class="nav-item"> -->
-                        <a href="{{ route('aluno.notificacoes') }}" class="bottom-notification">
+                        <a href="{{ route('aluno.notificacoes') }}" class="{{ Request::is('aluno/notificacoes') ? 'active' : '' }} bottom-notification">
                             <div class="notifications shadow-sm">
                                 <i class="fa fa-bell"></i>
                                 @if(Auth::user()->novas_notificacoes > 0)

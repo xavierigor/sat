@@ -239,6 +239,10 @@ nav .dropdown-menu a {
     color: rgba(0,0,0,0.4);
 }
 
+.bottom-notification.active .notifications .fa{
+    color: rgba(0,0,0,0.4);
+}
+
 .notifications {
     width:32px;
     height:32px;

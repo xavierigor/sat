@@ -15,14 +15,23 @@ class Authenticate extends Middleware
     protected function redirectTo($request, $guard = null)
     {
         if (! $request->expectsJson()) {
-            switch($guard) {
-                case 'coordenador':
-                    return route('coordenador.showLogin');
-                case 'professor':
-                    return route('professor.showLogin');
-                default:
-                    return route('login');
+            
+            if($request->is('coordenador')) {
+                return route('coordenador.showLogin');
+            } else if($request->is('professor')) {
+                return route('professor.showLogin');
+            } else {
+                return route('login');
             }
+
+            // switch($guard) {
+            //     case 'coordenador':
+            //         return route('coordenador.showLogin');
+            //     case 'professor':
+            //         return route('professor.showLogin');
+            //     case null:
+            //         return route('login');
+            // }
         }
     }
 }
