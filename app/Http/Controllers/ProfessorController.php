@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Orientacao;
 use App\Coorientacao;
+use Carbon;
 use App\User;
 use Auth;
 use Hash;
@@ -332,6 +333,7 @@ class ProfessorController extends Controller
 
         if(Hash::check($request->senha_atual, $professor->password)) {
             $professor->password = Hash::make($request->nova_senha);
+            $professor->password_changed_at = Carbon\Carbon::now();
             if($professor->save()) {
                 return redirect()->back()->with(session()->flash('success', 'Senha Alterada.'));
             }
@@ -339,6 +341,6 @@ class ProfessorController extends Controller
             return redirect()->back()->with(session()->flash('error', 'Erro ao Alterar Senha.'));
         } 
 
-        return redirect()->back()->withErrors('senha_atual', 'Senha atual incorreta');
+        return redirect()->back()->withErrors(['senha_atual' => 'Senha atual incorreta']);
     }
 }

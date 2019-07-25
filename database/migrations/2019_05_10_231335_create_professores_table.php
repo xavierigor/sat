@@ -33,6 +33,7 @@ class CreateProfessoresTable extends Migration
             $table->boolean('disponivel_coorient')->default(true);
 
             $table->timestamp('email_verified_at')->nullable();
+            $table->timestamp('password_changed_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

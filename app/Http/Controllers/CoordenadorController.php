@@ -126,17 +126,6 @@ class CoordenadorController extends Controller
             if(count(\Mail::failures()) > 0) {
                 return redirect()->back()->with(session()->flash('error', 'Erro ao enviar email de notificação.'));
             }
-
-            // Criar nova Notificacao
-            $notificacao = new Notificacao;
-            $notificacao->tipo_usuario = "professor";
-            $notificacao->notificado_id = $professor->id;
-            $notificacao->mensagem =  "Lembre-se de alterar a sua senha para a sua conta do SAT ficar mais protegida.";
-            $notificacao->save();
-
-            // Add +1 em novas solicitacoes de usuario
-            $professor->novas_notificacoes += 1;
-            $professor->save();
             
             return redirect()->back()->with(session()->flash('success', 'Professor cadastrado.'));
         }
@@ -189,18 +178,8 @@ class CoordenadorController extends Controller
                     return redirect()->back()->with(session()->flash('error', 'Erro ao enviar email de notificação.'));
                 }
 
-                // Criar nova Notificacao
-                $notificacao = new Notificacao;
-                $notificacao->tipo_usuario = "aluno";
-                $notificacao->notificado_id = $aluno->id;
-                $notificacao->mensagem =  "Lembre-se de alterar a sua senha para a sua conta do SAT ficar mais protegida.";
-                $notificacao->save();
-
-                // Add +1 em novas solicitacoes de usuario
-                $aluno->novas_notificacoes += 1;
-                $aluno->save();
-
                 return redirect()->back()->with(session()->flash('success', 'Aluno cadastrado.'));
+                
             } else {
                 return back()->with(session()->flash('error', 'Erro ao cadastrar Aluno.'));
             }

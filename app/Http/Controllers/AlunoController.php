@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use App\User;
+use Carbon;
 use App\Notificacao;
 use Hash;
 
@@ -117,15 +118,18 @@ class AlunoController extends Controller
 
         if(Hash::check($request->senha_atual, $aluno->password)) {
             
+            return dd('senha atual correta');
+
             // Armazena a senha criptografada
             $aluno->password = Hash::make($request->nova_senha);
+            $aluno->password_changed_at = Carbon\Carbon::now();
             if($aluno->save()) {
                 return redirect()->back()->with(session()->flash('success', 'Senha Alterada.'));
             }
 
             return redirect()->back()->with(session()->flash('error', 'Erro ao Alterar Senha.'));
-        } 
+        }
 
-        return redirect()->back()->withErrors('senha_atual', 'Senha atual incorreta');
+        return redirect()->back()->withErrors(['senha_atual' => 'Senha atual incorreta']);
     }
 }
