@@ -118,8 +118,6 @@ class AlunoController extends Controller
 
         if(Hash::check($request->senha_atual, $aluno->password)) {
             
-            return dd('senha atual correta');
-
             // Armazena a senha criptografada
             $aluno->password = Hash::make($request->nova_senha);
             $aluno->password_changed_at = Carbon\Carbon::now();
