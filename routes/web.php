@@ -19,6 +19,17 @@ Route::get('/documentos-modelo', 'PublicController@documentosModelo')->name('pub
 Route::get('/professores', 'PublicController@professores')->name('public.professores');
 Route::get('/professores/{id}', 'PublicController@perfilprofessor')->name('public.professores.perfil');
 
+//Noticias
+ // Publico
+Route::get('/noticias', 'NoticiaController@index')->name('public.noticia.index');
+Route::get('/noticia/{id}', 'NoticiaController@show')->name('public.noticia.show');
+ // Restrito a coordenador
+Route::delete('/noticias', 'NoticiaController@destroy')->name('coordenador.noticia.destroy');
+Route::get('coordenador/cadastrar/noticia', 'NoticiaController@create')->name('coordenador.noticia.create');
+Route::post('coordenador/cadastrar/noticia', 'NoticiaController@store')->name('coordenador.noticia.store');
+Route::get('coordenador/editar/noticia/{id}', 'NoticiaController@edit')->name('coordenador.noticia.edit');
+Route::post('coordenador/editar/noticia/{id}', 'NoticiaController@update')->name('coordenador.noticia.update');
+
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');

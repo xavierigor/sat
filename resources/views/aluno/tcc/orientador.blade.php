@@ -31,12 +31,12 @@
                 <div class="text-md-left row d-flex my-auto">
                     <div class="col-md-12 col-sm-12">
                         <div class="m-auto ">
-                            <h5 class="d-inline-block">
+                            <p class="d-inline-block">
                                 <a class="d-inline-block" href="{{ route('public.professores.perfil', Hashids::encode($orientacao->orientador->id)) }}">
-                                    <h5>{{ $orientacao->orientador->name }}</h5>
+                                    {{ $orientacao->orientador->name }}
                                 </a>
                                 é o seu orientador.
-                            </h5>
+                            </p>
                         </div>
                         <div class="m-auto ">
                             <!-- Chamar modal cancelar orientação -->

@@ -22,9 +22,9 @@ input[type="search"]:focus,
 input[type="tel"]:focus,
 input[type="color"]:focus,
 .uneditable-input:focus {   
-  border-color: black;
-  box-shadow:none;
-  outline: 0 none;
+  border-color: black !important;
+  box-shadow:none !important;
+  outline: 0 none !important;
 }
 
 input[type="file"] {
@@ -150,7 +150,7 @@ nav .dropdown-menu a {
 #main section {
     background-color: #fff !important;
     min-height: 70vh;
-    padding: 20px 40px;
+    padding: 35px 40px;
 }
 
 /* Imagem de usuário */

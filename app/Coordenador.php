@@ -12,6 +12,10 @@ class Coordenador extends Authenticatable
 
     use Notifiable;
 
+    public function noticias() {
+        return $this->hasMany('App\Noticia');
+    }
+
     /**
      * The attributes that are mass assignable.
      *

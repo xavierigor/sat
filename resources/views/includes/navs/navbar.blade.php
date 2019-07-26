@@ -21,6 +21,9 @@
             <li class="nav-item {{ Request::is('agenda-tccs') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('public.agenda') }}">Agenda de TCC's</a>
             </li>
+            <li class="nav-item {{ Request::is('noticias') || Request::is('noticia/*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('public.noticia.index') }}">Notícias</a>
+            </li>
             <li class="nav-item {{ Request::is('professores') || Request::is('professores/*') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('public.professores') }}">Professores</a>
             </li>
@@ -32,44 +35,6 @@
         <!-- Right Side Of Navbar -->
         <ul class="navbar-nav ml-auto">
             <!-- Authentication Links -->
-
-            {{-- @guest
-                <li class="nav-item">
-                    <a class="nav-link" href="#" data-toggle="modal" data-target="#exampleModalCenter">{{ __('Login') }}</a>
-                </li>
-                @if (Route::has('register'))
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                    </li>
-                @endif
-            @else
-                <li class="nav-item dropdown">
-                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                        {{ Auth::user()->name }} <span class="caret"></span>
-                    </a>
-
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-
-                        @if(Auth::guard('coordenador')->check())
-                            <a href={{route('coordenador.dashboard')}} class="dropdown-item">Painel de Controle</a>
-                        @else
-                            <a href={{url('/home')}} class="dropdown-item">Painel de Controle</a>
-                        @endif
-
-                        <a class="dropdown-item" href="{{ route('logout') }}"
-                            onclick="event.preventDefault();
-                                            document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
-                        </a>
-
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
-                    </div>
-                </li>
-            @endguest --}}
-
-
             @if(!Auth::check() && !Auth::guard('coordenador')->check() && !Auth::guard('professor')->check())
                 <li class="nav-item">
                     <a href="{{ route('public.escolhaLogin') }}" class="nav-link btn btn-outline-laranja btn-sm">Entrar<i class="fas fa-sign-in-alt ml-2"></i></a>

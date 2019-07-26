@@ -30,3 +30,12 @@ $('#removerDocumento').on('show.bs.modal', function (event) {
   modal.find('.modal-nome').text(nome)
   modal.find('.documento').val(documento)
 })
+
+$('#removerNoticia').on('show.bs.modal', function (event) {
+  let button = $(event.relatedTarget)
+  let id = button.data('id')
+
+  let modal = $(this)
+
+  modal.find('#id').val(id)
+})

@@ -34,21 +34,21 @@
                         <li class="{{ Request::is('*/visualizar/professores') ? 'active' : ''}}"><a href="{{ route('coordenador.visualizar.professores') }}">Professores Cadastrados</a></li>
                     </ul>
 
-                    <li class="collapsed {{ Request::is('*/datas') ? 'active' : '' }}"">
+                    <li class="collapsed {{ Request::is('*/datas') ? 'active' : '' }}">
                         <a href="{{ route('coordenador.datas') }}">
                             <i class="fas fa-calendar fa-fw"></i>
                             Datas
                         </a>
                     </li>
         
-                    <li data-toggle="collapse" data-target="#site" class="collapsed">
+                    <li data-toggle="collapse" data-target="#site" class="collapsed {{ Request::is('*/noticia') ? 'active' : '' }}">
                         <a href="#" class="dropdown-option">
                             <i class="fas fa-globe-americas fa-fw"></i> Site <i class="fas fa-chevron-down fa-fw"></i>
                         </a>
                     </li>
-                    <ul class="sub-menu collapse" id="site">
-                        <li><a href="#">Opção 1</a></li>
-                        <li><a href="#">Opção 2</a></li>
+                    <ul class="sub-menu collapse {{ Request::is('*/noticia') ? 'show' : '' }}" id="site">
+                        <li class="{{ Request::is('*/noticia') ? 'active' : ''}}"><a href="{{ route('coordenador.noticia.create') }}">Cadastrar Notícia</a></li>
+                        <li><a href="#">Cadastrar Defesa</a></li>
                     </ul>
 
                 @elseif(Auth::guard('professor')->check())
