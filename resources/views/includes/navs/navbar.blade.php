@@ -83,8 +83,8 @@
                 @if(Auth::guard('coordenador')->check())
 
                     {{-- <li class="nav-item"> --}}
-                        <a href="{{ route('coordenador.notificacoes') }}" class="{{ Request::is('coordenador/notificacoes') ? 'active' : '' }} bottom-notification">
-                            <div class="notifications shadow-sm">
+                        <a href="{{ route('coordenador.notificacoes') }}" class="d-flex {{ Request::is('coordenador/notificacoes') ? 'active' : '' }} bottom-notification">
+                            <div class="notifications shadow-sm my-auto">
                                 <i class="fa fa-bell"></i>
                                 @if(Auth::guard('coordenador')->user()->novas_notificacoes > 0)
                                    <span class="num">{{ Auth::guard('coordenador')->user()->novas_notificacoes }}</span>
@@ -119,8 +119,8 @@
                 @elseif(Auth::guard('professor')->check())
 
                     <!-- <li class="nav-item"> -->
-                        <a href="{{ route('professor.notificacoes') }}" class="{{ Request::is('professor/notificacoes') ? 'active' : '' }} bottom-notification">
-                            <div class="notifications shadow-sm">
+                        <a href="{{ route('professor.notificacoes') }}" class="d-flex {{ Request::is('professor/notificacoes') ? 'active' : '' }} bottom-notification">
+                            <div class="notifications shadow-sm my-auto">
                                 <i class="fa fa-bell"></i>
                                 @if(Auth::guard('professor')->user()->novas_notificacoes > 0)
                                    <span class="num">{{ Auth::guard('professor')->user()->novas_notificacoes }}</span>
@@ -155,8 +155,8 @@
                 @else
                 
                     <!-- <li class="nav-item"> -->
-                        <a href="{{ route('aluno.notificacoes') }}" class="{{ Request::is('aluno/notificacoes') ? 'active' : '' }} bottom-notification">
-                            <div class="notifications shadow-sm">
+                        <a href="{{ route('aluno.notificacoes') }}" class="d-flex {{ Request::is('aluno/notificacoes') ? 'active' : '' }} bottom-notification">
+                            <div class="notifications shadow-sm my-auto">
                                 <i class="fa fa-bell"></i>
                                 @if(Auth::user()->novas_notificacoes > 0)
                                    <span class="num">{{ Auth::user()->novas_notificacoes }}</span>

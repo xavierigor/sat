@@ -57,6 +57,9 @@ Route::prefix('/coordenador')->group(function() {
     Route::delete('/visualizar/alunos', 'CoordenadorController@removerAluno')->name('coordenador.remover.aluno');
 
     Route::get('/notificacoes', 'CoordenadorController@notificacoes')->name('coordenador.notificacoes');
+    
+    Route::get('/datas', 'CoordenadorController@datas')->name('coordenador.datas');
+    Route::post('/datas/salvar', 'CoordenadorController@salvarDatas')->name('coordenador.salvar.datas');
 
 });
 

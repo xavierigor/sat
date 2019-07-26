@@ -273,7 +273,8 @@ class TccController extends Controller
         
         // Atualizando dados de orientador
         $orientador = Professor::where('id', $request->orientador_id)->first();
-        $orientador->num_orientandos = 1;
+        $orientador->num_orientandos -= 1;
+        $orientador->disponivel_orient = true;
     
         if($orientacao->delete() && $tcc->save() && $orientador->save()) {
 
@@ -285,9 +286,9 @@ class TccController extends Controller
             $notificacao->save();
 
             // Add +1 em novas solicitacoes de usuario
-            $aluno = Professor::where('id', $request->orientador_id)->first();
-            $aluno->novas_notificacoes += 1;
-            $aluno->save();
+            $professor = Professor::where('id', $request->orientador_id)->first();
+            $professor->novas_notificacoes += 1;
+            $professor->save();
 
             return redirect()->back()->with(session()->flash('info', 'Orientação de TCC Cancelada.'));
         } 
@@ -317,9 +318,9 @@ class TccController extends Controller
             $notificacao->save();
 
             // Add +1 em novas solicitacoes de usuario
-            $aluno = Professor::where('id', $request->prof_solicitado)->first();
-            $aluno->novas_notificacoes += 1;
-            $aluno->save();
+            $professor = Professor::where('id', $request->prof_solicitado)->first();
+            $professor->novas_notificacoes += 1;
+            $professor->save();
 
             return redirect()->back()->with(session()->flash('info', 'Coorientação de TCC Cancelada.'));
         } 

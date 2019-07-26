@@ -164,6 +164,7 @@ class ProfessorController extends Controller
         
         // Atualizando dados de orientador
         Auth::guard('professor')->user()->num_orientandos -= 1;
+        Auth::guard('professor')->user()->disponivel_orient = true;
         
         if($orientacao->delete() && $aluno->tcc->save() && Auth::guard('professor')->user()->save()) {
 

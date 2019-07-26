@@ -17,13 +17,12 @@ use App\Mail\SolicitacaoOrientacaoAceita;
 class SolicitacaoController extends Controller
 {
 
-    public function __construct() {
-        $this->middleware('auth:professor');
-    }
-
     // Variavel que armazena o numero de itens que sera mostrado na paginação
     private $TotalItensPágina = 10;
 
+    public function __construct() {
+        $this->middleware('auth:professor');
+    }
 
     public function solicitacoes(){
         // Buscando solicitacoes atribuidas ao professor autenticado + os dados do solicitante definidos no "WITH"

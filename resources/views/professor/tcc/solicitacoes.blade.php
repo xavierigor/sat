@@ -21,8 +21,8 @@
                     <div class="div-personalizada">
 
                         <div class="div-img-solicitacao">
-                            @if($solicitacao->solicitante->foto)
-                                ​<img src="{{ asset('storage/perfil/users/' . $solicitacao->solicitante->foto) }}" class="img-perfil-solicitacao" alt="imagem do perfil">
+                            @if($solicitacao->solicitante->image)
+                                ​<img src="{{ asset('storage/perfil/users/' . $solicitacao->solicitante->image) }}" class="img-perfil-solicitacao" alt="imagem do perfil">
                             @else
                             ​    <img src="{{ asset('images/user.png') }}" class="img-perfil-solicitacao" alt="imagem do perfil">
                             @endif

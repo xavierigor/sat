@@ -33,6 +33,13 @@
                         <li class="{{ Request::is('*/cadastrar/professor') ? 'active' : ''}}"><a href="{{route('coordenador.cadastrar.professor')}}">Cadastrar Professor</a></li>
                         <li class="{{ Request::is('*/visualizar/professores') ? 'active' : ''}}"><a href="{{ route('coordenador.visualizar.professores') }}">Professores Cadastrados</a></li>
                     </ul>
+
+                    <li class="collapsed {{ Request::is('*/datas') ? 'active' : '' }}"">
+                        <a href="{{ route('coordenador.datas') }}">
+                            <i class="fas fa-calendar fa-fw"></i>
+                            Datas
+                        </a>
+                    </li>
         
                     <li data-toggle="collapse" data-target="#site" class="collapsed">
                         <a href="#" class="dropdown-option">

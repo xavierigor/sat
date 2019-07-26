@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Professor;
 use App\User;
 use App\Tcc;
+use App\Data;
 use Auth;
 use App\Notificacao;
 use App\Mail\BemVindo;
@@ -44,6 +45,70 @@ class CoordenadorController extends Controller
                                         ->with('novas_notificacoes', $novas_notificacoes);
     }
 
+    public function datas() {
+        $todas_datas = Data::all();
+        
+        return view('coordenador.datas')->with('todas_datas', $todas_datas);
+    }
+
+    public function salvarDatas(Request $request) {
+
+        // dd($request);
+        // valida dados passados pelo form
+        $this->validate($request, [
+            'definir_orientador_inicio' => 'required_with:definir_orientador_termino|Date|nullable|before_or_equal:definir_orientador_termino',
+            'definir_orientador_termino' => 'required_with:definir_orientador_inicio|Date|nullable|after_or_equal:definir_orientador_inicio',
+            
+            'termo_compromisso_inicio' => 'required_with:termo_compromisso_termino|Date|nullable|before_or_equal:termo_compromisso_termino',
+            'termo_compromisso_termino' => 'required_with:termo_compromisso_inicio|Date|nullable|after_or_equal:termo_compromisso_inicio',
+            
+            'termo_responsabilidade_inicio' => 'required_with:termo_responsabilidade_termino|Date|nullable|before_or_equal:termo_responsabilidade_termino',
+            'termo_responsabilidade_termino' => 'required_with:termo_responsabilidade_inicio|Date|nullable|after_or_equal:termo_responsabilidade_inicio',
+            
+            'relatorio_acompanhamento_inicio' => 'required_with:relatorio_acompanhamento_termino|Date|nullable|before_or_equal:relatorio_acompanhamento_termino',
+            'relatorio_acompanhamento_termino' => 'required_with:relatorio_acompanhamento_inicio|Date|nullable|after_or_equal:relatorio_acompanhamento_inicio',
+        ]);
+            
+        // salvar datas no BD
+
+        $todas_datas = Data::all();
+
+        foreach ($todas_datas as $data) {
+
+            if($data->nome == 'definir orientador'){
+                $data->data_inicio = $request->definir_orientador_inicio;
+                $data->data_termino = $request->definir_orientador_termino;
+                $data->save();
+            }
+
+            if($data->nome == 'termo de compromisso'){
+                $data->data_inicio = $request->termo_compromisso_inicio;
+                $data->data_termino = $request->termo_compromisso_termino;
+                $data->save();
+            }
+
+            if($data->nome == 'termo de responsabilidade'){
+                $data->data_inicio = $request->termo_responsabilidade_inicio;
+                $data->data_termino = $request->termo_responsabilidade_termino;
+                $data->save();
+            }
+            
+            if($data->nome == 'relatorio de acompanhamento'){
+                $data->data_inicio = $request->relatorio_acompanhamento_inicio;
+                $data->data_termino = $request->relatorio_acompanhamento_termino;
+                $data->save();
+            }     
+        }
+        
+        // verifica se datas foram salvos
+        // if($todas_datas->save()) {
+        //     return redirect()->back()->with(session()->flash('success', 'Datas atualizadas.'));
+        // }
+        
+        return redirect()->back()->with(session()->flash('success', 'Datas atualizadas.'));
+        // return back()->with(session()->flash('error', 'Erro ao atualizar datas.'));
+    }
+    
 
     // Get's Professor
     

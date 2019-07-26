@@ -13,6 +13,22 @@ class DatabaseSeeder extends Seeder
     {
         // $this->call(UsersTableSeeder::class);
 
+        DB::table('datas')
+            ->insert([
+            [
+                'nome' => 'definir orientador',
+            ],
+            [
+                'nome' => 'termo de compromisso',
+            ],
+            [
+                'nome' => 'termo de responsabilidade',
+            ],
+            [
+                'nome' => 'relatorio de acompanhamento',
+            ],
+        ]);
+
         DB::table('coordenadores')->insert([
             'name' => 'Coordenador',
             'email' => 'coordenador@gmail.com',
