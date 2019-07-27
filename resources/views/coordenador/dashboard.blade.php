@@ -14,6 +14,5 @@
             </div>
         @endif
 
-        Olá <b>{{Auth::user()->name}}</b>, você está logado(a) como <b>Coordenador</b>!
-    </div>
+    Olá <b>{{Auth::user()->name}}</b>, você está logado(a) como <b>Coordenador</b>!
 @endsection

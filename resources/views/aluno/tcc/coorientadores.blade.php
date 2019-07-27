@@ -33,16 +33,16 @@
                     <div class="text-md-left row d-flex my-auto">
                         <div class="col-md-12 col-sm-12">
                             <div class="m-auto ">
-                                <h5 class="d-inline-block">
+                                <p class="d-inline-block">
                                     <a class="d-inline-block" href="{{ route('public.professores.perfil', Hashids::encode($coorientacao->coorientador->id)) }}">
                                         {{ $coorientacao->coorientador->name }}   
                                     </a>
                                     é seu coorientador.
-                                </h5>
+                                </p>
                             </div>
                             <div class="m-auto ">
                                 <!-- Chamar modal cancelar orientação -->
-                                <button title="Cancelar" type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal"
+                                <button title="Cancelar" type="button" class="btn btn-sm btn-outline-danger" data-toggle="modal"
                                 data-target="#cancelarCoorientacao" data-nome="{{ $coorientacao->coorientador->name }}"
                                 data-id="{{ $coorientacao->coorientador->id }}" data-tiposolicitacao="coorientacao">
                                     Cancelar Coorientação
@@ -52,7 +52,7 @@
                         </div>
                     </div>
                 </div>
-                <hr>
+                <hr class="separador-coorientadores">
             @endforeach
             
         @endisset
@@ -91,15 +91,13 @@
                         </div>
                     </div>
                 </div>
-                <hr>
+                <hr class="separador-coorientadores">
             @endforeach
 
         @endisset
 
         <!-- Se o aluno ainda tem que solicitar um professor para coorientação -->
         @isset($professores)
-            <br><br>
-            
             <div class="text-center mb-5">
                 <form action="{{ route('aluno.coorientadores.tcc') }}" name="buscarNome" method="get"
                 enctype="multipart/form-data">

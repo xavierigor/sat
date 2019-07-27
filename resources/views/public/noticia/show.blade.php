@@ -10,8 +10,6 @@
 
 @section('content')
 
-    @include('includes.modal.noticia.remover')
-
     <div class="d-block mb-2">
         <a href="{{ route('public.noticia.index') }}">
             <i class="fas fa-long-arrow-alt-left fa-fw"></i>
@@ -30,6 +28,8 @@
                     <i class="far fa-trash-alt fa-fw"></i>
                 </a>
             </div>
+
+            @include('includes.modal.noticia.remover')
         @endif
         <small class="float-right">
             Última atualização {{ $noticia->updated_at->diffForHumans() }}
@@ -45,6 +45,8 @@
     </div>
 @endsection
 
-@section('scripts')
-    <script src="{{ asset('js/modal-remover.js') }}"></script>
-@endsection
+@if(Auth::guard('coordenador')->check())
+    @section('scripts')
+        <script src="{{ asset('js/modal-remover.js') }}"></script>
+    @endsection
+@endif

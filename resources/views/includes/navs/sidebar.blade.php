@@ -41,14 +41,19 @@
                         </a>
                     </li>
         
-                    <li data-toggle="collapse" data-target="#site" class="collapsed {{ Request::is('*/noticia') ? 'active' : '' }}">
+                    <li data-toggle="collapse" data-target="#site" class="collapsed {{ Request::is('*/noticia') || Request::is('coordenador/*/documento-modelo') ? 'active' : '' }}">
                         <a href="#" class="dropdown-option">
                             <i class="fas fa-globe-americas fa-fw"></i> Site <i class="fas fa-chevron-down fa-fw"></i>
                         </a>
                     </li>
-                    <ul class="sub-menu collapse {{ Request::is('*/noticia') ? 'show' : '' }}" id="site">
-                        <li class="{{ Request::is('*/noticia') ? 'active' : ''}}"><a href="{{ route('coordenador.noticia.create') }}">Cadastrar Notícia</a></li>
+                    <ul class="sub-menu collapse {{ Request::is('*/noticia') || Request::is('coordenador/*/documento-modelo') ? 'show' : '' }}" id="site">
+                        <li class="{{ Request::is('*/noticia') ? 'active' : ''}}">
+                            <a href="{{ route('coordenador.noticia.create') }}">Cadastrar Notícia</a>
+                        </li>
                         <li><a href="#">Cadastrar Defesa</a></li>
+                        <li class="{{ Request::is('coordenador/*/documento-modelo') ? 'active' : ''}}">
+                            <a href="{{ route('coordenador.dm.create') }}">Cadastrar Documento Modelo</a>
+                        </li>
                     </ul>
 
                 @elseif(Auth::guard('professor')->check())

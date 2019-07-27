@@ -15,24 +15,23 @@
 Route::get('/', 'PublicController@index')->name('public.index');
 Route::get('/agenda-tccs', 'PublicController@agenda')->name('public.agenda');
 Route::get('/iniciar-sessao', 'PublicController@escolhaLogin')->name('public.escolhaLogin');
-Route::get('/documentos-modelo', 'PublicController@documentosModelo')->name('public.documentosModelo');
 Route::get('/professores', 'PublicController@professores')->name('public.professores');
 Route::get('/professores/{id}', 'PublicController@perfilprofessor')->name('public.professores.perfil');
-
-//Noticias
- // Publico
 Route::get('/noticias', 'NoticiaController@index')->name('public.noticia.index');
 Route::get('/noticia/{id}', 'NoticiaController@show')->name('public.noticia.show');
- // Restrito a coordenador
-Route::delete('/noticias', 'NoticiaController@destroy')->name('coordenador.noticia.destroy');
-Route::get('coordenador/cadastrar/noticia', 'NoticiaController@create')->name('coordenador.noticia.create');
-Route::post('coordenador/cadastrar/noticia', 'NoticiaController@store')->name('coordenador.noticia.store');
-Route::get('coordenador/editar/noticia/{id}', 'NoticiaController@edit')->name('coordenador.noticia.edit');
-Route::post('coordenador/editar/noticia/{id}', 'NoticiaController@update')->name('coordenador.noticia.update');
+Route::get('/documentos-modelo', 'DocumentoModeloController@index')->name('public.dm.index');
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+
+Route::get('/coordenador-login', 'Auth\CoordenadorLoginController@showLogin')->name('coordenador.showLogin');
+Route::post('/coordenador-login', 'Auth\CoordenadorLoginController@login')->name('coordenador.login');
+
+Route::get('/professor-login', 'Auth\ProfessorLoginController@showLogin')->name('professor.showLogin');
+Route::post('/professor-login', 'Auth\ProfessorLoginController@login')->name('professor.login');
+
+
 
 // Auth::routes();
 
@@ -47,12 +46,6 @@ Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 // Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 // Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('/coordenador-login', 'Auth\CoordenadorLoginController@showLogin')->name('coordenador.showLogin');
-Route::post('/coordenador-login', 'Auth\CoordenadorLoginController@login')->name('coordenador.login');
-
-Route::get('/professor-login', 'Auth\ProfessorLoginController@showLogin')->name('professor.showLogin');
-Route::post('/professor-login', 'Auth\ProfessorLoginController@login')->name('professor.login');
 
 Route::prefix('/coordenador')->group(function() {
     Route::get('/', 'CoordenadorController@dashboard')->name('coordenador.dashboard');
@@ -72,6 +65,15 @@ Route::prefix('/coordenador')->group(function() {
     Route::get('/datas', 'CoordenadorController@datas')->name('coordenador.datas');
     Route::post('/datas/salvar', 'CoordenadorController@salvarDatas')->name('coordenador.salvar.datas');
 
+    Route::delete('/noticias', 'NoticiaController@destroy')->name('coordenador.noticia.destroy');
+    Route::get('/cadastrar/noticia', 'NoticiaController@create')->name('coordenador.noticia.create');
+    Route::post('/cadastrar/noticia', 'NoticiaController@store')->name('coordenador.noticia.store');
+    Route::get('/editar/noticia/{id}', 'NoticiaController@edit')->name('coordenador.noticia.edit');
+    Route::post('/editar/noticia/{id}', 'NoticiaController@update')->name('coordenador.noticia.update');
+
+    Route::get('/cadastrar/documento-modelo', 'DocumentoModeloController@create')->name('coordenador.dm.create');
+    Route::post('/cadastrar/documento-modelo', 'DocumentoModeloController@store')->name('coordenador.dm.store');
+    Route::delete('/documentos-modelo', 'DocumentoModeloController@destroy')->name('coordenador.dm.destroy');
 });
 
 Route::prefix('/professor')->group(function() {

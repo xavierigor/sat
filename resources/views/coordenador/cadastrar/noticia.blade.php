@@ -33,9 +33,7 @@
             <div class="form-row">
                 <div class="form-group col-md-12">
                     <label for="corpo">Corpo da notícia <span class="text-danger">*</span></label>
-                    <textarea rows="10" type="text" class="form-control form-control-sm {{ $errors->has('corpo') ? 'border-danger' : ''}}" id="corpo" name="corpo">
-                        {{ old('corpo') }}
-                    </textarea>
+                    <textarea rows="10" type="text" class="form-control form-control-sm {{ $errors->has('corpo') ? 'border-danger' : ''}}" id="corpo" name="corpo">{{ old('corpo') }}</textarea>
                     {!! $errors->first('corpo', '<small class="text-danger">:message</small>') !!}
                 </div>
             </div>

@@ -32,7 +32,7 @@
                 <a class="nav-link" href="{{ route('public.professores') }}">Professores</a>
             </li>
             <li class="nav-item {{ Request::is('documentos-modelo') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('public.documentosModelo') }}">Documentos Modelo</a>
+                <a class="nav-link" href="{{ route('public.dm.index') }}">Documentos Modelo</a>
             </li>
         </ul>
 

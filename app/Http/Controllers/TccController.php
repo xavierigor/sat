@@ -187,6 +187,14 @@ class TccController extends Controller
     {
         $tcc = Auth::user()->tcc;
 
+        $this->validate($request, [
+            'termo_de_compromisso' => 'max:10000|nullable|mimes:pdf,odt,doc,docx|required_without_all:rel_acompanhamento',
+            'rel_acompanhamento' => 'max:10000|nullable|mimes:pdf,odt,doc,docx|required_without_all:termo_de_compromisso',
+        ],
+        [
+            'required_without_all' => 'Pelo menos um dos campos é obrigatório'
+        ]);
+
         if($request->hasFile('termo_de_compromisso')){
             // Pegar nome do arquivo com extensão
             $termo_compromisso_filenameWithExt = $request->file('termo_de_compromisso')->getClientOriginalName();
@@ -215,14 +223,6 @@ class TccController extends Controller
         } else {
             $rel_acompanhamento_fileNameToStore = $tcc->rel_acompanhamento;
         }
-
-        $this->validate($request, [
-            'termo_de_compromisso' => 'max:10000|nullable|mimes:pdf,odt,doc,docx|required_without_all:rel_acompanhamento',
-            'rel_acompanhamento' => 'max:10000|nullable|mimes:pdf,odt,doc,docx|required_without_all:termo_de_compromisso',
-        ],
-        [
-            'required_without_all' => 'Pelo menos um dos campos é obrigatório'
-        ]);
 
         // Se já houver um arquivo armazenado
         if($request->hasFile('termo_de_compromisso') && $tcc->termo_de_compromisso != null) {

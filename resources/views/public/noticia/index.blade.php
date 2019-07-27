@@ -9,7 +9,10 @@
 @section('content')
 
     @if($noticias->count() > 0)
-        @include('includes.modal.noticia.remover')
+
+        @if(Auth::guard('coordenador')->check())
+            @include('includes.modal.noticia.remover')
+        @endif
 
         @foreach($noticias as $noticia)
             <div class="mb-4">
@@ -44,6 +47,8 @@
     @endif
 @endsection
 
-@section('scripts')
-    <script src="{{ asset('js/modal-remover.js') }}"></script>
-@endsection
+@if(Auth::guard('coordenador')->check())
+    @section('scripts')
+        <script src="{{ asset('js/modal-remover.js') }}"></script>
+    @endsection
+@endif

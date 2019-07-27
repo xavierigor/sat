@@ -71,6 +71,13 @@ class ProfessorController extends Controller
 
         $aluno = User::where('id', $request->id)->first();
 
+        $validator = Validator::make($request->all(), [
+            'tc' => 'max:10000|required|mimes:pdf,odt,doc,docx',
+        ],
+        [
+            'required' => 'O campo termo de compromisso é obrigatório.'
+        ]);
+
         if($request->hasFile('tc')){
             $filenameWithExt = $request->file('tc')->getClientOriginalName();
 
@@ -83,13 +90,6 @@ class ProfessorController extends Controller
         } else {
             $fileNameToStore = $aluno->tcc->termo_de_compromisso;
         }
-
-        $validator = Validator::make($request->all(), [
-            'tc' => 'max:10000|required|mimes:pdf,odt,doc,docx',
-        ],
-        [
-            'required' => 'O campo termo de compromisso é obrigatório.'
-        ]);
 
         if($request->hasFile('tc') && $aluno->tcc->termo_de_compromisso != null) {
             Storage::delete('documentos/tcc/'.$aluno->tcc->termo_de_compromisso);
@@ -111,6 +111,13 @@ class ProfessorController extends Controller
     public function uploadRelAcompanhamentoOrientando(Request $request) {
         $aluno = User::where('id', $request->id)->first();
 
+        $validator = Validator::make($request->all(), [
+            'ra' => 'max:10000|required|mimes:pdf,odt,doc,docx',
+        ],
+        [
+            'required' => 'O campo relatório de acompanhamento é obrigatório.'
+        ]);
+
         if($aluno->tcc->tcc == "tcc 2") {
             if($request->hasFile('ra')){
                 $filenameWithExt = $request->file('ra')->getClientOriginalName();
@@ -124,13 +131,6 @@ class ProfessorController extends Controller
             } else {
                 $fileNameToStore = $aluno->tcc->rel_acompanhamento;
             }
-    
-            $validator = Validator::make($request->all(), [
-                'ra' => 'max:10000|required|mimes:pdf,odt,doc,docx',
-            ],
-            [
-                'required' => 'O campo relatório de acompanhamento é obrigatório.'
-            ]);
     
             if($request->hasFile('ra') && $aluno->tcc->rel_acompanhamento != null) {
                 Storage::delete('documentos/tcc/'.$aluno->tcc->rel_acompanhamento);
@@ -227,6 +227,10 @@ class ProfessorController extends Controller
     {
         $professor = Auth::user();
 
+        $this->validate($request, [
+            'termo_de_responsabilidade' => 'max:10000|required|mimes:pdf,odt,doc,docx',
+        ]);
+
         if($request->hasFile('termo_de_responsabilidade')){
             $filenameWithExt = $request->file('termo_de_responsabilidade')->getClientOriginalName();
 
@@ -240,13 +244,9 @@ class ProfessorController extends Controller
             $fileNameToStore = $professor->termo_de_responsabilidade;
         }
 
-        $this->validate($request, [
-            'termo_de_responsabilidade' => 'max:10000|required|mimes:pdf,odt,doc,docx',
-        ]);
-
-        $validator = Validator::make($request->all(), [
-            'termo_de_responsabilidade' => 'max:10000|required|mimes:pdf,odt,doc,docx',
-        ]);
+        // $validator = Validator::make($request->all(), [
+        //     'termo_de_responsabilidade' => 'max:10000|required|mimes:pdf,odt,doc,docx',
+        // ]);
 
         if($request->hasFile('termo_de_responsabilidade') && $professor->termo_de_responsabilidade != null) {
             Storage::delete('documentos/professor/'.$professor->termo_de_responsabilidade);
@@ -314,7 +314,6 @@ class ProfessorController extends Controller
             if(! $upload) {
                 return redirect()->back()->with(session()->flash('error', 'Erro ao fazer upload de imagem.'));
             }
-            // dd($nameFile);
         }
 
         if($professor->save()) {

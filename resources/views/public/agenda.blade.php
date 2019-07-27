@@ -7,5 +7,4 @@
 @endsection
 
 @section('content')
-    Agenda de TCC's
 @endsection

@@ -14,7 +14,7 @@
         </div>
         <div>
             <h6 class="font-weight-bold">Título</h6>
-            <p>{{ Auth::user()->tcc->titulo }}</p>
+            <p>{{ Auth::user()->tcc->titulo ? Auth::user()->tcc->titulo : 'Não definido' }}</p>
         </div>
         <div>
             <h6 class="font-weight-bold">Área de Pesquisa</h6>

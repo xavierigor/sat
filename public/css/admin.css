@@ -1,6 +1,6 @@
-body {
+/* body {
     min-height: 100vh;
-}
+} */
 
 
 #main {
@@ -30,4 +30,8 @@ body {
 
 #main section input, #main section button {
     font-size: 1em;
+}
+
+.separador-coorientadores:last-of-type {
+    margin-bottom: 3rem !important;
 }

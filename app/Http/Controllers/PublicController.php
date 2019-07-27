@@ -25,9 +25,9 @@ class PublicController extends Controller
         return view('public.agenda');
     }
 
-    public function documentosModelo() {
-        return view('public.documentosModelo');
-    }
+    // public function documentosModelo() {
+    //     return view('public.documentosModelo');
+    // }
 
     public function professores() {
 

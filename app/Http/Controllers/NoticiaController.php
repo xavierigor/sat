@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Request as R;
+// use Request as R;
 use App\Noticia;
 use Hashids;
 use Auth;
@@ -148,10 +148,12 @@ class NoticiaController extends Controller
         $noticia = Noticia::find($request->id);
 
         if($noticia->delete()) {
-            if(R::is('noticias')) {
-                return redirect()->route('public.noticia.index')->with(session()->flash('success', 'Notícia removida.'));
-            }
-            return redirect()->back()->with(session()->flash('success', 'Notícia removida.'));
+            // if(R::is('noticias')) {
+            //     return redirect()->route('public.noticia.index')->with(session()->flash('success', 'Notícia removida.'));
+            // }
+            // return redirect()->back()->with(session()->flash('success', 'Notícia removida.'));
+
+            return redirect()->route('public.noticia.index')->with(session()->flash('success', 'Notícia removida.'));
         }
 
         return redirect()->back()->with(session()->flash('error', 'Erro ao remover notícia.'));
