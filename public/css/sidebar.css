@@ -2,20 +2,13 @@
     height: 100%;
     width: 250px;
     position: fixed;
-    z-index: 1;
+    z-index: 6 !important;
     top: 0;
     left: 0;
     background-color: rgb(48,48,48);
     overflow-x: hidden;
     padding-top: 70px;
     transition: 0.4s width;
-}
-
-/* @media(max-width: 767px) { */
-@media(max-width: 991px) {
-    .sidenav {
-        width: 220 !important;
-    }
 }
 
 .sidenav h3 {
@@ -47,11 +40,6 @@
 
 .sidenav .active{
     background-color: rgb(66, 66, 66);
-}
-
-#main {
-    transition: margin-left .4s;
-    padding: 20px;
 }
 
 
@@ -149,8 +137,14 @@
     transition: .5s ease;
 }
 
-/* @media (max-width: 767px) { */
+/* @media (max-width: 767px) {
+} */
+
 @media (max-width: 991px) {
+    .sidenav {
+        width: 220 !important;
+    }
+
     .nav-side-menu {
         position: relative;
         width: 100%;

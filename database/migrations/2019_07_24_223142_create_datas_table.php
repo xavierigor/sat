@@ -19,6 +19,8 @@ class CreateDatasTable extends Migration
             $table->string('nome');
             $table->date('data_inicio')->nullable();
             $table->date('data_termino')->nullable();
+            $table->string('usuario');
+            
 
             // $table->timestamps();
         });

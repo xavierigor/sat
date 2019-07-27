@@ -17,15 +17,19 @@ class DatabaseSeeder extends Seeder
             ->insert([
             [
                 'nome' => 'definir orientador',
+                'usuario' => 'aluno'
             ],
             [
                 'nome' => 'termo de compromisso',
+                'usuario' => 'aluno'
             ],
             [
                 'nome' => 'termo de responsabilidade',
+                'usuario' => 'professor'
             ],
             [
                 'nome' => 'relatorio de acompanhamento',
+                'usuario' => 'aluno'
             ],
         ]);
 
@@ -147,24 +151,31 @@ class DatabaseSeeder extends Seeder
         DB::table('tccs')->insert([
             [
                 'user_id' => 1,
+                'tcc' => 'tcc 2',
             ],
             [
                 'user_id' => 2,
+                'tcc' => 'tcc 1',
             ],
             [
                 'user_id' => 3,
+                'tcc' => 'tcc 1',
             ],
             [
                 'user_id' => 4,
+                'tcc' => 'tcc 1',
             ],
             [
                 'user_id' => 5,
+                'tcc' => 'tcc 2',
             ],
             [
                 'user_id' => 6,
+                'tcc' => 'tcc 1',
             ],
             [
                 'user_id' => 7,
+                'tcc' => 'tcc 2',
             ],
         ]);
     }

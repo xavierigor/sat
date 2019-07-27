@@ -1,0 +1,165 @@
+/* Navbar */
+
+    /* Parte fixa - logo com toggle */
+    .logo-sat{
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 10 !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 250px;
+        height: 60px;
+        margin: 0 !important;
+        background: linear-gradient(to right, #FF0100, #FF7D00);
+    }
+
+    .logo-sat .logo {
+        margin: auto 0;
+    }
+    .logo-sat .logo img{
+        max-height: 30px;
+    }
+    .logo-sat .botao-sidebar {
+        margin: auto 0;
+    }
+
+    .logo-sat .toggle-sidebar {
+        cursor: pointer;
+        position: absolute;
+        top: 17px;
+        left: 27px;
+        color: #fff;
+
+    }
+    /* Fim da Parte fixa - logo com toggle */
+
+nav {
+    font-size: .95em;
+    font-weight: 600 !important;
+    transition: margin-left .5s;
+    /* -webkit-box-shadow: 2px 5px 34px 0px rgba(0,0,0,0.05);
+    -moz-box-shadow: 2px 5px 34px 0px rgba(0,0,0,0.05);
+    box-shadow: 2px 5px 34px 0px rgba(0,0,0,0.05); */
+    /* height: 50px; */
+    z-index: 4 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 27px;
+}
+
+.navbar-brand{
+    width: 250px;
+    height: 60px;
+    margin: 0 !important;
+    background: linear-gradient(to right, #FF0100, #FF7D00);
+}
+
+.navbar-collapse{
+    margin-left: 250px;
+}
+
+.navbar-collapse{
+    margin: 0 10px;
+}
+
+nav .dropdown-menu {
+    border: none;
+    border-radius: 0px;
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+}
+
+nav .dropdown-menu a {
+    font-size: .95em;
+}
+
+.navbar-toggler{
+    border: none;
+}
+
+/* Botao notificacao */
+
+    .bottom-notification {
+        position:relative;
+        /* width: 35px; */
+        /* top:30%;*/
+        /* left:70%;  */
+        /* transform:translate(-50%,-50%); */
+        /* margin: auto; */
+    }
+
+    .bottom-notification:hover .notifications .fa {
+        color: rgba(0,0,0,0.4);
+    }
+
+    .bottom-notification.active .notifications .fa{
+        color: rgba(0,0,0,0.4);
+    }
+
+    .notifications {
+        width:32px;
+        height:32px;
+        background:#f7f7f7;
+        border-radius:30px;
+        box-sizing:border-box;
+        text-align:center;
+        /* box-shadow:0 2px 5px rgba(0,0,0,.2); */
+    }
+    .notifications .fa {
+        color:#c7c7c7;
+        line-height:32px;
+        font-size:17px;
+    }
+    .notifications .num {
+        position:absolute;
+        top:1;
+        right:1px;
+        width:15px;
+        height:15px;
+        border-radius:50%;
+        background:#FF0100;
+        color:#fff;
+        line-height:15px;
+        font-size:12px;
+        font-family:sans-serif;
+        text-align:center;
+    }
+
+/* Fim Botao notificacao */
+
+/* Ficar fixa se tela não small */
+@media(min-width: 768px){
+    .navbar{
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+    }
+}
+
+@media(max-width: 767px){
+    .logo-sat{
+        width: 100%;
+    }
+    .navbar-brand{
+        width: 100%;
+    }
+    .navbar-toggler{
+        margin: 15px;
+        margin-left: auto;
+    }
+}
+
+@media(max-width: 991px){
+    .navbar-collapse {
+        padding: .5rem 1rem !important;
+    }
+    .navbar-collapse ul li {
+        margin-left: auto;
+    }
+    .navbar-collapse .bottom-notification{
+        margin-left: auto;
+    } 
+}

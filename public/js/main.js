@@ -2,12 +2,6 @@
 // para nav fixa não ficar sobre o conteudo
 // $(document).ready(function () {
 //     $("#main").animate({marginTop: $('#nav').height()}, 500)
-
-    
-//     $( "#botaoSubmit" ).click(function() {
-//         $(this).html('Aguarde...');
-//         $(this).prop('disabled', true);
-//     });
 // });
 
 

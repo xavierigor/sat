@@ -1,21 +1,29 @@
-<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light" id="nav">
+<!-- Parte fixa e sobre tudo -->
+<div class="logo-sat shadow-sm">
     @if((Auth::guard('coordenador')->check() && Request::is('coordenador', 'coordenador/*')) || (Auth::guard('professor')->check() && Request::is('professor', 'professor/*')) || (Auth::check() && Request::is('aluno', 'aluno/*')))
+    <div class="botao-sidebar">
         <span class="toggle-sidebar" onclick="toggleSidebar()">
             <i class="fas fa-bars fa-lg"></i>
         </span>
-    @endif
-
-    <div >
-        <a class="navbar-brand" href={{route('public.index')}}>
-            <img draggable="false" src="{{ asset('images/logo.png') }}" alt="logo" class="img-fluid">
-        </a>
     </div>
-
+    @endif
+    <a class="logo" href="{{route('public.index')}}">
+        <img draggable="false" src="{{ asset('images/logo.png') }}" alt="logo" class="img-fluid">
+    </a>
+</div>
+    
+    
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+    
+    <!-- A nav-brand tem o mesmo espaço da parte fixa, porém não é fixa -->
+    <div class="navbar-brand"></div>
+    
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+        <i class="p-1 fas fa-angle-down fa-lg"></i>
     </button>
     
     <div class="collapse navbar-collapse" id="navbar">
+
         <!-- Left Side Of Navbar -->
         <ul class="navbar-nav mr-auto">
             <li class="nav-item {{ Request::is('agenda-tccs') ? 'active' : '' }}">
@@ -49,10 +57,10 @@
 
                     {{-- <li class="nav-item"> --}}
                         <a href="{{ route('coordenador.notificacoes') }}" class="d-flex {{ Request::is('coordenador/notificacoes') ? 'active' : '' }} bottom-notification">
-                            <div class="notifications shadow-sm my-auto">
+                            <div class="notifications my-auto">
                                 <i class="fa fa-bell"></i>
                                 @if(Auth::guard('coordenador')->user()->novas_notificacoes > 0)
-                                   <span class="num">{{ Auth::guard('coordenador')->user()->novas_notificacoes }}</span>
+                                <span class="num">{{ Auth::guard('coordenador')->user()->novas_notificacoes }}</span>
                                 @endif
                             </div>
                         </a>
@@ -85,10 +93,10 @@
 
                     <!-- <li class="nav-item"> -->
                         <a href="{{ route('professor.notificacoes') }}" class="d-flex {{ Request::is('professor/notificacoes') ? 'active' : '' }} bottom-notification">
-                            <div class="notifications shadow-sm my-auto">
+                            <div class="notifications my-auto">
                                 <i class="fa fa-bell"></i>
                                 @if(Auth::guard('professor')->user()->novas_notificacoes > 0)
-                                   <span class="num">{{ Auth::guard('professor')->user()->novas_notificacoes }}</span>
+                                <span class="num">{{ Auth::guard('professor')->user()->novas_notificacoes }}</span>
                                 @endif
                             </div>
                         </a>
@@ -121,10 +129,10 @@
                 
                     <!-- <li class="nav-item"> -->
                         <a href="{{ route('aluno.notificacoes') }}" class="d-flex {{ Request::is('aluno/notificacoes') ? 'active' : '' }} bottom-notification">
-                            <div class="notifications shadow-sm my-auto">
+                            <div class="notifications my-auto">
                                 <i class="fa fa-bell"></i>
                                 @if(Auth::user()->novas_notificacoes > 0)
-                                   <span class="num">{{ Auth::user()->novas_notificacoes }}</span>
+                                <span class="num">{{ Auth::user()->novas_notificacoes }}</span>
                                 @endif
                             </div>
                         </a>
@@ -156,5 +164,9 @@
                 @endif
             @endif
         </ul>
+
     </div>
+
 </nav>
+
+
