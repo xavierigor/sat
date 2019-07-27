@@ -18,10 +18,6 @@
     <!-- A nav-brand tem o mesmo espaço da parte fixa, porém não é fixa -->
     <div class="navbar-brand"></div>
     
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
-        <i class="p-1 fas fa-angle-down fa-lg"></i>
-    </button>
-    
     <div class="collapse navbar-collapse" id="navbar">
 
         <!-- Left Side Of Navbar -->
@@ -166,6 +162,10 @@
         </ul>
 
     </div>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-lg fa-angle-down"></i>
+    </button>
 
 </nav>
 

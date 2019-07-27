@@ -75,9 +75,28 @@ nav .dropdown-menu a {
     font-size: .95em;
 }
 
-.navbar-toggler{
-    border: none;
-}
+/* Botao toggle */
+
+    .navbar-toggler{
+        border: none;
+        margin-left: auto;
+        outline: none;
+    }
+
+    .navbar-toggler i{
+        padding: 3px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .navbar-toggler:focus {
+        box-shadow: 0 0 0 0;
+        border: 0 none;
+        outline: 0;
+    }
+
+/* Fim Botao toggle */
 
 /* Botao notificacao */
 
@@ -147,8 +166,7 @@ nav .dropdown-menu a {
         width: 100%;
     }
     .navbar-toggler{
-        margin: 15px;
-        margin-left: auto;
+        /* margin: 15px; */
     }
 }
 
