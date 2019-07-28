@@ -162,6 +162,27 @@ class TccController extends Controller
         // ->with(['termo_de_compromisso' => $termo_de_compromisso, 'rel_acompanhamento' => $rel_acompanhamento]);
     }
 
+    public function enviarDocumentos(){
+
+        $aluno = Auth::user();
+        $aluno->tcc->tc_status = "enviado";
+        $aluno->tcc->ra_status = "enviado";
+        if($aluno->tcc->save()){
+            return redirect()->back()->with(session()->flash('success', 'Arquivos enviados para coordenador.'));
+        }
+        return redirect()->back()->with(session()->flash('error', 'Erro ao enviar arquivos para coordenador.'));
+    }
+    public function cancelarEnvioDocumentos(){
+
+        $aluno = Auth::user();
+        $aluno->tcc->tc_status = "pendente";
+        $aluno->tcc->ra_status = "pendente";
+
+        if($aluno->tcc->save()){
+            return redirect()->back()->with(session()->flash('success', 'Envio de arquivos para coordenador cancelado.'));
+        }
+        return redirect()->back()->with(session()->flash('error', 'Erro ao cancelar envio de arquivos para coordenador.'));
+    }
     
     // POST'S
 

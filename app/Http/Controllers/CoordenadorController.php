@@ -18,7 +18,7 @@ class CoordenadorController extends Controller
 
     
     // Variavel que armazena o numero de itens que sera mostrado na paginação
-    private $TotalItensPágina = 5;
+    private $TotalUsuariosPágina = 10;
     
     public function __construct() {
         $this->middleware('auth:coordenador');
@@ -119,13 +119,13 @@ class CoordenadorController extends Controller
             $professores = Professor::select('id', 'name', 'email', 'data_nasc', 'matricula', 'telefone', 'image', 'area_de_interesse')
                                     ->where('name', 'LIKE', '%' . request('n') . '%')
                                     ->orderBy('name', 'asc')
-                                    ->paginate($this->TotalItensPágina)
+                                    ->paginate($this->TotalUsuariosPágina)
                                     ->appends('n', request('n'));
 
         } else {
             $professores = Professor::select('id', 'name', 'email', 'data_nasc', 'matricula', 'telefone', 'image', 'area_de_interesse')
                                     ->orderBy('name', 'asc')
-                                    ->paginate($this->TotalItensPágina);
+                                    ->paginate($this->TotalUsuariosPágina);
         }
 
         // dd($professores);
@@ -135,7 +135,25 @@ class CoordenadorController extends Controller
     public function cadastrarProfessor() {
         return view('coordenador.cadastrar.professor');
     }
-    
+    public function documentosProfessores() {
+        
+        if(request()->has('n')){
+            
+            $professores = Professor::select('id', 'name', 'email', 'data_nasc', 'matricula', 'telefone', 'image', 'area_de_interesse', 'termo_de_responsabilidade', 'tr_status')
+                                    ->where('name', 'LIKE', '%' . request('n') . '%')
+                                    ->orderBy('name', 'asc')
+                                    ->paginate($this->TotalUsuariosPágina)
+                                    ->appends('n', request('n'));
+
+        } else {
+            $professores = Professor::select('id', 'name', 'email', 'data_nasc', 'matricula', 'telefone', 'image', 'area_de_interesse', 'termo_de_responsabilidade', 'tr_status')
+                                    ->orderBy('name', 'asc')
+                                    ->paginate($this->TotalUsuariosPágina);
+        }
+
+        // dd($professores);
+        return view('coordenador.documentos.professores')->with('professores', $professores)->withInput(request()->only('n'));
+    }
 
     // Get's User/Aluno
     public function visualizarAlunos() {
@@ -148,13 +166,13 @@ class CoordenadorController extends Controller
             $alunos = User::select('id', 'name', 'email', 'data_nasc', 'matricula', 'telefone', 'image')
                             ->where('name', 'LIKE', '%' . request('n') . '%')
                             ->orderBy('name', 'asc')
-                            ->paginate($this->TotalItensPágina)
+                            ->paginate($this->TotalUsuariosPágina)
                             ->appends('n', request('n'));
 
         } else{
             $alunos = User::select('id', 'name', 'email', 'data_nasc', 'matricula', 'telefone', 'image')
                             ->orderBy('name', 'asc')
-                            ->paginate($this->TotalItensPágina);
+                            ->paginate($this->TotalUsuariosPágina);
         }
 
         // Retorna para a página uma varivel com os aluno (Users) que serão exibidos
@@ -164,7 +182,30 @@ class CoordenadorController extends Controller
     public function cadastrarAluno() {
         return view('coordenador.cadastrar.aluno');
     }
+    public function documentosAlunos() {
+        // verifica se foi foi passado 'name' como GET (quando é pesquisa algo no campo de busca)
+        if(request()->has('n')){
+            
+            // Busca alunos (Users) com o nome pesquisado, retorna ordenados e paginados e
+            // usa o método 'appends' para persistir a pesquisa quando trocada a página
+            $alunos = User::select('id', 'name', 'email', 'data_nasc', 'matricula', 'telefone', 'image')
+                            ->where('name', 'LIKE', '%' . request('n') . '%')
+                            ->with('tcc:id,user_id,tcc,termo_de_compromisso,tc_status,rel_acompanhamento,ra_status')
+                            ->orderBy('name', 'asc')
+                            ->paginate($this->TotalUsuariosPágina)
+                            ->appends('n', request('n'));
 
+        } else{
+            $alunos = User::select('id', 'name', 'email', 'data_nasc', 'matricula', 'telefone', 'image')
+                            ->with('tcc:id,user_id,tcc,termo_de_compromisso,tc_status,rel_acompanhamento,ra_status')
+                            ->orderBy('name', 'asc')
+                            ->paginate($this->TotalUsuariosPágina);
+        }
+
+        // dd($alunos);
+        // Retorna para a página uma varivel com os aluno (Users) que serão exibidos
+        return view('coordenador.documentos.alunos')->with('alunos', $alunos)->withInput(request()->only('n'));
+    }
 
     // Post's Professor
 
@@ -198,7 +239,7 @@ class CoordenadorController extends Controller
         return back()->with(session()->flash('error', 'Erro ao cadastrar Professor.'));
     }
 
-    public function removerProfessor(Request $request) {        
+    public function removerProfessor(Request $request) {
         if(Professor::destroy($request->id)) {
             return redirect()->back()->with(session()->flash('success', 'Professor removido.'));
         }
@@ -253,7 +294,7 @@ class CoordenadorController extends Controller
         return back()->with(session()->flash('error', 'Erro ao cadastrar Aluno.'));
     }
     
-    public function removerAluno(Request $request) {        
+    public function removerAluno(Request $request) {
 
         // Remove aluno (User) do BD
         if(User::destroy($request->id)) {

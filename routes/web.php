@@ -50,15 +50,17 @@ Route::post('/professor-login', 'Auth\ProfessorLoginController@login')->name('pr
 Route::prefix('/coordenador')->group(function() {
     Route::get('/', 'CoordenadorController@dashboard')->name('coordenador.dashboard');
 
-    Route::get('/cadastrar/professor', 'CoordenadorController@cadastrarProfessor')->name('coordenador.cadastrar.professor');
-    Route::post('/cadastrar/professor', 'CoordenadorController@salvarProfessor')->name('coordenador.salvar.professor');
-    Route::get('/visualizar/professores', 'CoordenadorController@visualizarProfessores')->name('coordenador.visualizar.professores');
-    Route::delete('/visualizar/professores', 'CoordenadorController@removerProfessor')->name('coordenador.remover.professor');
+    Route::get('/professor/cadastrar', 'CoordenadorController@cadastrarProfessor')->name('coordenador.cadastrar.professor');
+    Route::post('/professor/salvar', 'CoordenadorController@salvarProfessor')->name('coordenador.salvar.professor');
+    Route::get('/professores/visualizar', 'CoordenadorController@visualizarProfessores')->name('coordenador.visualizar.professores');
+    Route::delete('/professores/remover', 'CoordenadorController@removerProfessor')->name('coordenador.remover.professor');
+    Route::get('/professores/documentos', 'CoordenadorController@documentosProfessores')->name('coordenador.documentos.professores');
 
-    Route::get('/cadastrar/aluno', 'CoordenadorController@cadastrarAluno')->name('coordenador.cadastrar.aluno');
-    Route::post('/cadastrar/aluno', 'CoordenadorController@salvarAluno')->name('coordenador.salvar.aluno');
-    Route::get('/visualizar/alunos', 'CoordenadorController@visualizarAlunos')->name('coordenador.visualizar.alunos');
-    Route::delete('/visualizar/alunos', 'CoordenadorController@removerAluno')->name('coordenador.remover.aluno');
+    Route::get('/aluno/cadastrar', 'CoordenadorController@cadastrarAluno')->name('coordenador.cadastrar.aluno');
+    Route::post('/aluno/salvar', 'CoordenadorController@salvarAluno')->name('coordenador.salvar.aluno');
+    Route::get('/alunos/visualizar', 'CoordenadorController@visualizarAlunos')->name('coordenador.visualizar.alunos');
+    Route::delete('/alunos/remover', 'CoordenadorController@removerAluno')->name('coordenador.remover.aluno');
+    Route::get('/alunos/documentos', 'CoordenadorController@documentosAlunos')->name('coordenador.documentos.alunos');
 
     Route::get('/notificacoes', 'CoordenadorController@notificacoes')->name('coordenador.notificacoes');
     
@@ -66,14 +68,14 @@ Route::prefix('/coordenador')->group(function() {
     Route::post('/datas/salvar', 'CoordenadorController@salvarDatas')->name('coordenador.salvar.datas');
 
     Route::delete('/noticias', 'NoticiaController@destroy')->name('coordenador.noticia.destroy');
-    Route::get('/cadastrar/noticia', 'NoticiaController@create')->name('coordenador.noticia.create');
-    Route::post('/cadastrar/noticia', 'NoticiaController@store')->name('coordenador.noticia.store');
-    Route::get('/editar/noticia/{id}', 'NoticiaController@edit')->name('coordenador.noticia.edit');
-    Route::post('/editar/noticia/{id}', 'NoticiaController@update')->name('coordenador.noticia.update');
+    Route::get('/noticia/cadastrar', 'NoticiaController@create')->name('coordenador.noticia.create');
+    Route::post('/noticia/salvar', 'NoticiaController@store')->name('coordenador.noticia.store');
+    Route::get('/noticia/editar/{id}', 'NoticiaController@edit')->name('coordenador.noticia.edit');
+    Route::post('/noticia/atualizar/{id}', 'NoticiaController@update')->name('coordenador.noticia.update');
 
-    Route::get('/cadastrar/documento-modelo', 'DocumentoModeloController@create')->name('coordenador.dm.create');
-    Route::post('/cadastrar/documento-modelo', 'DocumentoModeloController@store')->name('coordenador.dm.store');
-    Route::delete('/documentos-modelo', 'DocumentoModeloController@destroy')->name('coordenador.dm.destroy');
+    Route::get('/documento-modelo/cadastrar', 'DocumentoModeloController@create')->name('coordenador.dm.create');
+    Route::post('/documento-modelo/salvar', 'DocumentoModeloController@store')->name('coordenador.dm.store');
+    Route::delete('/documentos-modelo/remover', 'DocumentoModeloController@destroy')->name('coordenador.dm.destroy');
 });
 
 Route::prefix('/professor')->group(function() {
@@ -81,12 +83,12 @@ Route::prefix('/professor')->group(function() {
     Route::get('/perfil', 'ProfessorController@perfil')->name('professor.perfil');
     Route::get('/editar', 'ProfessorController@editar')->name('professor.editar');
     Route::post('/editar', 'ProfessorController@update')->name('professor.update');
-    Route::get('/alterar/senha', 'ProfessorController@alterarSenha')->name('professor.alterar.senha');
-    Route::post('/alterar/senha', 'ProfessorController@salvarSenha')->name('professor.salvar.senha');
+    Route::get('/senha/alterar', 'ProfessorController@alterarSenha')->name('professor.alterar.senha');
+    Route::post('/senha/salvar', 'ProfessorController@salvarSenha')->name('professor.salvar.senha');
 
     Route::get('/solicitacoes', 'SolicitacaoController@solicitacoes')->name('professor.solicitacoes');
-    Route::post('/aceitar-solicitacao', 'SolicitacaoController@aceitarSolicitacao')->name('professor.solicitacao.aceitar');
-    Route::post('/recusar-solicitacao', 'SolicitacaoController@recusarSolicitacao')->name('professor.solicitacao.recusar');
+    Route::post('/solicitacoes/aceitar-solicitacao', 'SolicitacaoController@aceitarSolicitacao')->name('professor.solicitacao.aceitar');
+    Route::post('/solicitacoes/recusar-solicitacao', 'SolicitacaoController@recusarSolicitacao')->name('professor.solicitacao.recusar');
 
     Route::get('/tcc/orientandos', 'ProfessorController@orientandos')->name('professor.orientandos.tcc');
     Route::post('/tcc/orientandos/tc', 'ProfessorController@uploadTermoCompromissoOrientando')->name('professor.upload.tc.orientando');
@@ -97,8 +99,10 @@ Route::prefix('/professor')->group(function() {
     Route::post('/tcc/coorientandos/cancelar-coorientacao', 'ProfessorController@cancelarCoorientacao')->name('professor.cancelar-coorientacao.tcc');
 
     Route::get('/tcc/documentos', 'ProfessorController@documentos')->name('professor.documentos.tcc');
-    Route::post('/tcc/documentos', 'ProfessorController@storeDocumentos')->name('professor.store.documentos');
-    Route::delete('/tcc/documentos', 'ProfessorController@destroyDocumento')->name('professor.destroy.documento');
+    Route::post('/tcc/documentos/salvar', 'ProfessorController@storeDocumentos')->name('professor.store.documentos');
+    Route::delete('/tcc/documentos/remover', 'ProfessorController@destroyDocumento')->name('professor.destroy.documento');
+    Route::get('/tcc/documentos/enviar', 'ProfessorController@enviarDocumentos')->name('professor.enviar.documentos');
+    Route::get('/tcc/documentos/cancelar-envio', 'ProfessorController@cancelarEnvioDocumentos')->name('professor.cancelar-envio.documentos');
 
     Route::get('/notificacoes', 'ProfessorController@notificacoes')->name('professor.notificacoes');
 
@@ -109,8 +113,8 @@ Route::prefix('/aluno')->group(function() {
     Route::get('/perfil', 'AlunoController@perfil')->name('aluno.perfil');
     Route::get('/editar', 'AlunoController@editar')->name('aluno.editar');
     Route::post('/editar', 'AlunoController@update')->name('aluno.update');
-    Route::get('/alterar/senha', 'AlunoController@alterarSenha')->name('aluno.alterar.senha');
-    Route::post('/alterar/senha', 'AlunoController@salvarSenha')->name('aluno.salvar.senha');
+    Route::get('/senha/alterar', 'AlunoController@alterarSenha')->name('aluno.alterar.senha');
+    Route::post('/senha/salvar', 'AlunoController@salvarSenha')->name('aluno.salvar.senha');
 
     Route::get('/tcc/editar', 'TccController@editar')->name('aluno.editar.tcc');
     Route::post('/tcc/editar', 'TccController@atualizar')->name('aluno.atualizar.tcc');
@@ -119,7 +123,9 @@ Route::prefix('/aluno')->group(function() {
     Route::get('/tcc/documentos', 'TccController@documentos')->name('aluno.documentos.tcc');
     Route::post('/tcc/documentos/salvar', 'TccController@storeDocumento')->name('aluno.store.documentos');
     Route::delete('/tcc/documentos/excluir', 'TccController@destroyDocumento')->name('aluno.destroy.documento');
-    
+    Route::get('/tcc/documentos/enviar', 'TccController@enviarDocumentos')->name('aluno.enviar.documentos');
+    Route::get('/tcc/documentos/cancelar-envio', 'TccController@cancelarEnvioDocumentos')->name('aluno.cancelar-envio.documentos');
+
     Route::post('/tcc/solicitar-professor', 'TccController@solicitarProfessor')->name('aluno.solicitar-professor.tcc');
     Route::post('/tcc/cancelar-solicitacao', 'TccController@cancelarSolicitacao')->name('aluno.cancelar-solicitacao.tcc');
     

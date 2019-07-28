@@ -31,7 +31,7 @@
     @include('includes.navs.navbar')
     @include('includes.navs.sidebar')
 
-    @if(!Auth::user()->password_changed_at && !Request::is('*/alterar/senha') && !Auth::guard('coordenador')->check())
+    @if(!Auth::user()->password_changed_at && !Request::is('*/senha/alterar') && !Auth::guard('coordenador')->check())
         @include('includes.modal.alterar-senha')
     @endif
 
@@ -40,7 +40,7 @@
             @yield('header', config('app.name'))
         </div>
         <section class="shadow-sm">
-            @if(Auth::user()->password_changed_at || Request::is('*/alterar/senha') || Auth::guard('coordenador')->check())
+            @if(Auth::user()->password_changed_at || Request::is('*/senha/alterar') || Auth::guard('coordenador')->check())
                 @yield('content')
             @endif
         </section>
@@ -57,7 +57,7 @@
     <script src="{{ asset('js/sidebar.js') }}"></script>
     <script src="{{ asset('js/toastr.min.js') }}"></script>
 
-    @if(!Auth::user()->password_changed_at && !Request::is('*/alterar/senha') && !Auth::guard('coordenador')->check())
+    @if(!Auth::user()->password_changed_at && !Request::is('*/senha/alterar') && !Auth::guard('coordenador')->check())
         <script>
             $('#alterarSenha').modal({
                 show: true,

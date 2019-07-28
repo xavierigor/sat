@@ -82,6 +82,7 @@ body {
 #main{
     transition: margin-left .4s;
     padding: 20px;
+    margin-top: 60px;
     /* margin-top: 61px; Tamanho da navbar */
     /* transition: all 7s; */
 }
@@ -207,10 +208,13 @@ body {
         flex: 0 0 100%;
         margin: 0px 0px 10px 0px;
     }
+    #main{
+        margin-top: 93px; /* Tamanho da navbar */
+    }
 }
 
-@media(min-width: 768px){
+/* @media(min-width: 768px){
     #main{
         margin-top: 60px; /* Tamanho da navbar */
     }
-}
+} */

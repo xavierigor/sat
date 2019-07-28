@@ -50,6 +50,13 @@ nav {
     padding-right: 27px;
 }
 
+.navbar{
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+}
+
 .navbar-brand{
     width: 250px;
     height: 60px;
@@ -149,14 +156,14 @@ nav .dropdown-menu a {
 /* Fim Botao notificacao */
 
 /* Ficar fixa se tela não small */
-@media(min-width: 768px){
+/* @media(min-width: 768px){
     .navbar{
         position: fixed;
         top: 0;
         right: 0;
         left: 0;
     }
-}
+} */
 
 @media(max-width: 767px){
     .logo-sat{

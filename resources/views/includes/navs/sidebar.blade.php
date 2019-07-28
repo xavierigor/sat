@@ -14,24 +14,27 @@
                         </a>
                     </li>
 
-                    <li data-toggle="collapse" data-target="#aluno" class="collapsed {{ Request::is('*/cadastrar/aluno') || Request::is('*/visualizar/alunos') ? 'active' : '' }}">
+                    <li data-toggle="collapse" data-target="#aluno" class="collapsed {{ Request::is('*/aluno/cadastrar') || Request::is('*/alunos/visualizar') ? 'active' : '' }}">
                         <a href="#" class="dropdown-option">
-                            <i class="fas fa-user-graduate fa-fw"></i> Aluno <i class="fas fa-chevron-down fa-fw"></i>
+                            <i class="fas fa-user-graduate fa-fw"></i> Alunos <i class="fas fa-chevron-down fa-fw"></i>
                         </a>
                     </li>
-                    <ul class="sub-menu collapse {{ Request::is('*/cadastrar/aluno') || Request::is('*/visualizar/alunos') ? 'show' : '' }}"" id="aluno">
-                        <li class="{{ Request::is('*/cadastrar/aluno') ? 'active' : ''}}"><a href="{{route('coordenador.cadastrar.aluno')}}">Cadastrar Aluno</a></li>
-                        <li class="{{ Request::is('*/visualizar/alunos') ? 'active' : ''}}"><a href="{{ route('coordenador.visualizar.alunos') }}">Alunos Cadastrados</a></li>
+                    <ul class="sub-menu collapse {{ Request::is('*/aluno/cadastrar') || Request::is('*/alunos/visualizar') || Request::is('*/alunos/documentos') ? 'show' : '' }}" id="aluno">
+                        <li class="{{ Request::is('*/aluno/cadastrar') ? 'active' : ''}}"><a href="{{route('coordenador.cadastrar.aluno')}}">Cadastrar Aluno</a></li>
+                        <li class="{{ Request::is('*/alunos/visualizar') ? 'active' : ''}}"><a href="{{ route('coordenador.visualizar.alunos') }}">Alunos Cadastrados</a></li>
+                        <li class="{{ Request::is('*/alunos/documentos') ? 'active' : ''}}"><a href="{{ route('coordenador.documentos.alunos') }}">Documentos de Alunos</a></li>
+
                     </ul>
         
-                    <li data-toggle="collapse" data-target="#professor" class="collapsed {{ Request::is('*/cadastrar/professor') || Request::is('*/visualizar/professores') ? 'active' : '' }}">
+                    <li data-toggle="collapse" data-target="#professor" class="collapsed {{ Request::is('*/professor/cadastrar') || Request::is('*/professores/visualizar') ? 'active' : '' }}">
                         <a href="#" class="dropdown-option">
-                            <i class="fas fa-user fa-fw"></i> Professor <i class="fas fa-chevron-down fa-fw"></i>
+                            <i class="fas fa-user fa-fw"></i> Professores <i class="fas fa-chevron-down fa-fw"></i>
                         </a>
                     </li>
-                    <ul class="sub-menu collapse {{ Request::is('*/cadastrar/professor') || Request::is('*/visualizar/professores') ? 'show' : '' }}" id="professor">
-                        <li class="{{ Request::is('*/cadastrar/professor') ? 'active' : ''}}"><a href="{{route('coordenador.cadastrar.professor')}}">Cadastrar Professor</a></li>
-                        <li class="{{ Request::is('*/visualizar/professores') ? 'active' : ''}}"><a href="{{ route('coordenador.visualizar.professores') }}">Professores Cadastrados</a></li>
+                    <ul class="sub-menu collapse {{ Request::is('*/professor/cadastrar') || Request::is('*/professores/visualizar') || Request::is('*/professores/documentos') ? 'show' : '' }}" id="professor">
+                        <li class="{{ Request::is('*/professor/cadastrar') ? 'active' : ''}}"><a href="{{route('coordenador.cadastrar.professor')}}">Cadastrar Professor</a></li>
+                        <li class="{{ Request::is('*/professores/visualizar') ? 'active' : ''}}"><a href="{{ route('coordenador.visualizar.professores') }}">Professores Cadastrados</a></li>
+                        <li class="{{ Request::is('*/professores/documentos') ? 'active' : ''}}"><a href="{{ route('coordenador.documentos.professores') }}">Documentos de Professores</a></li>
                     </ul>
 
                     <li class="collapsed {{ Request::is('*/datas') ? 'active' : '' }}">
@@ -65,15 +68,15 @@
                         </a>
                     </li>
 
-                    <li data-toggle="collapse" data-target="#perfil-prof" class="collapsed {{ Request::is('professor/editar') || Request::is('professor/perfil') || Request::is('professor/alterar/senha') ? 'active' : '' }}">
+                    <li data-toggle="collapse" data-target="#perfil-prof" class="collapsed {{ Request::is('professor/editar') || Request::is('professor/perfil') || Request::is('professor/senha/alterar') ? 'active' : '' }}">
                         <a href="#" class="dropdown-option">
                             <i class="fas fa-user fa-fw"></i> Perfil <i class="fas fa-chevron-down fa-fw"></i>
                         </a>
                     </li>
-                    <ul class="sub-menu collapse {{ Request::is('professor/editar') || Request::is('professor/perfil') || Request::is('professor/alterar/senha')? 'show' : '' }}" id="perfil-prof">
+                    <ul class="sub-menu collapse {{ Request::is('professor/editar') || Request::is('professor/perfil') || Request::is('professor/senha/alterar')? 'show' : '' }}" id="perfil-prof">
                         <li class="{{ Request::is('professor/perfil') ? 'active' : ''}}"><a href="{{ route('professor.perfil') }}">Visualizar</a></li>
                         <li class="{{ Request::is('professor/editar') ? 'active' : ''}}"><a href="{{ route('professor.editar') }}">Editar Perfil</a></li>
-                        <li class="{{ Request::is('professor/alterar/senha') ? 'active' : ''}}"><a href="{{ route('professor.alterar.senha') }}">Alterar Senha</a></li>
+                        <li class="{{ Request::is('professor/senha/alterar') ? 'active' : ''}}"><a href="{{ route('professor.alterar.senha') }}">Alterar Senha</a></li>
                     </ul>
                     
                     <li data-toggle="collapse" data-target="#tcc-prof" class="collapsed {{ Request::is('professor/tcc/orientandos') || Request::is('professor/tcc/coorientandos') || Request::is('professor/tcc/documentos') || Request::is('professor/solicitacoes') ? 'active' : '' }}">
@@ -104,15 +107,15 @@
                         </a>
                     </li>
 
-                    <li data-toggle="collapse" data-target="#perfil-aluno" class="collapsed {{ Request::is('aluno/editar') || Request::is('aluno/perfil') || Request::is('aluno/alterar/senha') ? 'active' : '' }}">
+                    <li data-toggle="collapse" data-target="#perfil-aluno" class="collapsed {{ Request::is('aluno/editar') || Request::is('aluno/perfil') || Request::is('aluno/senha/alterar') ? 'active' : '' }}">
                         <a href="#" class="dropdown-option">
                             <i class="fas fa-user-graduate fa-fw"></i> Perfil <i class="fas fa-chevron-down fa-fw"></i>
                         </a>
                     </li>
-                    <ul class="sub-menu collapse {{ Request::is('aluno/editar') || Request::is('aluno/perfil') || Request::is('aluno/alterar/senha') ? 'show' : '' }}" id="perfil-aluno">
+                    <ul class="sub-menu collapse {{ Request::is('aluno/editar') || Request::is('aluno/perfil') || Request::is('aluno/senha/alterar') ? 'show' : '' }}" id="perfil-aluno">
                         <li class="{{ Request::is('aluno/perfil') ? 'active' : ''}}"><a href="{{ route('aluno.perfil') }}">Visualizar</a></li>
                         <li class="{{ Request::is('aluno/editar') ? 'active' : ''}}"><a href="{{ route('aluno.editar') }}">Editar Perfil</a></li>
-                        <li class="{{ Request::is('aluno/alterar/senha') ? 'active' : ''}}"><a href="{{ route('aluno.alterar.senha') }}">Alterar Senha</a></li>
+                        <li class="{{ Request::is('aluno/senha/alterar') ? 'active' : ''}}"><a href="{{ route('aluno.alterar.senha') }}">Alterar Senha</a></li>
                     </ul>
 
                     <li data-toggle="collapse" data-target="#tcc-aluno" 

@@ -159,7 +159,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'user_id' => 3,
-                'tcc' => 'tcc 1',
+                'tcc' => 'tcc 2',
             ],
             [
                 'user_id' => 4,

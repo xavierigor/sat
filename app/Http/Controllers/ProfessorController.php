@@ -219,8 +219,31 @@ class ProfessorController extends Controller
 
     public function documentos() {
         $termo_de_responsabilidade = Auth::user()->termo_de_responsabilidade;
+        $tr_status = Auth::user()->tr_status;
 
-        return view('professor.tcc.documentos')->with('termo_de_responsabilidade', $termo_de_responsabilidade);
+        return view('professor.tcc.documentos')->with('termo_de_responsabilidade', $termo_de_responsabilidade)
+                                                ->with('tr_status', $tr_status);
+    }
+
+    public function enviarDocumentos(){
+
+        $professor = Auth::user();
+        $professor->tr_status = "enviado";
+
+        if($professor->save()){
+            return redirect()->back()->with(session()->flash('success', 'Arquivos enviados para coordenador.'));
+        }
+        return redirect()->back()->with(session()->flash('error', 'Erro ao enviar arquivos para coordenador.'));
+    }
+    public function cancelarEnvioDocumentos(){
+
+        $professor = Auth::user();
+        $professor->tr_status = "pendente";
+
+        if($professor->save()){
+            return redirect()->back()->with(session()->flash('success', 'Envio de arquivos para coordenador cancelado.'));
+        }
+        return redirect()->back()->with(session()->flash('error', 'Erro ao cancelar envio de arquivos para coordenador.'));
     }
 
     public function storeDocumentos(Request $request)
