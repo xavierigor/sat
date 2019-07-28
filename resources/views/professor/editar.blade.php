@@ -36,8 +36,7 @@
             </div>
             <div class="form-group col-md-3">
                 <label for="telefone">Telefone</label>
-                <!-- Adicionar máscara no input -->
-                <input value="{{ Auth::user()->telefone }}" type="tel" class="form-control form-control-sm {{ $errors->has('telefone') ? 'border-danger' : ''}}" id="telefone" name="telefone" placeholder="(00) 0 0000-0000">
+                <input value="{{ Auth::user()->telefone }}" type="tel" class="phone_with_ddd form-control form-control-sm {{ $errors->has('telefone') ? 'border-danger' : ''}}" id="telefone" name="telefone" placeholder="(00) 0 0000-0000">
                 {!! $errors->first('telefone', '<small class="text-danger">:message</small>') !!}
             </div>
         </div>
@@ -67,4 +66,8 @@
         </button>
     </form>
 </div>
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('js/jquery.mask.min.js') }}"></script>
 @endsection
