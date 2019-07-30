@@ -77,7 +77,7 @@
                     </li>
                     <ul class="sub-menu collapse {{ Request::is('professor/editar') || Request::is('professor/perfil') || Request::is('professor/senha/alterar')? 'show' : '' }}" id="perfil-prof">
                         <li class="{{ Request::is('professor/perfil') ? 'active' : ''}}"><a href="{{ route('professor.perfil') }}">Visualizar</a></li>
-                        <li class="{{ Request::is('professor/editar') ? 'active' : ''}}"><a href="{{ route('professor.editar') }}">Editar Perfil</a></li>
+                        <li class="{{ Request::is('professor/editar') ? 'active' : ''}}"><a href="{{ route('professor.editar') }}">Editar</a></li>
                         <li class="{{ Request::is('professor/senha/alterar') ? 'active' : ''}}"><a href="{{ route('professor.alterar.senha') }}">Alterar Senha</a></li>
                     </ul>
                     
@@ -116,7 +116,7 @@
                     </li>
                     <ul class="sub-menu collapse {{ Request::is('aluno/editar') || Request::is('aluno/perfil') || Request::is('aluno/senha/alterar') ? 'show' : '' }}" id="perfil-aluno">
                         <li class="{{ Request::is('aluno/perfil') ? 'active' : ''}}"><a href="{{ route('aluno.perfil') }}">Visualizar</a></li>
-                        <li class="{{ Request::is('aluno/editar') ? 'active' : ''}}"><a href="{{ route('aluno.editar') }}">Editar Perfil</a></li>
+                        <li class="{{ Request::is('aluno/editar') ? 'active' : ''}}"><a href="{{ route('aluno.editar') }}">Editar</a></li>
                         <li class="{{ Request::is('aluno/senha/alterar') ? 'active' : ''}}"><a href="{{ route('aluno.alterar.senha') }}">Alterar Senha</a></li>
                     </ul>
 

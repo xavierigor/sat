@@ -8,7 +8,7 @@
     </div>
     @endif
     <a class="logo" href="{{route('public.index')}}">
-        <img draggable="false" src="{{ asset('images/logo.png') }}" alt="logo" class="img-fluid">
+        <img draggable="false" src="{{ asset('images/logo.png') }}" alt="logo-icon" class="img-fluid">
     </a>
 </div>
     

@@ -39,7 +39,7 @@
 
             <small class="text-uppercase text-muted mr-1">Avaliadores</small>
             <i class="fas fa-question-circle fa-sm" data-toggle="tooltip" data-placement="right"
-            title="Use o botão verde para alternar entre lista e caixa de texto"></i>
+            title="Clique no teclado para digitar o nome do avaliador caso o mesmo não possua cadastro no sistema."></i>
             
             <div class="form-row mt-2 mb-4">
                 <div class="form-group col-md-4">

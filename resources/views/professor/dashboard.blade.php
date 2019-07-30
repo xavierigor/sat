@@ -14,6 +14,7 @@
             </div>
         @endif
 
-        Olá <b>{{Auth::user()->name}}</b>, você está logado(a) como <b>Professor</b>!
+        Olá <b>{{Auth::user()->name}}</b>, seja bem-vindo ao SAT!<br>
+        Você está logado(a) como <b>Professor</b>.
     </div>
 @endsection

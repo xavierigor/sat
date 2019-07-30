@@ -95,7 +95,7 @@
                                     data-matricula="{{ $aluno->matricula }}" data-telefone="{{ $aluno->telefone }}"
                                     data-email="{{ $aluno->email }}" data-image="{{ $aluno->image }}"
                                     data-data_nasc="{{ DateTime::createFromFormat('Y-m-d', $aluno->data_nasc)->format('d/m/Y') }}"
-                                    title="Ver Perfil">
+                                    title="Visualizar Perfil">
                                     <i class="fas fa-eye fa-fw"></i>
                                 </button>
                                 <!-- <button role="button" class="btn btn-outline-success btn-sm" data-toggle="tooltip" data-placement="top" title="Editar">

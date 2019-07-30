@@ -46,8 +46,10 @@
                     <input value="{{ old('data_nasc') }}" type="date" class="form-control form-control-sm {{ $errors->has('data_nasc') ? 'border-danger' : ''}}" id="data_nasc" name="data_nasc">
                     {!! $errors->first('data_nasc', '<small class="text-danger">:message</small>') !!}
                     <small class="form-text text-muted">
-                        A data de nascimento será usada como senha no formato 
-                        <span class="font-weight-bold">ddmmaaaa</span>
+                        A data de nascimento será usada como senha pelo aluno no formato 
+                        <span class="font-weight-bold">dia</span>, 
+                        <span class="font-weight-bold">mês</span> e
+                        <span class="font-weight-bold">ano</span>
                     </small>
                 </div>
                 <div class="form-group col-md-3">
@@ -58,7 +60,7 @@
                     </select>
                     {!! $errors->first('tcc', '<small class="text-danger">:message</small>') !!}
                     <small class="form-text text-muted">
-                        A disciplina de Tcc que o aluno está pagando
+                        Selecione a disciplina de TCC que o aluno está matriculado
                     </small>
                 </div>
             </div>

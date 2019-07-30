@@ -49,7 +49,7 @@
                     </div>
                 @else
                     <div class="circle img-perfil-pequena">
-                ​       <img src="{{ asset('images/user.png') }}" class="rounded-circle" alt="avatar">
+                ​       <img src="{{ asset('images/user.png') }}" class="rounded-circle" alt="img-avatar">
                     </div>
                 @endif
             </div>
@@ -60,7 +60,7 @@
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary mt-3 button-prevent-mult-submits">
+        <button type="submit" class="btn btn-primary mt-3 button-prevent-mult-submits" alt="botao-salvar-alteracoes">
             <i style="display: none;" class="spinner-submit fa fa-spinner fa-spin"></i>
             Salvar Alterações
         </button>

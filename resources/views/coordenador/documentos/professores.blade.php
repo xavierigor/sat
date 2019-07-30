@@ -67,7 +67,7 @@
                                     data-telefone="{{ $professor->telefone }}" data-email="{{ $professor->email }}"
                                     data-image="{{ $professor->image }}"
                                     data-data_nasc="{{ DateTime::createFromFormat('Y-m-d', $professor->data_nasc)->format('d/m/Y') }}"
-                                    data-area_de_interesse="{{ $professor->area_de_interesse }}" title="Ver Perfil">
+                                    data-area_de_interesse="{{ $professor->area_de_interesse }}" title="Visualizar Perfil">
                                     <i class="fas fa-eye fa-fw"></i>
                                 </button>
                                 <!-- <button role="button" class="btn btn-outline-success btn-sm" data-toggle="tooltip" data-placement="top" title="Editar">

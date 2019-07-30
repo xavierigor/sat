@@ -17,7 +17,7 @@
                 @if($data->nome == 'definir orientador')
                     <div class="form-row">
                         <div class="col-xl-7 titulo-prazo my-auto">
-                            <h6 class="font-weight-bold ">Prazo para definição de Orientador:</h6>
+                            <h6 class="font-weight-bold ">Prazo para escolha do Orientador:</h6>
                         </div>
 
                         <div class="col-xl-5 form-row">                
@@ -39,7 +39,7 @@
                 @if($data->nome == 'termo de compromisso')
                     <div class="form-row">
                         <div class="col-xl-7 titulo-prazo my-auto">
-                            <h6 class="font-weight-bold ">Prazo para envio de documento Termo de Compromisso:</h6>
+                            <h6 class="font-weight-bold ">Prazo para envio do Termo de Compromisso:</h6>
                         </div>
 
                         <div class="col-xl-5 form-row">                
@@ -61,7 +61,7 @@
                 @if($data->nome == 'termo de responsabilidade')
                     <div class="form-row">
                         <div class="col-xl-7 titulo-prazo my-auto">
-                            <h6 class="font-weight-bold ">Prazo para envio de documento Termo de Responsabilidade:</h6>
+                            <h6 class="font-weight-bold ">Prazo para envio do Termo de Responsabilidade:</h6>
                         </div>
 
                         <div class="col-xl-5 form-row">                
@@ -83,7 +83,7 @@
                 @if($data->nome == 'relatorio de acompanhamento')
                     <div class="form-row">
                         <div class="col-xl-7 titulo-prazo my-auto">
-                            <h6 class="font-weight-bold ">Prazo para envio de documento Relatório de Acompanhamento:</h6>
+                            <h6 class="font-weight-bold ">Prazo para envio do Relatório de Acompanhamento:</h6>
                         </div>
 
                         <div class="col-xl-5 form-row">                

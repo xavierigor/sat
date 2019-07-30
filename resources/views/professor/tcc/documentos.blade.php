@@ -62,7 +62,7 @@
                 </button>
                 <a href="{{ route('professor.enviar.documentos') }}" class="mt-4 btn btn-outline-primary button-prevent-mult-submits">
                     <i style="display: none;" class="spinner-submit fa fa-spinner fa-spin"></i>
-                    Enviar arquivos para coordenador
+                    Enviar arquivo para o Coordenador
                 </a>
             </form>
 
