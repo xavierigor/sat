@@ -8,8 +8,18 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    public function orientador() {
-        return $this->hasOne('App\Professor');
+    // public function orientador() {
+    //     return $this->hasOne('App\Professor');
+    // }
+
+    public function getOrientador() {
+        $orientacao = Orientacao::where('aluno_id', $this->id)->first();
+
+        if($orientacao) {
+            return Professor::where('id', $orientacao->orientador_id)->first() ?? null;
+        }
+
+        return null;
     }
 
     public function tcc() {

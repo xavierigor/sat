@@ -13,7 +13,7 @@
 
 // Rotas Publicas
 Route::get('/', 'PublicController@index')->name('public.index');
-Route::get('/agenda-tccs', 'PublicController@agenda')->name('public.agenda');
+Route::get('/agenda-defesas', 'DefesaController@index')->name('public.defesa.index');
 Route::get('/iniciar-sessao', 'PublicController@escolhaLogin')->name('public.escolhaLogin');
 Route::get('/professores', 'PublicController@professores')->name('public.professores');
 Route::get('/professores/{id}', 'PublicController@perfilprofessor')->name('public.professores.perfil');
@@ -67,11 +67,25 @@ Route::prefix('/coordenador')->group(function() {
     Route::get('/datas', 'CoordenadorController@datas')->name('coordenador.datas');
     Route::post('/datas/salvar', 'CoordenadorController@salvarDatas')->name('coordenador.salvar.datas');
 
-    Route::delete('/noticias', 'NoticiaController@destroy')->name('coordenador.noticia.destroy');
+    Route::get('/defesa/cadastrar', 'DefesaController@create')->name('coordenador.defesa.create');
+    Route::post('/defesa/cadastrar', 'DefesaController@store')->name('coordenador.defesa.store');
+    Route::post('/defesa/cadastrar/orientador', 'DefesaController@orientador'); // Não mudar
+
+    // Route::get('/cadastrar/noticia', 'NoticiaController@create')->name('coordenador.noticia.create');
+    // Route::post('/cadastrar/noticia', 'NoticiaController@store')->name('coordenador.noticia.store');
+    // Route::get('/editar/noticia/{id}', 'NoticiaController@edit')->name('coordenador.noticia.edit');
+    // Route::post('/editar/noticia/{id}', 'NoticiaController@update')->name('coordenador.noticia.update');
+    // Route::delete('/noticias', 'NoticiaController@destroy')->name('coordenador.noticia.destroy');
+
+    // Route::get('/cadastrar/documento-modelo', 'DocumentoModeloController@create')->name('coordenador.dm.create');
+    // Route::post('/cadastrar/documento-modelo', 'DocumentoModeloController@store')->name('coordenador.dm.store');
+    // Route::delete('/documentos-modelo', 'DocumentoModeloController@destroy')->name('coordenador.dm.destroy');
+
     Route::get('/noticia/cadastrar', 'NoticiaController@create')->name('coordenador.noticia.create');
     Route::post('/noticia/salvar', 'NoticiaController@store')->name('coordenador.noticia.store');
     Route::get('/noticia/editar/{id}', 'NoticiaController@edit')->name('coordenador.noticia.edit');
     Route::post('/noticia/atualizar/{id}', 'NoticiaController@update')->name('coordenador.noticia.update');
+    Route::delete('/noticias', 'NoticiaController@destroy')->name('coordenador.noticia.destroy');
 
     Route::get('/documento-modelo/cadastrar', 'DocumentoModeloController@create')->name('coordenador.dm.create');
     Route::post('/documento-modelo/salvar', 'DocumentoModeloController@store')->name('coordenador.dm.store');

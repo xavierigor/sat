@@ -20,14 +20,6 @@ class PublicController extends Controller
     public function escolhaLogin() {
         return view('public.escolhaLogin');
     }
-    
-    public function agenda() {
-        return view('public.agenda');
-    }
-
-    // public function documentosModelo() {
-    //     return view('public.documentosModelo');
-    // }
 
     public function professores() {
 

@@ -17,3 +17,7 @@ $('.navbar-collapse').on('shown.bs.collapse', function(){
         $('.spinner-submit').show();
     })
 })();
+
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+});

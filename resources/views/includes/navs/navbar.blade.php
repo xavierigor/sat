@@ -22,8 +22,8 @@
 
         <!-- Left Side Of Navbar -->
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item {{ Request::is('agenda-tccs') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('public.agenda') }}">Agenda de TCC's</a>
+            <li class="nav-item {{ Request::is('agenda-defesas') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('public.defesa.index') }}">Agenda de Defesas</a>
             </li>
             <li class="nav-item {{ Request::is('noticias') || Request::is('noticia/*') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('public.noticia.index') }}">Notícias</a>

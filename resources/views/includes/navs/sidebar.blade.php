@@ -44,17 +44,19 @@
                         </a>
                     </li>
         
-                    <li data-toggle="collapse" data-target="#site" class="collapsed {{ Request::is('*/noticia') || Request::is('coordenador/*/documento-modelo') ? 'active' : '' }}">
+                    <li data-toggle="collapse" data-target="#site" class="collapsed {{ Request::is('*/defesa/cadastrar') || Request::is('*/noticia/cadastrar') || Request::is('*/documento-modelo/cadastrar') ? 'active' : '' }}">
                         <a href="#" class="dropdown-option">
                             <i class="fas fa-globe-americas fa-fw"></i> Site <i class="fas fa-chevron-down fa-fw"></i>
                         </a>
                     </li>
-                    <ul class="sub-menu collapse {{ Request::is('*/noticia') || Request::is('coordenador/*/documento-modelo') ? 'show' : '' }}" id="site">
-                        <li class="{{ Request::is('*/noticia') ? 'active' : ''}}">
+                    <ul class="sub-menu collapse {{ Request::is('*/defesa/cadastrar') || Request::is('*/noticia/cadastrar') || Request::is('*/documento-modelo/cadastrar') ? 'show' : '' }}" id="site">
+                        <li class="{{ Request::is('*/defesa/cadastrar') ? 'active' : ''}}">
+                            <a href="{{ route('coordenador.defesa.create') }}">Cadastrar Defesa</a>
+                        </li>
+                        <li class="{{ Request::is('*/noticia/cadastrar') ? 'active' : ''}}">
                             <a href="{{ route('coordenador.noticia.create') }}">Cadastrar Notícia</a>
                         </li>
-                        <li><a href="#">Cadastrar Defesa</a></li>
-                        <li class="{{ Request::is('coordenador/*/documento-modelo') ? 'active' : ''}}">
+                        <li class="{{ Request::is('*/documento-modelo/cadastrar') ? 'active' : ''}}">
                             <a href="{{ route('coordenador.dm.create') }}">Cadastrar Documento Modelo</a>
                         </li>
                     </ul>
