@@ -7,6 +7,8 @@ use App\Professor;
 use App\User;
 use App\Tcc;
 use App\Data;
+use App\Defesa;
+use App\Noticia;
 use Auth;
 use App\Notificacao;
 use App\Mail\BemVindo;
@@ -26,7 +28,17 @@ class CoordenadorController extends Controller
     
     
     public function dashboard() {
-        return view('coordenador.dashboard');
+        $alunos = User::count();
+        $professores = Professor::count();
+        $noticias = Noticia::count();
+
+        // Implementar defesa mais próxima ou defesa de hoje?
+        return view('coordenador.dashboard')
+                ->with([
+                    'alunos' => $alunos,
+                    'professores' => $professores,
+                    'noticias' => $noticias,
+                ]);
     }
 
     public function notificacoes(){

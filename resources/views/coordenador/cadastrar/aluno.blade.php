@@ -47,9 +47,7 @@
                     {!! $errors->first('data_nasc', '<small class="text-danger">:message</small>') !!}
                     <small class="form-text text-muted">
                         A data de nascimento será usada como senha pelo aluno no formato 
-                        <span class="font-weight-bold">dia</span>, 
-                        <span class="font-weight-bold">mês</span> e
-                        <span class="font-weight-bold">ano</span>
+                        <span class="font-weight-bold">ddmmaaaa</span>
                     </small>
                 </div>
                 <div class="form-group col-md-3">

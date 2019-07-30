@@ -15,7 +15,6 @@
             </div>
         @endif
 
-        Olá <b>{{Auth::user()->name}}</b>, seja bem-vindo ao SAT! <br>
-        Você está logado(a) como <b>Aluno</b>.
+        Olá <strong>{{Auth::user()->name}}</strong>, seja bem-vindo(a) ao SAT!
     </div>
 @endsection
