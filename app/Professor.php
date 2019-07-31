@@ -23,6 +23,10 @@ class Professor extends Authenticatable
     public function tccs() {
         return $this->belongsToMany('App\Tcc');
     }
+
+    public function documentos() {
+        return $this->hasOne('App\DocumentosProfessor');
+    }
     
     public function solicitacoes() {
         return $this->hasMany('App\Solicitacao', 'solicitado_id');
@@ -60,8 +64,11 @@ class Professor extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'data_nasc', 'telefone', 'image', 'termo_de_responsabilidade', 'tr_status', 'num_orientandos', 'num_coorientandos', 'novas_notificacoes'
+        'name', 'email', 'password', 'data_nasc', 'telefone', 'image', 'num_orientandos', 'num_coorientandos', 'novas_notificacoes'
     ];
+    // protected $fillable = [
+    //     'name', 'email', 'password', 'data_nasc', 'telefone', 'image', 'termo_de_responsabilidade', 'tr_status', 'num_orientandos', 'num_coorientandos', 'novas_notificacoes'
+    // ];
 
     /**
      * The attributes that should be hidden for arrays.

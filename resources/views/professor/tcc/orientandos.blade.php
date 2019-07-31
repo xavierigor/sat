@@ -42,8 +42,9 @@
                         </div>
                         <div class="m-auto">
                             <button type="button" class="mr-1 btn btn-outline-primary btn-sm"
-                            data-ra="{{ $orientacao->orientando->tcc->rel_acompanhamento }}"
-                            data-tc="{{ $orientacao->orientando->tcc->termo_de_compromisso }}"
+                            data-documentos="{{ $orientacao->orientando->tcc->documentos }}"
+                            data-tc_updated_at="{{ $orientacao->orientando->tcc->documentos->tc_updated_at ? $orientacao->orientando->tcc->documentos->tc_updated_at->format('d/m/Y H:i') : '' }}"
+                            data-ra_updated_at="{{ $orientacao->orientando->tcc->documentos->ra_updated_at ? $orientacao->orientando->tcc->documentos->ra_updated_at->format('d/m/Y H:i') : '' }}"
                             data-nome="{{ $orientacao->orientando->name }}" data-id="{{ $orientacao->orientando->id }}"
                             data-tcc="{{ $orientacao->orientando->tcc->tcc }}"
                             data-toggle="modal" data-target="#mostrarDocumentos">

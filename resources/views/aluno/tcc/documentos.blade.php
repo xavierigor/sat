@@ -32,21 +32,21 @@
                 <div class="form-group">
                     <label for="termo_de_compromisso" class="d-block font-weight-bold">Termo de Compromisso</label>
 
-                    @if(Auth::user()->tcc->termo_de_compromisso)
+                    @if(Auth::user()->tcc->documentos->termo_de_compromisso)
                         <div class="d-block mb-2">
                             <a target="_blank" 
-                            href="{{asset('storage/documentos/tcc/'.Auth::user()->tcc->termo_de_compromisso)}}">
-                                {{Auth::user()->tcc->termo_de_compromisso}}
+                            href="{{asset('storage/documentos/tcc/'.Auth::user()->tcc->documentos->termo_de_compromisso)}}">
+                                {{Auth::user()->tcc->documentos->termo_de_compromisso}}
                             </a>
                         </div>
                         <div class="d-inline-block mt-1">
-                            <a title="Baixar" href="{{asset('storage/documentos/tcc/'.Auth::user()->tcc->termo_de_compromisso)}}"
+                            <a title="Baixar" href="{{asset('storage/documentos/tcc/'.Auth::user()->tcc->documentos->termo_de_compromisso)}}"
                             download class="btn btn-sm btn-outline-success">
                                 <i class="fas fa-file-download fa-fw"></i>
                                 Baixar
                             </a>
                             <a title="Remover" data-toggle="modal" data-target="#removerDocumento" href="#" 
-                            class="btn btn-sm btn-outline-danger" data-nome="{{ Auth::user()->tcc->termo_de_compromisso }}"
+                            class="btn btn-sm btn-outline-danger" data-nome="{{ Auth::user()->tcc->documentos->termo_de_compromisso }}"
                             data-documento="termo_de_compromisso">
                                 <i class="fas fa-trash-alt fa-fw"></i>
                                 Remover
@@ -96,21 +96,21 @@
                 @if(Auth::user()->tcc->tcc == "tcc 2")
                     <div class="form-group mt-5">
                         <label for="rel_acompanhamento" class="d-block font-weight-bold">Relatório de Acompanhamento</label>
-                        @if(Auth::user()->tcc->rel_acompanhamento)
+                        @if(Auth::user()->tcc->documentos->rel_acompanhamento)
                             <div class="d-block mb-2">
                                 <a target="_blank" 
                                 href="{{asset('storage/documentos/tcc/'.Auth::user()->tcc->rel_acompanhamento)}}">
-                                    {{Auth::user()->tcc->rel_acompanhamento}}
+                                    {{Auth::user()->tcc->documentos->rel_acompanhamento}}
                                 </a>
                             </div>
                             <div class="d-inline-block mt-1">
-                                <a title="Baixar" href="{{asset('storage/documentos/tcc/'.Auth::user()->tcc->rel_acompanhamento)}}"
+                                <a title="Baixar" href="{{asset('storage/documentos/tcc/'.Auth::user()->tcc->documentos->rel_acompanhamento)}}"
                                 download class="btn btn-sm btn-outline-success">
                                     <i class="fas fa-file-download fa-fw"></i>
                                     Baixar
                                 </a>
                                 <a title="Remover" data-toggle="modal" data-target="#removerDocumento" href="#" 
-                                class="btn btn-sm btn-outline-danger" data-nome="{{ Auth::user()->tcc->rel_acompanhamento }}"
+                                class="btn btn-sm btn-outline-danger" data-nome="{{ Auth::user()->tcc->documentos->rel_acompanhamento }}"
                                 data-documento="rel_acompanhamento">
                                     <i class="fas fa-trash-alt fa-fw"></i>
                                     Remover

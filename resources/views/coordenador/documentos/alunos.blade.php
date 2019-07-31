@@ -60,30 +60,30 @@
                             <td>
                                 <div>
                                     Termo de compromisso: 
-                                        @if( $aluno->tcc->tc_status == "enviado")
-                                            <b class="text-success">recebido</b>
-                                            <a title="Ver documento" href="{{ asset('storage/documentos/tcc/' . $aluno->tcc->termo_de_compromisso) }}" target="_blank" class="tc mx-1 text-decoration-none text-secondary">
+                                        @if( $aluno->tcc->documentos->tc_status == "enviado")
+                                            <b class="text-success">recebido em {{ $aluno->tcc->documentos->tc_updated_at->format('d/m/Y') }}</b>
+                                            <a title="Ver documento" href="{{ asset('storage/documentos/tcc/' . $aluno->tcc->documentos->termo_de_compromisso) }}" target="_blank" class="tc mx-1 text-decoration-none text-secondary">
                                                 <i class="fas fa-eye fa-fw"></i>
                                             </a>
-                                            <a title="Download" href="{{ asset('storage/documentos/tcc/' . $aluno->tcc->termo_de_compromisso) }}" download class="tc text-secondary">
+                                            <a title="Download" href="{{ asset('storage/documentos/tcc/' . $aluno->tcc->documentos->termo_de_compromisso) }}" download class="tc text-secondary">
                                                 <i class="fas fa-download fa-fw"></i>
                                             </a>
-                                        @elseif( $aluno->tcc->tc_status == "pendente")   
+                                        @elseif( $aluno->tcc->documentos->tc_status == "pendente" || !$aluno->tcc->documentos->tc_status)   
                                             <b class="text-info">pendente</b>
                                         @endif
                                 </div>
                                 @if( $aluno->tcc->tcc == "tcc 2")
                                     <div>
                                     Relatório de acompanhamento: 
-                                        @if( $aluno->tcc->ra_status == "enviado")
-                                            <b class="text-success">recebido</b>
-                                            <a title="Ver documento" href="{{ asset('storage/documentos/tcc/' . $aluno->tcc->rel_acompanhamento) }}" target="_blank" class="tc mx-1 text-decoration-none text-secondary">
+                                        @if( $aluno->tcc->documentos->ra_status == "enviado")
+                                            <b class="text-success">recebido em {{ Carbon\Carbon::parse($aluno->tcc->documentos->ra_updated_at)->format('d/m/Y') }}</b>
+                                            <a title="Ver documento" href="{{ asset('storage/documentos/tcc/' . $aluno->tcc->documentos->rel_acompanhamento) }}" target="_blank" class="tc mx-1 text-decoration-none text-secondary">
                                                 <i class="fas fa-eye fa-fw"></i>
                                             </a>
-                                            <a title="Download" href="{{ asset('storage/documentos/tcc/' . $aluno->tcc->rel_acompanhamento) }}" download class="tc text-secondary">
+                                            <a title="Download" href="{{ asset('storage/documentos/tcc/' . $aluno->tcc->documentos->rel_acompanhamento) }}" download class="tc text-secondary">
                                                 <i class="fas fa-download fa-fw"></i>
                                             </a>
-                                        @elseif( $aluno->tcc->ra_status == "pendente")   
+                                        @elseif( $aluno->tcc->documentos->ra_status == "pendente" || !$aluno->tcc->documentos->ra_status)   
                                             <b class="text-info">pendente</b>
                                         @endif
                                     </div>

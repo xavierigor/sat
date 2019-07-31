@@ -48,15 +48,15 @@
                             <td>
                                 <div>
                                     Termo de responsabilidade: 
-                                        @if( $professor->tr_status == "enviado")
-                                            <b class="text-success">recebido</b>
-                                            <a title="Ver documento" href="{{ asset('storage/documentos/professor/' . $professor->termo_de_responsabilidade) }}" target="_blank" class="tc mx-1 text-decoration-none text-secondary">
+                                        @if( $professor->documentos->tr_status == "enviado")
+                                            <b class="text-success">recebido em {{ $professor->documentos->updated_at->format('d/m/Y') }}</b>
+                                            <a title="Ver documento" href="{{ asset('storage/documentos/professor/' . $professor->documentos->termo_de_responsabilidade) }}" target="_blank" class="tc mx-1 text-decoration-none text-secondary">
                                                 <i class="fas fa-eye fa-fw"></i>
                                             </a>
-                                            <a title="Download" href="{{ asset('storage/documentos/professor/' . $professor->termo_de_responsabilidade) }}" download class="tc text-secondary">
+                                            <a title="Download" href="{{ asset('storage/documentos/professor/' . $professor->documentos->termo_de_responsabilidade) }}" download class="tc text-secondary">
                                                 <i class="fas fa-download fa-fw"></i>
                                             </a>
-                                        @elseif( $professor->tr_status == "pendente")   
+                                        @elseif( $professor->documentos->tr_status == "pendente" || !$professor->documentos->tr_status)   
                                             <b class="text-info">pendente</b>
                                         @endif
                                 </div>
@@ -95,5 +95,5 @@
 
 @section('scripts')
     <script src="{{ asset('js/modal-visualizar.js') }}"></script>
-    <!-- <script src="{{ asset('js/modal-remover.js') }}"></script> -->
+    {{-- <script src="{{ asset('js/modal-remover.js') }}"></script> --}}
 @endsection

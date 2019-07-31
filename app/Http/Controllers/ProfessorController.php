@@ -88,20 +88,23 @@ class ProfessorController extends Controller
             $fileNameToStore = $filename.'_'.time().'.'.$ext;
             $path = $request->file('tc')->storeAs('documentos/tcc', $fileNameToStore);
         } else {
-            $fileNameToStore = $aluno->tcc->termo_de_compromisso;
+            $fileNameToStore = $aluno->tcc->documentos->termo_de_compromisso;
         }
 
-        if($request->hasFile('tc') && $aluno->tcc->termo_de_compromisso != null) {
-            Storage::delete('documentos/tcc/'.$aluno->tcc->termo_de_compromisso);
+        if($request->hasFile('tc') && $aluno->tcc->documentos->termo_de_compromisso != null) {
+            Storage::delete('documentos/tcc/'.$aluno->tcc->documentos->termo_de_compromisso);
         }
 
-        $aluno->tcc->termo_de_compromisso = $fileNameToStore ?? null;
+        $aluno->tcc->documentos->termo_de_compromisso = $fileNameToStore ?? null;
+        $aluno->tcc->documentos->tc_updated_at = Carbon\Carbon::now();
+
+        // Enviar email para o aluno informando que o documento foi atualizado
 
         if($validator->fails()) {
             return redirect()->back()->with(session()->flash('error', $validator->errors()->first()));
         }
 
-        if(!$aluno->tcc->save()) {
+        if(!$aluno->tcc->documentos->save()) {
             return redirect()->back()->with(session()->flash('error', 'Erro ao realizar upload do arquivo.'));
         }
 
@@ -129,20 +132,23 @@ class ProfessorController extends Controller
                 $fileNameToStore = $filename.'_'.time().'.'.$ext;
                 $path = $request->file('ra')->storeAs('documentos/tcc', $fileNameToStore);
             } else {
-                $fileNameToStore = $aluno->tcc->rel_acompanhamento;
+                $fileNameToStore = $aluno->tcc->documentos->rel_acompanhamento;
             }
     
-            if($request->hasFile('ra') && $aluno->tcc->rel_acompanhamento != null) {
-                Storage::delete('documentos/tcc/'.$aluno->tcc->rel_acompanhamento);
+            if($request->hasFile('ra') && $aluno->tcc->documentos->rel_acompanhamento != null) {
+                Storage::delete('documentos/tcc/'.$aluno->tcc->documentos->rel_acompanhamento);
             }
     
-            $aluno->tcc->rel_acompanhamento = $fileNameToStore ?? null;
+            $aluno->tcc->documentos->rel_acompanhamento = $fileNameToStore ?? null;
+            $aluno->tcc->documentos->ra_updated_at = Carbon\Carbon::now();
+
+            // Enviar email para o aluno informando que o documento foi atualizado
     
             if($validator->fails()) {
                 return redirect()->back()->with(session()->flash('error', $validator->errors()->first()));
             }
     
-            if(!$aluno->tcc->save()) {
+            if(!$aluno->tcc->documentos->save()) {
                 return redirect()->back()->with(session()->flash('error', 'Erro ao realizar upload do arquivo.'));
             }
     
@@ -218,8 +224,8 @@ class ProfessorController extends Controller
 
 
     public function documentos() {
-        $termo_de_responsabilidade = Auth::user()->termo_de_responsabilidade;
-        $tr_status = Auth::user()->tr_status;
+        $termo_de_responsabilidade = Auth::user()->documentos->termo_de_responsabilidade;
+        $tr_status = Auth::user()->documentos->tr_status;
 
         return view('professor.tcc.documentos')->with('termo_de_responsabilidade', $termo_de_responsabilidade)
                                                 ->with('tr_status', $tr_status);
@@ -228,9 +234,9 @@ class ProfessorController extends Controller
     public function enviarDocumentos(){
 
         $professor = Auth::user();
-        $professor->tr_status = "enviado";
+        $professor->documentos->tr_status = "enviado";
 
-        if($professor->save()){
+        if($professor->documentos->save()){
             return redirect()->back()->with(session()->flash('success', 'Arquivos enviados para coordenador.'));
         }
         return redirect()->back()->with(session()->flash('error', 'Erro ao enviar arquivos para coordenador.'));
@@ -238,9 +244,9 @@ class ProfessorController extends Controller
     public function cancelarEnvioDocumentos(){
 
         $professor = Auth::user();
-        $professor->tr_status = "pendente";
+        $professor->documentos->tr_status = "pendente";
 
-        if($professor->save()){
+        if($professor->documentos->save()){
             return redirect()->back()->with(session()->flash('success', 'Envio de arquivos para coordenador cancelado.'));
         }
         return redirect()->back()->with(session()->flash('error', 'Erro ao cancelar envio de arquivos para coordenador.'));
@@ -264,20 +270,17 @@ class ProfessorController extends Controller
             $fileNameToStore = $filename.'_'.time().'.'.$ext;
             $path = $request->file('termo_de_responsabilidade')->storeAs('documentos/professor', $fileNameToStore);
         } else {
-            $fileNameToStore = $professor->termo_de_responsabilidade;
+            $fileNameToStore = $professor->documentos->termo_de_responsabilidade;
         }
 
-        // $validator = Validator::make($request->all(), [
-        //     'termo_de_responsabilidade' => 'max:10000|required|mimes:pdf,odt,doc,docx',
-        // ]);
-
-        if($request->hasFile('termo_de_responsabilidade') && $professor->termo_de_responsabilidade != null) {
-            Storage::delete('documentos/professor/'.$professor->termo_de_responsabilidade);
+        if($request->hasFile('termo_de_responsabilidade') && $professor->documentos->termo_de_responsabilidade != null) {
+            Storage::delete('documentos/professor/'.$professor->documentos->termo_de_responsabilidade);
         }
 
-        $professor->termo_de_responsabilidade = $fileNameToStore ?? null;
+        $professor->documentos->termo_de_responsabilidade = $fileNameToStore ?? null;
+        $professor->documentos->updated_at = Carbon\Carbon::now();
 
-        if(!$professor->save()) {
+        if(!$professor->documentos->save()) {
             return redirect()->back()->with(session()->flash('error', 'Erro ao realizar upload do(s) arquivo(s).'));
         }
 
@@ -288,11 +291,12 @@ class ProfessorController extends Controller
     {
         $professor = Auth::user();
 
-        if(Storage::delete('documentos/professor/'.$professor->{$request->documento})){
+        if(Storage::delete('documentos/professor/'.$professor->documentos->{$request->documento})){
             
-            $professor->{$request->documento} = null;
+            $professor->documentos->{$request->documento} = null;
+            $professor->documentos->updated_at = null;
             
-            if($professor->save()){
+            if($professor->documentos->save()){
                 return redirect()->back()->with(session()->flash('success', 'Arquivo removido.'));
             } else {
                 return redirect()->back()->with(session()->flash('error', 'Houve um erro ao remover o arquivo.'));

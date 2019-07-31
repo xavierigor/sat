@@ -15,7 +15,14 @@ class Tcc extends Model
         // return $this->belongsTo('App\Professor');
     }
 
+    public function documentos() {
+        return $this->hasOne('App\DocumentosAluno');
+    }
+
     protected $fillable = [
-        'titulo', 'area_de_pesquisa', 'tcc', 'termo_de_compromissso', 'tc_status', 'rel_acompanhamento', 'ra_status'
+        'titulo', 'area_de_pesquisa', 'tcc',
     ];
+    // protected $fillable = [
+    //     'titulo', 'area_de_pesquisa', 'tcc', 'termo_de_compromissso', 'tc_status', 'rel_acompanhamento', 'ra_status'
+    // ];
 }

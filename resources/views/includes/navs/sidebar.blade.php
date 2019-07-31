@@ -14,7 +14,7 @@
                         </a>
                     </li>
 
-                    <li data-toggle="collapse" data-target="#aluno" class="collapsed {{ Request::is('*/aluno/cadastrar') || Request::is('*/alunos/visualizar') ? 'active' : '' }}">
+                    <li data-toggle="collapse" data-target="#aluno" class="collapsed {{ Request::is('*/aluno/cadastrar') || Request::is('*/alunos/visualizar') || Request::is('*/alunos/documentos') ? 'active' : '' }}">
                         <a href="#" class="dropdown-option">
                             <i class="fas fa-user-graduate fa-fw"></i> Alunos <i class="fas fa-chevron-down fa-fw"></i>
                         </a>
@@ -26,7 +26,7 @@
 
                     </ul>
         
-                    <li data-toggle="collapse" data-target="#professor" class="collapsed {{ Request::is('*/professor/cadastrar') || Request::is('*/professores/visualizar') ? 'active' : '' }}">
+                    <li data-toggle="collapse" data-target="#professor" class="collapsed {{ Request::is('*/professor/cadastrar') || Request::is('*/professores/visualizar') || Request::is('*/professores/documentos') ? 'active' : '' }}">
                         <a href="#" class="dropdown-option">
                             <i class="fas fa-user fa-fw"></i> Professores <i class="fas fa-chevron-down fa-fw"></i>
                         </a>

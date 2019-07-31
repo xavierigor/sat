@@ -16,7 +16,7 @@
                         <p class="mr-2 font-weight-bold d-inline-block my-0">
                             Termo de Compromisso
                         </p>
-    
+
                         <div class="d-inline-block">
                             <a title="Ver" href="{{ asset('storage/documentos/tcc') }}" target="_blank" class="tc mx-1 text-decoration-none text-secondary">
                                 <i class="fas fa-eye fa-fw"></i>
@@ -24,6 +24,10 @@
                             <a title="Download" href="{{ asset('storage/documentos/tcc') }}" download class="tc text-secondary">
                                 <i class="fas fa-download fa-fw"></i>
                             </a>
+                        </div>
+
+                        <div class="d-block">
+                            <small class="tc tc_updated_at"></small>
                         </div>
     
                         <div class="mt-2">
@@ -60,6 +64,10 @@
                             </a>
                         </div>
 
+                        <div class="d-block">
+                            <small class="ra ra_updated_at"></small>
+                        </div>
+
                         <div class="mt-2">
                             <form action="{{ route('professor.upload.ra.orientando') }}" method="POST" enctype="multipart/form-data" id="upload_ra">
                                 @csrf
@@ -72,28 +80,11 @@
                             </form>
                         </div>
 
-                        <p class="not-found-tc d-none text-secondary text-sm mt-2">
+                        <p class="not-found-ra d-none text-secondary text-sm mt-2">
                             Nenhum arquivo encontrado.
                         </p>
                     </div>
                 </div>
-
-                
-                <!-- Relatório de Acompanhamento -->
-                {{-- <div class="my-2">
-                    <p class="mr-2 d-inline-block my-0">
-                        Relatório de Acompanhamento
-                    </p>
-
-                    <a href="{{ asset('storage/documentos/tcc') }}" target="_blank" class="ra text-secondary">
-                        <i class="fas fa-eye fa-fw"></i>
-                    </a>
-                    <a href="{{ asset('storage/documentos/tcc') }}" download class="ra text-secondary">
-                        <i class="fas fa-download fa-fw"></i>
-                    </a>
-
-                    <p class="not-found-ra d-none text-secondary text-sm">Nenhum arquivo encontrado.</p>
-                </div> --}}
 
             </div>
         </div>

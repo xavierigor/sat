@@ -10,6 +10,7 @@ use App\Solicitacao;
 use App\Notificacao;
 use App\Orientacao;
 use App\Coorientacao;
+use Carbon;
 use Storage;
 use Validator;
 
@@ -165,9 +166,9 @@ class TccController extends Controller
     public function enviarDocumentos(){
 
         $aluno = Auth::user();
-        $aluno->tcc->tc_status = "enviado";
-        $aluno->tcc->ra_status = "enviado";
-        if($aluno->tcc->save()){
+        $aluno->tcc->documentos->tc_status = "enviado";
+        $aluno->tcc->documentos->ra_status = "enviado";
+        if($aluno->tcc->documentos->save()){
             return redirect()->back()->with(session()->flash('success', 'Arquivos enviados para coordenador.'));
         }
         return redirect()->back()->with(session()->flash('error', 'Erro ao enviar arquivos para coordenador.'));
@@ -175,10 +176,10 @@ class TccController extends Controller
     public function cancelarEnvioDocumentos(){
 
         $aluno = Auth::user();
-        $aluno->tcc->tc_status = "pendente";
-        $aluno->tcc->ra_status = "pendente";
+        $aluno->tcc->documentos->tc_status = "pendente";
+        $aluno->tcc->documentos->ra_status = "pendente";
 
-        if($aluno->tcc->save()){
+        if($aluno->tcc->documentos->save()){
             return redirect()->back()->with(session()->flash('success', 'Envio de arquivos para coordenador cancelado.'));
         }
         return redirect()->back()->with(session()->flash('error', 'Erro ao cancelar envio de arquivos para coordenador.'));
@@ -229,7 +230,7 @@ class TccController extends Controller
             $termo_compromisso_fileNameToStore = $termo_compromisso_filename.'_'.time().'.'.$termo_compromisso_ext;
             $termo_compromisso_path = $request->file('termo_de_compromisso')->storeAs('documentos/tcc', $termo_compromisso_fileNameToStore);
         } else {
-            $termo_compromisso_fileNameToStore = $tcc->termo_de_compromisso;
+            $termo_compromisso_fileNameToStore = $tcc->documentos->termo_de_compromisso;
         }
 
         if($request->hasFile('rel_acompanhamento')) {
@@ -242,20 +243,22 @@ class TccController extends Controller
             $rel_acompanhamento_fileNameToStore = $rel_acompanhamento_filename.'_'.time().'.'.$rel_acompanhamento_ext;
             $rel_acompanhamento_path = $request->file('rel_acompanhamento')->storeAs('documentos/tcc', $rel_acompanhamento_fileNameToStore);
         } else {
-            $rel_acompanhamento_fileNameToStore = $tcc->rel_acompanhamento;
+            $rel_acompanhamento_fileNameToStore = $tcc->documentos->rel_acompanhamento;
         }
 
         // Se já houver um arquivo armazenado
-        if($request->hasFile('termo_de_compromisso') && $tcc->termo_de_compromisso != null) {
-            Storage::delete('documentos/tcc/'.$tcc->termo_de_compromisso);
+        if($request->hasFile('termo_de_compromisso') && $tcc->documentos->termo_de_compromisso != null) {
+            Storage::delete('documentos/tcc/'.$tcc->documentos->termo_de_compromisso);
         }
-        if($request->hasFile('rel_acompanhamento') && $tcc->rel_acompanhamento != null) {
-            Storage::delete('documentos/tcc/'.$tcc->rel_acompanhamento);
+        if($request->hasFile('rel_acompanhamento') && $tcc->documentos->rel_acompanhamento != null) {
+            Storage::delete('documentos/tcc/'.$tcc->documentos->rel_acompanhamento);
         }
-        $tcc->termo_de_compromisso = $termo_compromisso_fileNameToStore ?? null;
-        $tcc->rel_acompanhamento = $rel_acompanhamento_fileNameToStore ?? null;
+        $tcc->documentos->termo_de_compromisso = $termo_compromisso_fileNameToStore ?? null;
+        $tcc->documentos->rel_acompanhamento = $rel_acompanhamento_fileNameToStore ?? null;
+        $tcc->documentos->tc_updated_at = $termo_compromisso_fileNameToStore ? Carbon\Carbon::now() : null;
+        $tcc->documentos->ra_updated_at = $rel_acompanhamento_fileNameToStore ? Carbon\Carbon::now() : null;
 
-        if(!$tcc->save()) {
+        if(!$tcc->documentos->save()) {
             return redirect()->back()->with(session()->flash('error', 'Erro ao realizar upload do(s) arquivo(s).'));
         }
 
@@ -266,11 +269,16 @@ class TccController extends Controller
     {
         $tcc = Auth::user()->tcc;
 
-        if(Storage::delete('documentos/tcc/'.$tcc->{$request->documento})){
+        if(Storage::delete('documentos/tcc/'.$tcc->documentos->{$request->documento})){
             
-            $tcc->{$request->documento} = null;
-            
-            if($tcc->save()){
+            $tcc->documentos->{$request->documento} = null;
+            if($request->documento == 'termo_de_compromisso'){
+                $tcc->documentos->tc_updated_at = null;
+            } else if ($request->documento == 'rel_acompanhamento') {
+                $tcc->documentos->ra_updated_at = null;
+            }
+
+            if($tcc->documentos->save()){
                 return redirect()->back()->with(session()->flash('success', 'Arquivo removido.'));
             } else {
                 return redirect()->back()->with(session()->flash('error', 'Houve um erro ao remover o arquivo.'));

@@ -65,7 +65,6 @@ class CoordenadorController extends Controller
 
     public function salvarDatas(Request $request) {
 
-        // dd($request);
         // valida dados passados pelo form
         $this->validate($request, [
             'definir_orientador_inicio' => 'required_with:definir_orientador_termino|Date|nullable|before_or_equal:definir_orientador_termino',
@@ -140,7 +139,6 @@ class CoordenadorController extends Controller
                                     ->paginate($this->TotalUsuariosPágina);
         }
 
-        // dd($professores);
         return view('coordenador.visualizar.professores')->with('professores', $professores)->withInput(request()->only('n'));
     }
 
@@ -151,19 +149,19 @@ class CoordenadorController extends Controller
         
         if(request()->has('n')){
             
-            $professores = Professor::select('id', 'name', 'email', 'data_nasc', 'matricula', 'telefone', 'image', 'area_de_interesse', 'termo_de_responsabilidade', 'tr_status')
-                                    ->where('name', 'LIKE', '%' . request('n') . '%')
+            // $professores = Professor::select('id', 'name', 'email', 'data_nasc', 'matricula', 'telefone', 'image', 'area_de_interesse', 'termo_de_responsabilidade', 'tr_status')
+            $professores = Professor::where('name', 'LIKE', '%' . request('n') . '%')
                                     ->orderBy('name', 'asc')
                                     ->paginate($this->TotalUsuariosPágina)
                                     ->appends('n', request('n'));
 
         } else {
-            $professores = Professor::select('id', 'name', 'email', 'data_nasc', 'matricula', 'telefone', 'image', 'area_de_interesse', 'termo_de_responsabilidade', 'tr_status')
-                                    ->orderBy('name', 'asc')
+            // $professores = Professor::select('id', 'name', 'email', 'data_nasc', 'matricula', 'telefone', 'image', 'area_de_interesse', 'termo_de_responsabilidade', 'tr_status')
+            // É preciso ser dessa forma, caso contrário não retorna os relacionamentos
+            $professores = Professor::orderBy('name', 'asc')
                                     ->paginate($this->TotalUsuariosPágina);
         }
 
-        // dd($professores);
         return view('coordenador.documentos.professores')->with('professores', $professores)->withInput(request()->only('n'));
     }
 
@@ -200,21 +198,21 @@ class CoordenadorController extends Controller
             
             // Busca alunos (Users) com o nome pesquisado, retorna ordenados e paginados e
             // usa o método 'appends' para persistir a pesquisa quando trocada a página
-            $alunos = User::select('id', 'name', 'email', 'data_nasc', 'matricula', 'telefone', 'image')
-                            ->where('name', 'LIKE', '%' . request('n') . '%')
-                            ->with('tcc:id,user_id,tcc,termo_de_compromisso,tc_status,rel_acompanhamento,ra_status')
+            $alunos = User::where('name', 'LIKE', '%' . request('n') . '%')
+                            // ->with('tcc:id,user_id,tcc,termo_de_compromisso,tc_status,rel_acompanhamento,ra_status')
                             ->orderBy('name', 'asc')
                             ->paginate($this->TotalUsuariosPágina)
                             ->appends('n', request('n'));
 
         } else{
-            $alunos = User::select('id', 'name', 'email', 'data_nasc', 'matricula', 'telefone', 'image')
-                            ->with('tcc:id,user_id,tcc,termo_de_compromisso,tc_status,rel_acompanhamento,ra_status')
-                            ->orderBy('name', 'asc')
+            $alunos = User::orderBy('name', 'asc')
                             ->paginate($this->TotalUsuariosPágina);
+            // $alunos = User::select('id', 'name', 'email', 'data_nasc', 'matricula', 'telefone', 'image')
+            //                 ->with('tcc:id,user_id,tcc,termo_de_compromisso,tc_status,rel_acompanhamento,ra_status')
+            //                 ->orderBy('name', 'asc')
+            //                 ->paginate($this->TotalUsuariosPágina);
         }
 
-        // dd($alunos);
         // Retorna para a página uma varivel com os aluno (Users) que serão exibidos
         return view('coordenador.documentos.alunos')->with('alunos', $alunos)->withInput(request()->only('n'));
     }
