@@ -15,6 +15,9 @@
                 <label for="senha_atual">Senha Atual</label>
                 <input class="form-control form-control-sm {{ $errors->has('senha_atual') ? 'border-danger' : ''}}" type="password" id="senha_atual" name="senha_atual">
                 {!! $errors->first('senha_atual', '<small class="text-danger">:message</small>') !!}
+                <small class="form-text text-muted">
+                        Informe a senha atual
+                </small>
             </div>
         </div>
         <div class="form-row">
@@ -36,7 +39,7 @@
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary button-prevent-mult-submits">
+        <button type="submit" class="btn btn-primary button-prevent-mult-submits" title="Salvar nova senha">
             <i style="display: none;" class="spinner-submit fa fa-spinner fa-spin"></i>
             Salvar
         </button>

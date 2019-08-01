@@ -30,7 +30,7 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary button-prevent-mult-submits mt-3">
+            <button type="submit" class="btn btn-primary button-prevent-mult-submits mt-3" title="Cadastrar documento modelo">
                 <i style="display: none;" class="spinner-submit fa fa-spinner fa-spin"></i>
                 Cadastrar
             </button>

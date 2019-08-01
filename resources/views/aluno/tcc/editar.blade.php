@@ -15,6 +15,9 @@
                     <label for="titulo">Título</label>
                     <input value="{{ Auth::user()->tcc->titulo }}" type="text" class="form-control form-control-sm {{ $errors->has('titulo') ? 'border-danger' : ''}}" id="titulo" name="titulo">
                     {!! $errors->first('titulo', '<small class="text-danger">:message</small>') !!}
+                    <small class="form-text text-muted">
+                        Título do trabalho
+                    </small>
                 </div>
             </div>
             
@@ -31,7 +34,7 @@
                 </div> -->
             </div>
 
-            <button type="submit" class="btn btn-primary button-prevent-mult-submits">
+            <button type="submit" class="btn btn-primary button-prevent-mult-submits" title="Salvar alterações">
                 <i style="display: none;" class="spinner-submit fa fa-spinner fa-spin"></i>
                 Salvar Alterações
             </button>

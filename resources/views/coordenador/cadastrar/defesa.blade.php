@@ -130,20 +130,29 @@
                     <label for="data">Data <span class="text-danger">*</span></label>
                     <input value="{{ old('data') }}" type="date" class="form-control form-control-sm {{ $errors->has('data') ? 'border-danger' : ''}}" id="data" name="data">
                     {!! $errors->first('data', '<small class="text-danger">:message</small>') !!}
+                    <small class="form-text text-muted">
+                        Data da Defesa
+                    </small>
                 </div>
                 <div class="form-group col-md-3">
                     <label for="hora">Horário <span class="text-danger">*</span></label>
                     <input value="{{ old('hora') }}" type="text" class="time form-control form-control-sm {{ $errors->has('hora') ? 'border-danger' : ''}}" id="hora" name="hora">
                     {!! $errors->first('hora', '<small class="text-danger">:message</small>') !!}
+                    <small class="form-text text-muted">
+                        Horário da Defesa
+                    </small>
                 </div>
                 <div class="form-group col-md-3">
                     <label for="sala">Sala <span class="text-danger">*</span></label>
                     <input value="{{ old('sala') }}" type="text" class="form-control form-control-sm {{ $errors->has('sala') ? 'border-danger' : ''}}" id="sala" name="sala">
                     {!! $errors->first('sala', '<small class="text-danger">:message</small>') !!}
+                    <small class="form-text text-muted">
+                        Local da Defesa 
+                    </small>
                 </div>
             </div>
             
-            <button type="submit" class="btn btn-primary button-prevent-mult-submits">
+            <button type="submit" class="btn btn-primary button-prevent-mult-submits" title="Cadastrar defesa">
                 <i style="display: none;" class="spinner-submit fa fa-spinner fa-spin"></i>
                 Cadastrar
             </button>

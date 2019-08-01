@@ -143,7 +143,7 @@
 
                                     <td>
                                         <!-- Chamar modal enviar solicitacao -->
-                                        <button title="Solicitar" type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal"
+                                        <button title="Solicitar coorientação" type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal"
                                             data-target="#enviarSolicitacao" data-nome="{{ $professor->name }}" 
                                             data-id="{{ $professor->id }}" data-tipoSolicitacao="coorientacao">
                                             Solicitar

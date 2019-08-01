@@ -32,6 +32,9 @@
                     <label for="matricula">Matrícula <span class="text-danger">*</span></label>
                     <input value="{{ old('matricula') }}" type="number" class="form-control form-control-sm {{ $errors->has('matricula') ? 'border-danger' : ''}}" id="matricula" name="matricula">
                     {!! $errors->first('matricula', '<small class="text-danger">:message</small>') !!}
+                    <small class="form-text text-muted">
+                        Matrícula do aluno
+                    </small>
                 </div>
             </div>
 
@@ -40,6 +43,9 @@
                     <label for="email">Email <span class="text-danger">*</span></label>
                     <input value="{{ old('email') }}" type="email" class="form-control form-control-sm {{ $errors->has('email') ? 'border-danger' : ''}}" id="email" name="email">
                     {!! $errors->first('email', '<small class="text-danger">:message</small>') !!}
+                    <small class="form-text text-muted">
+                        Email do aluno
+                    </small>
                 </div>
                 <div class="form-group col-md-3">
                     <label for="data_nasc">Data de Nascimento <span class="text-danger">*</span></label>
@@ -63,7 +69,7 @@
                 </div>
             </div>
             
-            <button type="submit" class="btn btn-primary button-prevent-mult-submits">
+            <button type="submit" class="btn btn-primary button-prevent-mult-submits" title="Cadastrar aluno">
                 <i style="display: none;" class="spinner-submit fa fa-spinner fa-spin"></i>
                 Cadastrar
             </button>

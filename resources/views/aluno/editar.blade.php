@@ -60,7 +60,7 @@
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary mt-3 button-prevent-mult-submits" alt="botao-salvar-alteracoes">
+        <button type="submit" class="btn btn-primary mt-3 button-prevent-mult-submits" alt="botao-salvar-alteracoes" title="Salvar alterações">
             <i style="display: none;" class="spinner-submit fa fa-spinner fa-spin"></i>
             Salvar Alterações
         </button>

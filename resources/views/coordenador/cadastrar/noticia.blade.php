@@ -38,7 +38,7 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary button-prevent-mult-submits">
+            <button type="submit" class="btn btn-primary button-prevent-mult-submits" title="Publicar notícia">
                 <i style="display: none;" class="spinner-submit fa fa-spinner fa-spin"></i>
                 Publicar
             </button>
