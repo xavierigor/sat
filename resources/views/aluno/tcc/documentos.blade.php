@@ -9,16 +9,18 @@
 
 @section('content')
 
-    @include('includes.modal.remover-documento.remover')
+    @include('includes.modal.envio-documentos.aluno.enviar')
+    @include('includes.modal.envio-documentos.aluno.cancelar')
 
     <div class="documentos">
 
-        @if(Auth::user()->tcc->tc_status == "enviado")
+        @if(Auth::user()->tcc->documentos->tc_status == "enviado")
 
             <h6>Arquivos enviados para coordenador.</h6>
-            <a href="{{ route('aluno.cancelar-envio.documentos') }}" class="mt-4 btn btn-outline-danger button-prevent-mult-submits">
-                <i style="display: none;" class="spinner-submit fa fa-spinner fa-spin"></i>
-                Cancelar
+            <a title="cancelar" data-toggle="modal" data-target="#cancelarEnvioDocumentos" href="#" 
+            class="mt-4 btn btn-outline-danger">
+                <i class="fas fa-times fa-fw"></i>
+                Cancelar envio
             </a>
         
         @else
@@ -129,11 +131,14 @@
                     <i style="display: none;" class="spinner-submit fa fa-spinner fa-spin"></i>
                     Salvar
                 </button>
-
-                <a href="{{ route('aluno.enviar.documentos') }}" class="btn btn-outline-primary mt-4 button-prevent-mult-submits">
-                    <i style="display: none;" class="spinner-submit fa fa-spinner fa-spin"></i>
-                    Enviar arquivos para o Coordenador
-                </a>
+                
+                @if(Auth::user()->tcc->documentos->termo_de_compromisso && Auth::user()->tcc->documentos->rel_acompanhamento)
+                    <a title="enviar" data-toggle="modal" data-target="#enviarDocumentos" href="#" 
+                    class="btn btn-outline-primary mt-4 ">
+                        <i class="fas fa-times fa-fw"></i>
+                        Enviar arquivos para o Coordenador
+                    </a>
+                @endif
             </form>
         
         @endif

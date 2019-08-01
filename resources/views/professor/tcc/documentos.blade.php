@@ -9,15 +9,17 @@
 
 @section('content')
 
-    @include('includes.modal.remover-documento.professor.remover')
+    @include('includes.modal.envio-documentos.professor.enviar')
+    @include('includes.modal.envio-documentos.professor.cancelar')
 
     <div class="documentos">
         @if($tr_status == "enviado")
 
             <h6>Arquivos enviados para coordenador.</h6>
-            <a href="{{ route('professor.cancelar-envio.documentos') }}" class="mt-4 btn btn-outline-danger button-prevent-mult-submits">
-                <i style="display: none;" class="spinner-submit fa fa-spinner fa-spin"></i>
-                Cancelar
+            <a title="cancelar" data-toggle="modal" data-target="#cancelarEnvioDocumentos" href="#" 
+            class="mt-4 btn btn-outline-danger">
+                <i class="fas fa-times fa-fw"></i>
+                Cancelar envio
             </a>
         @else
             <small class="form-text text-muted mb-4">
@@ -60,10 +62,14 @@
                     <i style="display: none;" class="spinner-submit fa fa-spinner fa-spin"></i>
                     Salvar
                 </button>
-                <a href="{{ route('professor.enviar.documentos') }}" class="mt-4 btn btn-outline-primary button-prevent-mult-submits">
-                    <i style="display: none;" class="spinner-submit fa fa-spinner fa-spin"></i>
-                    Enviar arquivo para o Coordenador
-                </a>
+
+                @if($termo_de_responsabilidade)
+                    <a title="enviar" data-toggle="modal" data-target="#enviarDocumentos" href="#" 
+                    class="btn btn-outline-primary mt-4 ">
+                        <i class="fas fa-times fa-fw"></i>
+                        Enviar arquivos para o Coordenador
+                    </a>
+                @endif
             </form>
 
         @endif
@@ -71,5 +77,5 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/modal-remover.js') }}"></script>
+    <script src="{{ asset('js/modal-documentos.js') }}"></script>
 @endsection
