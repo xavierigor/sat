@@ -18,10 +18,10 @@
                         </p>
 
                         <div class="d-inline-block">
-                            <a title="Ver" href="{{ asset('storage/documentos/tcc') }}" target="_blank" class="tc mx-1 text-decoration-none text-secondary">
+                            <a title="Ver Documento" href="{{ asset('storage/documentos/tcc') }}" target="_blank" class="tc mx-1 text-decoration-none text-secondary">
                                 <i class="fas fa-eye fa-fw"></i>
                             </a>
-                            <a title="Download" href="{{ asset('storage/documentos/tcc') }}" download class="tc text-secondary">
+                            <a title="Baixar Documento" href="{{ asset('storage/documentos/tcc') }}" download class="tc text-secondary">
                                 <i class="fas fa-download fa-fw"></i>
                             </a>
                         </div>
@@ -56,10 +56,10 @@
                         </p>
 
                         <div class="d-inline-block">
-                            <a title="Ver" href="{{ asset('storage/documentos/tcc') }}" target="_blank" class="ra mx-1 text-decoration-none text-secondary">
+                            <a title="Ver Documento" href="{{ asset('storage/documentos/tcc') }}" target="_blank" class="ra mx-1 text-decoration-none text-secondary">
                                 <i class="fas fa-eye fa-fw"></i>
                             </a>
-                            <a title="Download" href="{{ asset('storage/documentos/tcc') }}" download class="ra text-secondary">
+                            <a title="Baixar Documento" href="{{ asset('storage/documentos/tcc') }}" download class="ra text-secondary">
                                 <i class="fas fa-download fa-fw"></i>
                             </a>
                         </div>

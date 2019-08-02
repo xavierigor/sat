@@ -20,7 +20,7 @@ class CoordenadorController extends Controller
 
     
     // Variavel que armazena o numero de itens que sera mostrado na paginação
-    private $TotalUsuariosPágina = 10;
+    private $TotalUsuariosPágina = 5;
     
     public function __construct() {
         $this->middleware('auth:coordenador');
@@ -125,96 +125,180 @@ class CoordenadorController extends Controller
     
     public function visualizarProfessores() {
 
-        if(request()->has('n')){
-            
-            $professores = Professor::select('id', 'name', 'email', 'data_nasc', 'matricula', 'telefone', 'image', 'area_de_interesse')
-                                    ->where('name', 'LIKE', '%' . request('n') . '%')
-                                    ->orderBy('name', 'asc')
-                                    ->paginate($this->TotalUsuariosPágina)
-                                    ->appends('n', request('n'));
+        $professores = Professor::select('id', 'name', 'email', 'data_nasc', 'matricula', 'telefone', 'image', 'area_de_interesse')
 
-        } else {
-            $professores = Professor::select('id', 'name', 'email', 'data_nasc', 'matricula', 'telefone', 'image', 'area_de_interesse')
-                                    ->orderBy('name', 'asc')
-                                    ->paginate($this->TotalUsuariosPágina);
-        }
+                    // Verifica filtro de nome
+                    ->when(request()->has('nome'), function ($q2) {
+                        return $q2->where('name', 'LIKE', '%' . request('nome') . '%');
+                    })
+                    // Verifica filtro de ordem
+                    ->when(request()->has('filtroordenar'), function ($q3) {
+                        // Verifica ordenação por
+                        if(request()->has('filtroordenarpor') && request('filtroordenarpor') == 'cadastro'){
+                            $ordenar_por = 'created_at';
+                        } else{
+                            $ordenar_por = 'name';
+                        }
 
-        return view('coordenador.visualizar.professores')->with('professores', $professores)->withInput(request()->only('n'));
+                        if(request('filtroordenar') == 'desc'){
+                            return $q3->orderBy( $ordenar_por, 'desc');
+                        } else{
+                            return $q3->orderBy( $ordenar_por, 'asc');
+                        }
+                    })
+                    ->paginate($this->TotalUsuariosPágina)
+                    ->appends([['nome', request('nome')],
+                                ['filtroordenar', request('filtroordenar')],
+                                ['filtroordenarpor', request('filtroordenarpor')]]);
+
+        // Retorna para a página uma varivel com os aluno (Users) que serão exibidos
+        return view('coordenador.visualizar.professores')->with('professores', $professores)
+                                                    ->withInput(request()->only('filtroordenarpor'),
+                                                                request()->only('filtroordenar'),
+                                                                request()->only('nome'));
     }
 
     public function cadastrarProfessor() {
         return view('coordenador.cadastrar.professor');
     }
     public function documentosProfessores() {
-        
-        if(request()->has('n')){
-            
-            // $professores = Professor::select('id', 'name', 'email', 'data_nasc', 'matricula', 'telefone', 'image', 'area_de_interesse', 'termo_de_responsabilidade', 'tr_status')
-            $professores = Professor::where('name', 'LIKE', '%' . request('n') . '%')
-                                    ->orderBy('name', 'asc')
-                                    ->paginate($this->TotalUsuariosPágina)
-                                    ->appends('n', request('n'));
 
-        } else {
-            // $professores = Professor::select('id', 'name', 'email', 'data_nasc', 'matricula', 'telefone', 'image', 'area_de_interesse', 'termo_de_responsabilidade', 'tr_status')
-            // É preciso ser dessa forma, caso contrário não retorna os relacionamentos
-            $professores = Professor::orderBy('name', 'asc')
-                                    ->paginate($this->TotalUsuariosPágina);
-        }
+        $professores = Professor::select('id', 'name', 'email', 'data_nasc', 'matricula', 'telefone', 'image', 'area_de_interesse')
 
-        return view('coordenador.documentos.professores')->with('professores', $professores)->withInput(request()->only('n'));
+                    // Verifica filtro de nome
+                    ->when(request()->has('nome'), function ($q2) {
+                        return $q2->where('name', 'LIKE', '%' . request('nome') . '%');
+                    })
+                    // Verifica filtro de ordem
+                    ->when(request()->has('filtroordenar'), function ($q3) {
+                        // Verifica ordenação por
+                        if(request()->has('filtroordenarpor') && request('filtroordenarpor') == 'cadastro'){
+                            $ordenar_por = 'created_at';
+                        } else{
+                            $ordenar_por = 'name';
+                        }
+
+                        if(request('filtroordenar') == 'desc'){
+                            return $q3->orderBy( $ordenar_por, 'desc');
+                        } else{
+                            return $q3->orderBy( $ordenar_por, 'asc');
+                        }
+                    })
+                    ->with('documentos')
+                    ->paginate($this->TotalUsuariosPágina)
+                    ->appends([['nome', request('nome')],
+                                ['filtroordenar', request('filtroordenar')],
+                                ['filtroordenarpor', request('filtroordenarpor')]]);
+
+        // Retorna para a página uma varivel com os aluno (Users) que serão exibidos
+        return view('coordenador.documentos.professores')->with('professores', $professores)
+                                                    ->withInput(request()->only('filtroordenarpor'),
+                                                                request()->only('filtroordenar'),
+                                                                request()->only('nome'));
     }
 
     // Get's User/Aluno
     public function visualizarAlunos() {
-
-        // verifica se foi foi passado 'name' como GET (quando é pesquisa algo no campo de busca)
-        if(request()->has('n')){
             
-            // Busca alunos (Users) com o nome pesquisado, retorna ordenados e paginados e
-            // usa o método 'appends' para persistir a pesquisa quando trocada a página
-            $alunos = User::select('id', 'name', 'email', 'data_nasc', 'matricula', 'telefone', 'image')
-                            ->where('name', 'LIKE', '%' . request('n') . '%')
-                            ->orderBy('name', 'asc')
-                            ->paginate($this->TotalUsuariosPágina)
-                            ->appends('n', request('n'));
-
-        } else{
-            $alunos = User::select('id', 'name', 'email', 'data_nasc', 'matricula', 'telefone', 'image')
-                            ->orderBy('name', 'asc')
-                            ->paginate($this->TotalUsuariosPágina);
-        }
+        // Busca alunos (Users) filtrados por tipo de tcc e com o nome pesquisado, retorna ordenados e paginados
+        // usa o método 'appends' para persistir a pesquisa quando trocada a página
+        $alunos = User::select('id', 'name', 'email', 'data_nasc', 'matricula', 'telefone', 'image')
+                    
+                    // Verifica filtro de disciplina
+                    ->when( ( request()->has('filtrotcc') && request('filtrotcc') != 'todos'), function ($q) {
+                        $alunos = Tcc::select('id','user_id')
+                                            ->where('tcc', request('filtrotcc'))
+                                            ->get();
+                        $alunos_id = [];
+                        foreach ($alunos as $aluno) {
+                            array_push($alunos_id, $aluno->user_id);
+                        }
+                        return $q->whereIn('id', $alunos_id);
+                    })
+                    // Verifica filtro de nome
+                    ->when(request()->has('nome'), function ($q2) {
+                        return $q2->where('name', 'LIKE', '%' . request('nome') . '%');
+                    })
+                    // Verifica filtro de ordem
+                    ->when(request()->has('filtroordenar'), function ($q3) {
+                        // Verifica ordenação por
+                        if(request()->has('filtroordenarpor') && request('filtroordenarpor') == 'cadastro'){
+                            $ordenar_por = 'created_at';
+                        } else{
+                            $ordenar_por = 'name';
+                        }
+                        
+                        if(request('filtroordenar') == 'desc'){
+                            return $q3->orderBy( $ordenar_por, 'desc');
+                        } else{
+                            return $q3->orderBy( $ordenar_por, 'asc');
+                        }
+                    })
+                    ->with('tcc:id,user_id,tcc')
+                    ->paginate($this->TotalUsuariosPágina)
+                    ->appends([['nome', request('nome')],
+                                ['filtrotcc', request('filtrotcc')],
+                                ['filtroordenar', request('filtroordenar')],
+                                ['filtroordenarpor', request('filtroordenarpor')]]);
 
         // Retorna para a página uma varivel com os aluno (Users) que serão exibidos
-        return view('coordenador.visualizar.alunos')->with('alunos', $alunos)->withInput(request()->only('n'));
+        return view('coordenador.visualizar.alunos')->with('alunos', $alunos)
+                                                    ->withInput(request()->only('filtrotcc'),
+                                                                request()->only('filtroordenarpor'),
+                                                                request()->only('filtroordenar'),
+                                                                request()->only('nome'));
     }
 
     public function cadastrarAluno() {
         return view('coordenador.cadastrar.aluno');
     }
     public function documentosAlunos() {
-        // verifica se foi foi passado 'name' como GET (quando é pesquisa algo no campo de busca)
-        if(request()->has('n')){
-            
-            // Busca alunos (Users) com o nome pesquisado, retorna ordenados e paginados e
-            // usa o método 'appends' para persistir a pesquisa quando trocada a página
-            $alunos = User::where('name', 'LIKE', '%' . request('n') . '%')
-                            // ->with('tcc:id,user_id,tcc,termo_de_compromisso,tc_status,rel_acompanhamento,ra_status')
-                            ->orderBy('name', 'asc')
-                            ->paginate($this->TotalUsuariosPágina)
-                            ->appends('n', request('n'));
-
-        } else{
-            $alunos = User::orderBy('name', 'asc')
-                            ->paginate($this->TotalUsuariosPágina);
-            // $alunos = User::select('id', 'name', 'email', 'data_nasc', 'matricula', 'telefone', 'image')
-            //                 ->with('tcc:id,user_id,tcc,termo_de_compromisso,tc_status,rel_acompanhamento,ra_status')
-            //                 ->orderBy('name', 'asc')
-            //                 ->paginate($this->TotalUsuariosPágina);
-        }
+        
+        $alunos = User::select('id', 'name', 'email', 'data_nasc', 'matricula', 'telefone', 'image')
+                    
+                    // Verifica filtro de disciplina
+                    ->when( ( request()->has('filtrotcc') && request('filtrotcc') != 'todos'), function ($q) {
+                        $alunos = Tcc::select('id','user_id')
+                                            ->where('tcc', request('filtrotcc'))
+                                            ->get();
+                        $alunos_id = [];
+                        foreach ($alunos as $aluno) {
+                            array_push($alunos_id, $aluno->user_id);
+                        }
+                        return $q->whereIn('id', $alunos_id);
+                    })
+                    // Verifica filtro de nome
+                    ->when(request()->has('nome'), function ($q2) {
+                        return $q2->where('name', 'LIKE', '%' . request('nome') . '%');
+                    })
+                    // Verifica filtro de ordem
+                    ->when(request()->has('filtroordenar'), function ($q3) {
+                        // Verifica ordenação por
+                        if(request()->has('filtroordenarpor') && request('filtroordenarpor') == 'cadastro'){
+                            $ordenar_por = 'created_at';
+                        } else{
+                            $ordenar_por = 'name';
+                        }
+                        
+                        if(request('filtroordenar') == 'desc'){
+                            return $q3->orderBy( $ordenar_por, 'desc');
+                        } else{
+                            return $q3->orderBy( $ordenar_por, 'asc');
+                        }
+                    })
+                    ->with('tcc:id,user_id,tcc','tcc.documentos')
+                    ->paginate($this->TotalUsuariosPágina)
+                    ->appends([['nome', request('nome')],
+                                ['filtrotcc', request('filtrotcc')],
+                                ['filtroordenar', request('filtroordenar')],
+                                ['filtroordenarpor', request('filtroordenarpor')]]);
 
         // Retorna para a página uma varivel com os aluno (Users) que serão exibidos
-        return view('coordenador.documentos.alunos')->with('alunos', $alunos)->withInput(request()->only('n'));
+        return view('coordenador.documentos.alunos')->with('alunos', $alunos)
+                                                    ->withInput(request()->only('filtrotcc'),
+                                                                request()->only('filtroordenarpor'),
+                                                                request()->only('filtroordenar'),
+                                                                request()->only('nome'));
     }
 
     // Post's Professor

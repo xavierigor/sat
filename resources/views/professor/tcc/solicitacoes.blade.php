@@ -16,8 +16,12 @@
             @include('includes.modal.solicitacao-recebida.recusar')
 
             @if($todas_solicitacoes->count() > 0)
+
+                <small class="text-uppercase text-muted mr-1">Solicitações recebidas</small>
+                <br><br>
+
                 @foreach($todas_solicitacoes as $solicitacao)
-                
+
                     <div class="div-personalizada">
 
                         <div class="div-img-solicitacao">

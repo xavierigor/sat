@@ -47,7 +47,7 @@
                         Email do professor
                     </small>
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-3">
                     <label for="data_nasc">Data de Nascimento <span class="text-danger">*</span></label>
                     <input value="{{ old('data_nasc') }}" type="date" class="form-control form-control-sm {{ $errors->has('data_nasc') ? 'border-danger' : ''}}" id="data_nasc" name="data_nasc">
                     {!! $errors->first('data_nasc', '<small class="text-danger">:message</small>') !!}
@@ -57,25 +57,8 @@
                     </small>
                 </div>
             </div>
-
-            {{-- <div class="form-row">
-                <div class="form-group col-md-8">
-                    <label for="area_de_interesse">Área de Interesse</label>
-                    <input value="{{ old('area_de_interesse') }}" type="text" class="form-control form-control-sm {{ $errors->has('area_de_interesse') ? 'border-danger' : ''}}" id="area_de_interesse" name="area_de_interesse">
-                    {!! $errors->first('area_de_interesse', '<small class="text-danger">:message</small>') !!}
-                    <small class="form-text text-muted">
-                        Área de interesse do professor
-                    </small>
-                </div>
-                <div class="form-group col-md-4">
-                    <label for="telefone">Telefone</label>
-                    <!-- Adicionar máscara no input -->
-                    <input value="{{ old('telefone') }}" type="tel" class="form-control form-control-sm {{ $errors->has('telefone') ? 'border-danger' : ''}}" id="telefone" name="telefone" placeholder="(00) 0 0000-0000">
-                    {!! $errors->first('telefone', '<small class="text-danger">:message</small>') !!}
-                </div>
-            </div> --}}
             
-            <button type="submit" class="btn btn-primary button-prevent-mult-submits" title="Cadastrar professor">
+            <button type="submit" class="mt-2 btn btn-primary btn-sm button-prevent-mult-submits" title="Cadastrar professor">
                 <i style="display: none;" class="spinner-submit fa fa-spinner fa-spin"></i>
                 Cadastrar
             </button>            

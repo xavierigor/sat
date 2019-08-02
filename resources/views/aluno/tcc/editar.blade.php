@@ -16,7 +16,7 @@
                     <input value="{{ Auth::user()->tcc->titulo }}" type="text" class="form-control form-control-sm {{ $errors->has('titulo') ? 'border-danger' : ''}}" id="titulo" name="titulo">
                     {!! $errors->first('titulo', '<small class="text-danger">:message</small>') !!}
                     <small class="form-text text-muted">
-                        Título do trabalho
+                        Título do Tcc
                     </small>
                 </div>
             </div>
@@ -26,15 +26,13 @@
                     <label for="area_de_pesquisa">Área de Pesquisa</label>
                     <input value="{{ Auth::user()->tcc->area_de_pesquisa }}" type="text" class="form-control form-control-sm {{ $errors->has('area_de_pesquisa') ? 'border-danger' : ''}}" id="area_de_pesquisa" name="area_de_pesquisa">
                     {!! $errors->first('area_de_pesquisa', '<small class="text-danger">:message</small>') !!}
+                    <small class="form-text text-muted">
+                        Aréa de pesquisa do Tcc
+                    </small>
                 </div>
-                <!-- <div class="form-group col-md-6">
-                    <label for="orientador">Orientador</label>
-                    <input value="" type="text" class="form-control form-control-sm {{ $errors->has('orientador') ? 'border-danger' : ''}}" id="orientador" name="orientador">
-                    {!! $errors->first('orientador', '<small class="text-danger">:message</small>') !!}
-                </div> -->
             </div>
 
-            <button type="submit" class="btn btn-primary button-prevent-mult-submits" title="Salvar alterações">
+            <button type="submit" class="mt-2 btn btn-primary btn-sm button-prevent-mult-submits btn-sm" title="Salvar alterações">
                 <i style="display: none;" class="spinner-submit fa fa-spinner fa-spin"></i>
                 Salvar Alterações
             </button>

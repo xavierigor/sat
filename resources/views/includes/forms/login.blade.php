@@ -12,7 +12,14 @@
 <div class="form-group row">
     <label for="password">{{ __('Senha') }}</label>
 
-    <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+    <div class="input-group">
+        <input id="password" type="password" class="input-senha form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+        <div class="input-group-append">
+            <button class="button-senha btn btn-outline-secondary-2 btn-sm" type="button" onclick="mostrarSenha()">
+                <i class="fas fa-eye fa-fw"></i>
+            </button>
+        </div>
+    </div>
     @if ($errors->has('password'))
         <span class="invalid-feedback text-left" role="alert">
             <strong>{{ $errors->first('password') }}</strong>

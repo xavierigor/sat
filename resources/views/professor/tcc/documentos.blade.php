@@ -13,8 +13,11 @@
     @include('includes.modal.envio-documentos.professor.cancelar')
 
     <div class="documentos">
-        @if($tr_status == "enviado")
+    
+        <small class="text-uppercase text-muted mr-1">Seus documentos de tcc</small>
+        <br><br>
 
+        @if($tr_status == "enviado")
             <h6>Arquivos enviados para coordenador.</h6>
             <a title="cancelar" data-toggle="modal" data-target="#cancelarEnvioDocumentos" href="#" 
             class="mt-4 btn btn-outline-danger">

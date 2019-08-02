@@ -10,6 +10,9 @@
 
     @if($orientacoes->count() > 0)
 
+        <small class="text-uppercase text-muted mr-1">Suas orientações</small>
+        <br><br>
+
         <!-- Importar modal cancelar Orientacao -->
         @include('includes.modal.orientacao.remover-orientando')
         @include('includes.modal.documentos.documentos-orientando')

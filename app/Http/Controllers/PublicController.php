@@ -10,7 +10,7 @@ use Auth;
 class PublicController extends Controller
 {
 
-    private $TotalItensPágina = 10;
+    private $TotalUsuariosPágina = 5;
 
 
     public function index() {
@@ -23,23 +23,29 @@ class PublicController extends Controller
 
     public function professores() {
 
-        // Se for pesquisado algum nome de professor
-        if(request()->has('n')){
-            
-            $professores = Professor::select('id', 'name', 'email', 'area_de_interesse')
-                            ->where('name', 'LIKE', '%' . request('n') . '%')
-                            ->orderBy('name', 'asc')
-                            ->paginate($this->TotalItensPágina)
-                            ->appends('n', request('n'));
+        $professores = Professor::select('id', 'name', 'email', 'area_de_interesse')
 
-        } else{
+                    // Verifica filtro de nome
+                    ->when(request()->has('nome'), function ($q2) {
+                        return $q2->where('name', 'LIKE', '%' . request('nome') . '%');
+                    })
+                    // Verifica filtro de ordem
+                    ->when(request()->has('filtroordenar'), function ($q3) {
+                        
+                        if(request('filtroordenar') == 'desc'){
+                            return $q3->orderBy( 'name', 'desc');
+                        } else{
+                            return $q3->orderBy( 'name', 'asc');
+                        }
+                    })
+                    ->paginate($this->TotalUsuariosPágina)
+                    ->appends([['nome', request('nome')],
+                                ['filtroordenar', request('filtroordenar')]]);
 
-            $professores = Professor::select('id', 'name', 'email', 'area_de_interesse')
-                            ->orderBy('name', 'asc')
-                            ->paginate($this->TotalItensPágina);
-        }
-
-        return view('public.professores.index')->with('professores', $professores)->withInput(request()->only('n'));
+        // Retorna para a página uma varivel com os aluno (Users) que serão exibidos
+        return view('public.professores.index')->with('professores', $professores)
+                                                    ->withInput(request()->only('filtroordenar'),
+                                                                request()->only('nome'));
     }
 
     public function perfilProfessor($id) {

@@ -9,10 +9,14 @@
 
 @section('content')
 
+    @include('includes.modal.remover-documento.remover')
     @include('includes.modal.envio-documentos.aluno.enviar')
     @include('includes.modal.envio-documentos.aluno.cancelar')
 
     <div class="documentos">
+
+        <small class="text-uppercase text-muted mr-1">Seus documentos de tcc</small>
+        <br><br>
 
         @if(Auth::user()->tcc->documentos->tc_status == "enviado")
 
@@ -42,18 +46,19 @@
                             </a>
                         </div>
                         <div class="d-inline-block mt-1">
-                            <a title="Baixar" href="{{asset('storage/documentos/tcc/'.Auth::user()->tcc->documentos->termo_de_compromisso)}}"
-                            download class="btn btn-sm btn-outline-success">
+                            <a title="Baixar documento" href="{{asset('storage/documentos/tcc/'.Auth::user()->tcc->documentos->termo_de_compromisso)}}"
+                            download class="tc mr-2 text-decoration-none text-secondary">
                                 <i class="fas fa-file-download fa-fw"></i>
                                 Baixar
                             </a>
-                            <a title="Remover" data-toggle="modal" data-target="#removerDocumento" href="#" 
-                            class="btn btn-sm btn-outline-danger" data-nome="{{ Auth::user()->tcc->documentos->termo_de_compromisso }}"
+                            <a title="Remover documento" data-toggle="modal" data-target="#removerDocumento" href="#" 
+                            class="tc text-decoration-none text-secondary" data-nome="{{ Auth::user()->tcc->documentos->termo_de_compromisso }}"
                             data-documento="termo_de_compromisso">
                                 <i class="fas fa-trash-alt fa-fw"></i>
                                 Remover
                             </a>
                         </div>
+                        
                     @else
                         <input type="file" name="termo_de_compromisso" id="termo_de_compromisso" 
                         class="d-inline-block {{ $errors->has('termo_de_compromisso') ? 'border-danger' : ''}}">
@@ -75,13 +80,13 @@
                                 </a>
                             </div>
                             <div class="d-inline-block mt-1">
-                                <a title="Baixar" href="{{asset('storage/documentos/tcc/'.Auth::user()->tcc->termo_de_compromisso)}}"
-                                download class="btn btn-sm btn-outline-success">
+                                <a title="Baixar documento" href="{{asset('storage/documentos/tcc/'.Auth::user()->tcc->termo_de_compromisso)}}"
+                                download class="tc mr-2 text-decoration-none text-secondary">
                                     <i class="fas fa-file-download fa-fw"></i>
                                     Baixar
                                 </a>
-                                <a title="Remover" data-toggle="modal" data-target="#removerDocumento" href="#" 
-                                class="btn btn-sm btn-outline-danger" data-nome="{{ Auth::user()->tcc->termo_de_compromisso }}"
+                                <a title="Remover documento" data-toggle="modal" data-target="#removerDocumento" href="#" 
+                                class="tc text-decoration-none text-secondary" data-nome="{{ Auth::user()->tcc->termo_de_compromisso }}"
                                 data-documento="termo_de_compromisso">
                                     <i class="fas fa-trash-alt fa-fw"></i>
                                     Remover
@@ -106,13 +111,13 @@
                                 </a>
                             </div>
                             <div class="d-inline-block mt-1">
-                                <a title="Baixar" href="{{asset('storage/documentos/tcc/'.Auth::user()->tcc->documentos->rel_acompanhamento)}}"
-                                download class="btn btn-sm btn-outline-success">
+                                <a title="Baixar documento" href="{{asset('storage/documentos/tcc/'.Auth::user()->tcc->documentos->rel_acompanhamento)}}"
+                                download class="tc mr-2 text-decoration-none text-secondary">
                                     <i class="fas fa-file-download fa-fw"></i>
                                     Baixar
                                 </a>
-                                <a title="Remover" data-toggle="modal" data-target="#removerDocumento" href="#" 
-                                class="btn btn-sm btn-outline-danger" data-nome="{{ Auth::user()->tcc->documentos->rel_acompanhamento }}"
+                                <a title="Remover documento" data-toggle="modal" data-target="#removerDocumento" href="#" 
+                                class="tc text-decoration-none text-secondary" data-nome="{{ Auth::user()->tcc->documentos->rel_acompanhamento }}"
                                 data-documento="rel_acompanhamento">
                                     <i class="fas fa-trash-alt fa-fw"></i>
                                     Remover
@@ -127,18 +132,21 @@
                     </div>
                 @endif
                 
-                <button type="submit" class="btn btn-primary mt-4 button-prevent-mult-submits">
-                    <i style="display: none;" class="spinner-submit fa fa-spinner fa-spin"></i>
-                    Salvar
-                </button>
-                
-                @if(Auth::user()->tcc->documentos->termo_de_compromisso && Auth::user()->tcc->documentos->rel_acompanhamento)
-                    <a title="enviar" data-toggle="modal" data-target="#enviarDocumentos" href="#" 
-                    class="btn btn-outline-primary mt-4 ">
-                        <i class="fas fa-times fa-fw"></i>
-                        Enviar arquivos para o Coordenador
-                    </a>
-                @endif
+                <div class="botoes mt-5">
+                    
+                    @if(Auth::user()->tcc->documentos->termo_de_compromisso && Auth::user()->tcc->documentos->rel_acompanhamento)
+                        <a title="Enviar documentos para coordenador" data-toggle="modal" data-target="#enviarDocumentos" href="#" 
+                            class="btn btn-primary btn-sm ">
+                            Enviar para Coordenador
+                            <i class="fas fa-paper-plane fa-fw"></i>
+                        </a>
+                    @else
+                        <button type="submit" class="btn btn-primary btn-sm button-prevent-mult-submits" title="Salvar documentos">
+                            <i style="display: none;" class="spinner-submit fa fa-spinner fa-spin"></i>
+                            Salvar
+                        </button>
+                    @endif
+                </div>
             </form>
         
         @endif

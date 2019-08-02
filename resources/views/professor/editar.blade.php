@@ -8,11 +8,14 @@
 
 @section('content')
 <div>
+
+    <small class="d-block mb-3">Os campos com <span class="text-danger">*</span> são obrigatórios</small>
+
     <form class="form-prevent-mult-submits" method="POST" action="{{ route('professor.update') }}" enctype="multipart/form-data">
         @csrf
         <div class="form-row">
             <div class="form-group col-md-8">
-                <label for="name">Nome Completo</label>
+                <label for="name">Nome Completo <span class="text-danger">*</span></label>
                 <input value="{{ Auth::user()->name }}" type="text" class="form-control form-control-sm {{ $errors->has('name') ? 'border-danger' : ''}}" id="name" name="name">
                 {!! $errors->first('name', '<small class="text-danger">:message</small>') !!}
             </div>
@@ -25,12 +28,15 @@
 
         <div class="form-row">
             <div class="form-group col-md-6">
-                <label for="email">Email</label>
+                <label for="email">Email <span class="text-danger">*</span></label>
                 <input value="{{ Auth::user()->email }}" type="email" class="form-control form-control-sm {{ $errors->has('email') ? 'border-danger' : ''}}" id="email" name="email">
                 {!! $errors->first('email', '<small class="text-danger">:message</small>') !!}
+                <small class="form-text text-muted">
+                    Seu email que será usado como login
+                </small>
             </div>
             <div class="form-group col-md-3">
-                <label for="data_nasc">Data de Nascimento</label>
+                <label for="data_nasc">Data de Nascimento <span class="text-danger">*</span></label>
                 <input value="{{ Auth::user()->data_nasc }}" type="date" class="form-control form-control-sm {{ $errors->has('data_nasc') ? 'border-danger' : ''}}" id="data_nasc" name="data_nasc">
                 {!! $errors->first('data_nasc', '<small class="text-danger">:message</small>') !!}
             </div>
@@ -41,26 +47,31 @@
             </div>
         </div>
 
-        <div class="form-row">
-            <div class="form-group pr-3">
-                @if(Auth::user()->image)
-                    <div class="circle img-perfil-pequena">
-                        ​<img src="{{ asset('storage/perfil/professores/' . Auth::user()->image) }}" alt="{{Auth::user()->image}}">
-                    </div>
-                @else
-                    <div class="circle img-perfil-pequena">
-                ​       <img src="{{ asset('images/user.png') }}" alt="avatar">
-                    </div>
-                @endif
-            </div>
+        <div class="mt-2 form-row">
             <div class="form-group">
-                <label for="email">Foto</label>
-                <input type="file" class="form-control-file {{ $errors->has('image') ? 'border-danger' : ''}}" name="image"  id="image">
-                {!! $errors->first('image', '<small class="text-danger">:message</small>') !!}
+                <div class="d-flex">
+                    @if(Auth::user()->image)
+                        <div class="circle img-perfil-pequena mr-3">
+                            ​<img src="{{ asset('storage/perfil/professores/' . Auth::user()->image) }}" alt="imagem de perfil">
+                        </div>
+                    @else
+                        <div class="circle img-perfil-pequena mr-3">
+                    ​       <img src="{{ asset('images/user.png') }}" class="rounded-circle" alt="imagem de perfil">
+                        </div>
+                    @endif
+                    <div class="my-auto">
+                        <label for="email">Imagem de Perfil</label>
+                        <input type="file" class="form-control-file {{ $errors->has('image') ? 'border-danger' : ''}}" name="image"  id="image">
+                        {!! $errors->first('image', '<small class="text-danger">:message</small>') !!}
+                        <small class="form-text text-muted">
+                            Apenas arquivos: .jpeg, .png e .gif
+                        </small>
+                    </div>
+                </div>
             </div>
         </div>
-        <br>
-        <button type="submit" class="btn btn-primary button-prevent-mult-submits" title="Salvar alterações">
+
+        <button type="submit" class="mt-2 btn btn-primary btn-sm button-prevent-mult-submits" title="Salvar alterações">
             <i style="display: none;" class="spinner-submit fa fa-spinner fa-spin"></i>
             Salvar Alterações
         </button>

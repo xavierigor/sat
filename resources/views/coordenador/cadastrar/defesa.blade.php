@@ -41,7 +41,7 @@
             <i class="fas fa-question-circle fa-sm" data-toggle="tooltip" data-placement="right"
             title="Clique no teclado para digitar o nome do avaliador caso o mesmo não possua cadastro no sistema."></i>
             
-            <div class="form-row mt-2 mb-4">
+            <div class="form-row mt-3 mb-4">
                 <div class="form-group col-md-4">
                     <label for="orientador">Orientador <span class="text-danger">*</span></label>
 
@@ -125,8 +125,8 @@
             </div>
 
             <small class="text-uppercase mb-3 text-muted">Apresentação</small>
-            <div class="form-row mt-2">
-                <div class="form-group col-md-4">
+            <div class="form-row mt-3">
+                <div class="form-group col-md-3">
                     <label for="data">Data <span class="text-danger">*</span></label>
                     <input value="{{ old('data') }}" type="date" class="form-control form-control-sm {{ $errors->has('data') ? 'border-danger' : ''}}" id="data" name="data">
                     {!! $errors->first('data', '<small class="text-danger">:message</small>') !!}
@@ -152,7 +152,7 @@
                 </div>
             </div>
             
-            <button type="submit" class="btn btn-primary button-prevent-mult-submits" title="Cadastrar defesa">
+            <button type="submit" class="mt-3 btn btn-primary btn-sm button-prevent-mult-submits" title="Cadastrar defesa">
                 <i style="display: none;" class="spinner-submit fa fa-spinner fa-spin"></i>
                 Cadastrar
             </button>

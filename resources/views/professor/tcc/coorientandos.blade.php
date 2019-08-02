@@ -10,6 +10,9 @@
 
     @if($coorientacoes->count() > 0)
 
+        <small class="text-uppercase text-muted mr-1">Suas coorientações</small>
+        <br><br>
+
         <!-- Importar modal cancelar Coorientacao -->
         @include('includes.modal.coorientacao.remover-coorientando')
 

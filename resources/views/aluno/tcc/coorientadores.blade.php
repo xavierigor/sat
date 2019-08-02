@@ -13,19 +13,24 @@
         <!-- Se já existe um orientador associado ao aluno -->
         @isset($coorientacoes)
 
+            @if($coorientacoes->count() > 0)
+                <small class="text-uppercase text-muted mr-1">Coorientadores</small>
+                <br><br>
+            @endif
+
             <!-- Importar modal cancelar Orientacao -->
             @include('includes.modal.coorientacao.cancelar')
 
             @foreach($coorientacoes as $coorientacao)
 
                 <div class="div-personalizada">
-                    <div class="div-img-media">
+                    <div class="div-img-solicitacao">
                         @if($coorientacao->coorientador->image)
-                            <div class="circle img-perfil-media">
+                            <div class="circle img-perfil-solicitacao">
                                 ​<img src="{{ asset('storage/perfil/professores/' . $coorientacao->coorientador->image) }}"  alt="imagem do perfil">
                             </div>
                         @else
-                            <div class="circle img-perfil-media">
+                            <div class="circle img-perfil-solicitacao">
                             ​    <img src="{{ asset('images/user.png') }}" alt="imagem do perfil">
                             </div>
                         @endif
@@ -59,7 +64,12 @@
 
         <!-- Se existe um professor solicitado pelo aluno -->
         @isset($solicitacoes)
-    
+
+            @if($solicitacoes->count() > 0)
+                <small class="text-uppercase text-muted mr-1">Solicitações de coorientação de tcc enviadas</small>
+                <br><br>
+            @endif
+
             <!-- Importar modal cancelar solicitacao -->
             @include('includes.modal.solicitar-co-o-rientacao.cancelar')
             @foreach($solicitacoes as $solicitacao)
@@ -98,18 +108,36 @@
 
         <!-- Se o aluno ainda tem que solicitar um professor para coorientação -->
         @isset($professores)
-            <div class="text-center mb-5">
+
+            <small class="text-uppercase text-muted mr-1">Buscar Professores</small>
+            <i class="fas fa-question-circle fa-sm" data-toggle="tooltip" data-placement="right"
+            title="Use a caixa de pesquisa para buscar por o nome de algum professor e os tollbuttons para filtrar e ordenar os resultador de pesquisa"></i>
+            
+            <div class="text-center mt-2 mb-3">
                 <form action="{{ route('aluno.coorientadores.tcc') }}" name="buscarNome" method="get"
-                enctype="multipart/form-data">
-                    <div class="form-inline justify-content-center">
-                        <div class="form-group mr-2 w-50">
-                            <input value="{{ request('n') }}" class="form-control form-control-sm w-100" placeholder="Nome do professor" type="text" name="n">
-                        </div>
+                    enctype="multipart/form-data">
+                    {{-- @csrf --}}
+                    <div class="form-inline justify-content-between">
                         <div class="form-group">
-                            <button type="submit" class="btn btn-outline-primary btn-sm" value="Buscar">
-                                Buscar
-                                <i class="fas fa-search fa-fw ml-1"></i>
-                            </button>
+                            <div class="mr-4 mb-2 input-group">
+                                <input value="{{ request('nome') }}" class="form-control form-control-sm" placeholder="Nome do professor" type="text" name="nome">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-outline-secondary-2 btn-sm" type="button" title="Buscar professor">
+                                        <i class="fas fa-search fa-fw ml-1"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group form-group-sm form-inline justify-content-left">
+                            <div class="mb-2 ordenar-toolbar btn-group" role="group" aria-label="Escolher entre ordenar lista ascedentemente ou decrecentemente">
+                                <input value="{{ request('filtroordenar') ? request('filtroordenar') : 'asc' }}" class="filtroordenar form-control form-control-sm" type="hidden" name="filtroordenar">
+                                <button type="submit" class="ordenar-toolbar-asc btn btn-sm {{ (request('filtroordenar') == 'asc' || request('filtroordenar') == '') ? 'btn-secondary-2' : 'btn-outline-secondary-2' }}">
+                                    Asc
+                                </button>
+                                <button type="submit" class="ordenar-toolbar-desc btn btn-sm {{ (request('filtroordenar') == 'desc') ? 'btn-secondary-2' : 'btn-outline-secondary-2' }}">
+                                    Desc
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -157,12 +185,12 @@
                 </div>
 
                 <!-- Paginação -->
-                <div class="d-flex justify-content-center">
+                <div class="mt-2 d-flex justify-content-end">
                     {{ $professores->links() }}
                 </div>
 
             @else
-                <p>Nenhum professor encontrado</p>
+                <p>Nenhum professor encontrado.</p>
             @endif
 
         @endisset 

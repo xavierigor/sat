@@ -9,12 +9,18 @@
 @section('content')
 
     <div class="datas">
-        <form class="form-prevent-mult-submits" method="POST" action="{{ route('coordenador.salvar.datas') }}">
+
+        <small class="text-uppercase text-muted mr-1">Definir Prazos</small>
+        <i class="fas fa-question-circle fa-sm" data-toggle="tooltip" data-placement="right"
+        title="Para definir um prazo para uma determinada ação, informe a data de início e término desse prazo. Os prazos só serão salvos se ambos os campos estiverem preenchidos ou ambos estiverem nulos (não preenchidos)."></i>
+            
+
+        <form class="mt-3 form-prevent-mult-submits" method="POST" action="{{ route('coordenador.salvar.datas') }}">
             @csrf
             
             @foreach($todas_datas as $data)
                 
-                @if($data->nome == 'definir orientador')
+                <!-- @if($data->nome == 'definir orientador')
                     <div class="form-row">
                         <div class="col-xl-7 titulo-prazo my-auto">
                             <h6 class="font-weight-bold ">Prazo para escolha do Orientador:</h6>
@@ -34,7 +40,7 @@
                         </div>
                     </div>
                     <br><hr><br>
-                @endif
+                @endif -->
 
                 @if($data->nome == 'termo de compromisso')
                     <div class="form-row">
@@ -103,7 +109,7 @@
                 @endif
             @endforeach
 
-            <button type="submit" class="btn btn-primary button-prevent-mult-submits">
+            <button type="submit" class="btn btn-primary button-prevent-mult-submits" title="Salvar datas">
                 <i style="display: none;" class="spinner-submit fa fa-spinner fa-spin"></i>
                 Salvar Datas
             </button>

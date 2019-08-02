@@ -14,8 +14,9 @@
             </div>
         @endif
 
-
-        <div class="row mb-2 mb-md-3">
+        <small class="text-uppercase text-muted mr-1">Dados do sistema</small>
+        
+        <div class="row mt-3 mb-md-3">
             <div class="col-md-4 mb-3 mb-md-0">
                 <div class="dashboard-card purple">
                     <div class="icon">
@@ -51,7 +52,9 @@
             </div>
         </div>
 
-        <div class="row">
+        <small class="text-uppercase text-muted mr-1">Avisos</small>
+
+        <div class="row mt-3">
             <div class="col-md-6 mb-3 mb-md-0">
                 <!-- Implementar ainda -->
                 <!-- Defesa mais próxima ou defesa de hoje? -->

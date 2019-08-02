@@ -13,7 +13,7 @@
                 ?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Não</button>
                 <form class="form-prevent-mult-submits" method="POST" action="{{ route('aluno.destroy.documento') }}">
                     @csrf
                     @method('DELETE')

@@ -69,7 +69,7 @@
                 </div>
             </div>
             
-            <button type="submit" class="btn btn-primary button-prevent-mult-submits" title="Cadastrar aluno">
+            <button type="submit" class="mt-2 btn btn-primary btn-sm button-prevent-mult-submits" title="Cadastrar aluno">
                 <i style="display: none;" class="spinner-submit fa fa-spinner fa-spin"></i>
                 Cadastrar
             </button>

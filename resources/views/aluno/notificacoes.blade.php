@@ -13,6 +13,9 @@
         @isset($todas_notificacoes)
             @if($todas_notificacoes->count() > 0)
                 
+                <small class="text-uppercase text-muted mr-1">Notificações recebidas</small>
+                <br>
+    
                 @php
                     $cont_novas = $novas_notificacoes
                 @endphp

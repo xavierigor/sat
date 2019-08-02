@@ -21,24 +21,24 @@
             @csrf
             <div class="form-row">
                 <div class="form-group col-md-12">
-                    <label for="titulo">Título <span class="text-danger">*</span></label>
+                    <label for="titulo">Título da Notícia <span class="text-danger">*</span></label>
                     <input value="{{ old('titulo') }}" type="text" class="form-control form-control-sm {{ $errors->has('titulo') ? 'border-danger' : ''}}" id="titulo" name="titulo">
                     {!! $errors->first('titulo', '<small class="text-danger">:message</small>') !!}
-                    <small class="form-text text-muted">
+                    <!-- <small class="form-text text-muted">
                         Título da notícia
-                    </small>
+                    </small> -->
                 </div>
             </div>
 
-            <div class="form-row">
+            <div class="mt-2 form-row">
                 <div class="form-group col-md-12">
-                    <label for="corpo">Corpo da notícia <span class="text-danger">*</span></label>
+                    <label for="corpo">Corpo da Notícia <span class="text-danger">*</span></label>
                     <textarea rows="10" type="text" class="form-control form-control-sm {{ $errors->has('corpo') ? 'border-danger' : ''}}" id="corpo" name="corpo">{{ old('corpo') }}</textarea>
                     {!! $errors->first('corpo', '<small class="text-danger">:message</small>') !!}
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary button-prevent-mult-submits" title="Publicar notícia">
+            <button type="submit" class="mt-2 btn btn-primary btn-sm button-prevent-mult-submits" title="Publicar notícia">
                 <i style="display: none;" class="spinner-submit fa fa-spinner fa-spin"></i>
                 Publicar
             </button>

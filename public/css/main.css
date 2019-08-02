@@ -6,8 +6,53 @@ input, select, textarea, button, .btn {
     border-radius: 0 !important;
 }
 
+/* Botoes */
+
+.btn-outline-laranja {
+    border: 1px solid #FF0100;
+    color: #FF0100 !important;
+    font-weight: 700;
+    -webkit-transition: right 0.3s; /* For Safari 3.1 to 6.0 */
+      transition: right 0.3s;
+}
+.btn-outline-laranja:hover {
+    background: linear-gradient(to right, rgba(255, 0, 0, 0.8), rgba(255, 123, 0, 0.8));
+    color: white !important;
+    -webkit-transition: right 0.3s; /* For Safari 3.1 to 6.0 */
+    transition: right 0.3s;
+}
+
+.btn-outline-primary-2 {
+    color: #007bff;
+    border-color: #007bff;
+}
+.btn-outline-primary-2:hover {
+    color: #007bff;
+    background-color: #00000007;
+}
+
+
+.btn-secondary-2 {
+    color: #6c757d;
+    border-color: #ced4da;
+    background-color: #00000010;
+}
+.btn-secondary-2:hover {
+    background-color: #00000015;
+}
+.btn-outline-secondary-2 {
+    color: #6c757d;
+    border-color: #ced4da;
+}
+.btn-outline-secondary-2:hover {
+    background-color: #00000010;
+}
+
+/* Fim Botoes */
+
 textarea:focus,
 select:focus,
+.button-senha:focus,
 input[type="text"]:focus,
 input[type="password"]:focus,
 input[type="datetime"]:focus,
@@ -62,21 +107,6 @@ body {
     width: 100%;
 }
 
-
-
-.btn-outline-laranja {
-    border: 1px solid #FF0100;
-    color: #FF0100 !important;
-    font-weight: 700;
-    -webkit-transition: right 0.3s; /* For Safari 3.1 to 6.0 */
-      transition: right 0.3s;
-}
-.btn-outline-laranja:hover {
-    background: linear-gradient(to right, rgba(255, 0, 0, 0.8), rgba(255, 123, 0, 0.8));
-    color: white !important;
-    -webkit-transition: right 0.3s; /* For Safari 3.1 to 6.0 */
-    transition: right 0.3s;
-}
 /* Fim Navbar */
 
 #main{
@@ -186,6 +216,7 @@ body {
 
 ::-webkit-scrollbar {
     width: 3px;
+    height: 3px;
 }
 ::-webkit-scrollbar-thumb {
     background: rgb(150, 150, 150); 
@@ -193,6 +224,27 @@ body {
 }
 
 /* Fim Scrollbar */
+
+
+/* Paginação */
+.pagination > li > a,
+.pagination > li > span {
+    color: #6c757d !important;
+    border-color: #ced4da !important;
+}
+
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+    background-color: #00000015 !important;
+    cursor:pointer;
+    z-index:2;
+}
+
+/* Fim Paginação */
 
 @media(max-width: 767px){
     .div-personalizada{
@@ -212,9 +264,3 @@ body {
         margin-top: 93px; /* Tamanho da navbar */
     }
 }
-
-/* @media(min-width: 768px){
-    #main{
-        margin-top: 60px; /* Tamanho da navbar */
-    }
-} */

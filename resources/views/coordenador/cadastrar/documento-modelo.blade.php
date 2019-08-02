@@ -18,6 +18,9 @@
                     <label for="nome">Nome do Documento <span class="text-danger">*</span></label>
                     <input value="{{ old('nome') }}" type="text" class="form-control form-control-sm {{ $errors->has('nome') ? 'border-danger' : ''}}" id="nome" name="nome">
                     {!! $errors->first('nome', '<small class="text-danger">:message</small>') !!}
+                    <small class="form-text text-muted">
+                        Nome que será exibido na tela de documentos modelos associado ao arquivo de download
+                    </small>
                 </div>
             </div>
 
@@ -26,11 +29,13 @@
                     <label for="arquivo">Documento <span class="text-danger">*</span></label>
                     <input class="form-control-file {{ $errors->has('arquivo') ? 'border-danger' : ''}}" type="file" name="arquivo" id="arquivo">
                     {!! $errors->first('arquivo', '<small class="text-danger">:message</small>') !!}
-                    <small class="form-text text-muted">Apenas arquivos: pdf, odt, doc, docx</small>
+                    <small class="form-text text-muted">
+                        Apenas arquivos: pdf, odt, doc, docx
+                    </small>
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary button-prevent-mult-submits mt-3" title="Cadastrar documento modelo">
+            <button type="submit" class="mt-2 btn btn-primary btn-sm button-prevent-mult-submits" title="Cadastrar documento modelo">
                 <i style="display: none;" class="spinner-submit fa fa-spinner fa-spin"></i>
                 Cadastrar
             </button>

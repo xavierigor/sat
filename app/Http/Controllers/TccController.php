@@ -18,7 +18,7 @@ use Validator;
 class TccController extends Controller
 {
 
-    private $TotalItensPágina = 5;
+    private $TotalUsuariosPágina = 5;
 
     public function __construct() {
         $this->middleware('auth');
@@ -33,7 +33,18 @@ class TccController extends Controller
 
     public function visualizar()
     {
-        return view('aluno.tcc.visualizar');
+         // Buscando se há algum orientador e seu dados
+        $orientacao = Orientacao::select('id', 'orientador_id')
+                                ->where("aluno_id", Auth::user()->id)
+                                ->with(['orientador:id,name'])
+                                ->first();
+        $coorientacao = Coorientacao::select('id','coorientador_id')
+                                    ->where('aluno_id', Auth::user()->id)
+                                    ->with('coorientador:id,name')
+                                    ->get();
+        // dd($coorientacao);
+        return view('aluno.tcc.visualizar')->with(['orientacao' => $orientacao,
+                                                'coorientacao' => $coorientacao]);
     }
     
     public function editar()
@@ -69,26 +80,29 @@ class TccController extends Controller
             
             } else {
 
-                // Se for pesquisado algum nome de orientador
-                if(request()->has('n')){
-                
-                    $professores = Professor::select('id', 'name', 'email', 'area_de_interesse')
-                                            ->where('name', 'LIKE', '%' . request('n') . '%')
-                                            ->where('disponivel_orient', true)
-                                            ->orderBy('name', 'asc')
-                                            ->paginate($this->TotalItensPágina)
-                                            ->appends('n', request('n'));
-        
-                } else{
+                $professores = Professor::select('id', 'name', 'email', 'area_de_interesse')
+                            ->where('disponivel_orient', true)
 
-                    $professores = Professor::select('id', 'name', 'email', 'area_de_interesse')
-                                            ->where('disponivel_orient', true)
-                                            ->orderBy('name', 'asc')
-                                            ->paginate($this->TotalItensPágina);
-                }
+                            // Verifica filtro de nome
+                            ->when(request()->has('nome'), function ($q2) {
+                                return $q2->where('name', 'LIKE', '%' . request('nome') . '%');
+                            })
+                            // Verifica filtro de ordem
+                            ->when(request()->has('filtroordenar'), function ($q3) {
+                                if(request('filtroordenar') == 'desc'){
+                                    return $q3->orderBy('name', 'desc');
+                                } else{
+                                    return $q3->orderBy('name', 'asc');
+                                }
+                            })
+                            ->paginate($this->TotalUsuariosPágina)
+                            ->appends([['nome', request('nome')],
+                                        ['filtroordenar', request('filtroordenar')]]);
 
-                return view('aluno.tcc.orientador')->with('professores', $professores)->withInput(request()->only('n'));
-                
+                // Retorna para a página uma varivel com os professores que serão exibidos
+                return view('aluno.tcc.orientador')->with('professores', $professores)
+                                                            ->withInput(request()->only('filtroordenar'),
+                                                                        request()->only('nome'));
             }
         }
 
@@ -125,31 +139,31 @@ class TccController extends Controller
             }
         }
 
-        // Se for pesquisado algum nome de coorientador
-        if(request()->has('n')){
+        $professores = Professor::select('id', 'name', 'email', 'area_de_interesse')
+                            ->where('disponivel_coorient', true)
 
-            
-            $professores = Professor::select('id', 'name', 'email', 'area_de_interesse')
-                                    ->where([['name', 'LIKE', '%' . request('n') . '%'],
-                                            ['disponivel_coorient', '=', true]])
-                                    ->whereNotIn( 'id', $indisponiveis_solicitar)
-                                    ->orderBy('name', 'asc')
-                                    ->paginate($this->TotalItensPágina)
-                                    ->appends('n', request('n'));
+                            // Verifica filtro de nome
+                            ->when(request()->has('nome'), function ($q2) {
+                                return $q2->where('name', 'LIKE', '%' . request('nome') . '%');
+                            })
+                            // Verifica filtro de ordem
+                            ->when(request()->has('filtroordenar'), function ($q3) {
+                                if(request('filtroordenar') == 'desc'){
+                                    return $q3->orderBy('name', 'desc');
+                                } else{
+                                    return $q3->orderBy('name', 'asc');
+                                }
+                            })
+                            ->paginate($this->TotalUsuariosPágina)
+                            ->appends([['nome', request('nome')],
+                                        ['filtroordenar', request('filtroordenar')]]);
 
-        } else{
-
-            $professores = Professor::select('id', 'name', 'email', 'area_de_interesse')
-                                    ->where('disponivel_coorient', true)
-                                    ->whereNotIn( 'id', $indisponiveis_solicitar)
-                                    ->orderBy('name', 'asc')
-                                    ->paginate($this->TotalItensPágina);
-        }
-
+        // Retorna para a página uma varivel com os professores que serão exibidos
         return view('aluno.tcc.coorientadores')->with(['solicitacoes' => $solicitacoes,
                                                         'coorientacoes' => $coorientacoes,
                                                         'professores' => $professores])
-                                                ->withInput(request()->only('n'));
+                                                ->withInput(request()->only('filtroordenar'),
+                                                            request()->only('nome'));
     }
 
     public function documentos()
@@ -173,6 +187,7 @@ class TccController extends Controller
         }
         return redirect()->back()->with(session()->flash('error', 'Erro ao enviar arquivos para coordenador.'));
     }
+    
     public function cancelarEnvioDocumentos(){
 
         $aluno = Auth::user();
