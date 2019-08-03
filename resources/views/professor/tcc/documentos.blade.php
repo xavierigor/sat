@@ -39,6 +39,7 @@
                             href="{{asset('storage/documentos/professor/'.$termo_de_responsabilidade)}}">
                                 {{$termo_de_responsabilidade}}
                             </a>
+                            <small class="mt-1 d-block text-muted">{{ $updated_at->format('d/m/Y H:i') }}</small>
                         </div>
                         <div class="d-inline-block mt-1">
                             <a title="Baixar" href="{{asset('storage/documentos/professor/'.$termo_de_responsabilidade)}}"
@@ -68,9 +69,9 @@
 
                 @if($termo_de_responsabilidade)
                     <a title="enviar" data-toggle="modal" data-target="#enviarDocumentos" href="#" 
-                    class="btn btn-outline-primary mt-4 ">
-                        <i class="fas fa-times fa-fw"></i>
+                    class="btn btn-primary mt-4">
                         Enviar arquivos para o Coordenador
+                        <i class="fas fa-paper-plane fa-fw"></i>
                     </a>
                 @endif
             </form>

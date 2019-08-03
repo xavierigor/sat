@@ -49,18 +49,17 @@
                     </li>
                 @endif
             @else
+
                 @if(Auth::guard('coordenador')->check())
 
-                    {{-- <li class="nav-item"> --}}
-                        <a href="{{ route('coordenador.notificacoes') }}" class="d-flex {{ Request::is('coordenador/notificacoes') ? 'active' : '' }} bottom-notification">
-                            <div class="notifications my-auto">
-                                <i class="fa fa-bell"></i>
-                                @if(Auth::guard('coordenador')->user()->novas_notificacoes > 0)
+                    <a href="{{ route('coordenador.notificacoes') }}" class="d-flex {{ Request::is('coordenador/notificacoes') ? 'active' : '' }} bottom-notification">
+                        <div class="notifications my-auto">
+                            <i class="fa fa-bell"></i>
+                            @if(Auth::guard('coordenador')->user()->novas_notificacoes > 0)
                                 <span class="num">{{ Auth::guard('coordenador')->user()->novas_notificacoes }}</span>
-                                @endif
-                            </div>
-                        </a>
-                    {{-- </li> --}}
+                            @endif
+                        </div>
+                    </a>
 
                     <li class="nav-item dropdown pl-2">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -85,6 +84,7 @@
                             </form>
                         </div>
                     </li>
+
                 @elseif(Auth::guard('professor')->check())
 
                     <!-- <li class="nav-item"> -->
@@ -121,6 +121,7 @@
                             </form>
                         </div>
                     </li>
+
                 @else
                 
                     <!-- <li class="nav-item"> -->

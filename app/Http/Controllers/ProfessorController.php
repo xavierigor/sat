@@ -12,6 +12,7 @@ use Hash;
 use Storage;
 use Validator;
 use App\Notificacao;
+use App\Mail\DocumentoAtualizado;
 
 class ProfessorController extends Controller
 {
@@ -98,14 +99,19 @@ class ProfessorController extends Controller
         $aluno->tcc->documentos->termo_de_compromisso = $fileNameToStore ?? null;
         $aluno->tcc->documentos->tc_updated_at = Carbon\Carbon::now();
 
-        // Enviar email para o aluno informando que o documento foi atualizado
-
         if($validator->fails()) {
             return redirect()->back()->with(session()->flash('error', $validator->errors()->first()));
         }
 
         if(!$aluno->tcc->documentos->save()) {
             return redirect()->back()->with(session()->flash('error', 'Erro ao realizar upload do arquivo.'));
+        }
+
+        // Enviar email para o aluno informando que o documento foi atualizado
+        \Mail::to($aluno->email)->send(new DocumentoAtualizado($aluno->name, 'Termo de Compromisso'));
+
+        if(count(\Mail::failures()) > 0) {
+            return redirect()->back()->with(session()->flash('error', 'Erro ao enviar email de notificação.'));
         }
 
         return redirect()->back()->with(session()->flash('success', 'Upload realizado com sucesso.'));
@@ -142,8 +148,6 @@ class ProfessorController extends Controller
             $aluno->tcc->documentos->rel_acompanhamento = $fileNameToStore ?? null;
             $aluno->tcc->documentos->ra_updated_at = Carbon\Carbon::now();
 
-            // Enviar email para o aluno informando que o documento foi atualizado
-    
             if($validator->fails()) {
                 return redirect()->back()->with(session()->flash('error', $validator->errors()->first()));
             }
@@ -151,7 +155,14 @@ class ProfessorController extends Controller
             if(!$aluno->tcc->documentos->save()) {
                 return redirect()->back()->with(session()->flash('error', 'Erro ao realizar upload do arquivo.'));
             }
-    
+            
+            // Enviar email para o aluno informando que o documento foi atualizado
+            \Mail::to($aluno->email)->send(new DocumentoAtualizado($aluno->name, 'Relatório de Acompanhamento'));
+
+            if(count(\Mail::failures()) > 0) {
+                return redirect()->back()->with(session()->flash('error', 'Erro ao enviar email de notificação.'));
+            }
+
             return redirect()->back()->with(session()->flash('success', 'Upload realizado com sucesso.'));
         } else {
             return redirect()->back();
@@ -226,9 +237,15 @@ class ProfessorController extends Controller
     public function documentos() {
         $termo_de_responsabilidade = Auth::user()->documentos->termo_de_responsabilidade;
         $tr_status = Auth::user()->documentos->tr_status;
+        $updated_at = Auth::user()->documentos->updated_at;
 
-        return view('professor.tcc.documentos')->with('termo_de_responsabilidade', $termo_de_responsabilidade)
-                                                ->with('tr_status', $tr_status);
+        return view('professor.tcc.documentos')->with(
+            [
+                'termo_de_responsabilidade' => $termo_de_responsabilidade,
+                'tr_status' => $tr_status,
+                'updated_at' => $updated_at,
+            ]
+        );
     }
 
     public function enviarDocumentos(){

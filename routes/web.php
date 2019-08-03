@@ -71,16 +71,6 @@ Route::prefix('/coordenador')->group(function() {
     Route::post('/defesa/cadastrar', 'DefesaController@store')->name('coordenador.defesa.store');
     Route::post('/defesa/cadastrar/orientador', 'DefesaController@orientador'); // Não mudar
 
-    // Route::get('/cadastrar/noticia', 'NoticiaController@create')->name('coordenador.noticia.create');
-    // Route::post('/cadastrar/noticia', 'NoticiaController@store')->name('coordenador.noticia.store');
-    // Route::get('/editar/noticia/{id}', 'NoticiaController@edit')->name('coordenador.noticia.edit');
-    // Route::post('/editar/noticia/{id}', 'NoticiaController@update')->name('coordenador.noticia.update');
-    // Route::delete('/noticias', 'NoticiaController@destroy')->name('coordenador.noticia.destroy');
-
-    // Route::get('/cadastrar/documento-modelo', 'DocumentoModeloController@create')->name('coordenador.dm.create');
-    // Route::post('/cadastrar/documento-modelo', 'DocumentoModeloController@store')->name('coordenador.dm.store');
-    // Route::delete('/documentos-modelo', 'DocumentoModeloController@destroy')->name('coordenador.dm.destroy');
-
     Route::get('/noticia/cadastrar', 'NoticiaController@create')->name('coordenador.noticia.create');
     Route::post('/noticia/salvar', 'NoticiaController@store')->name('coordenador.noticia.store');
     Route::get('/noticia/editar/{id}', 'NoticiaController@edit')->name('coordenador.noticia.edit');
@@ -119,7 +109,6 @@ Route::prefix('/professor')->group(function() {
     Route::get('/tcc/documentos/cancelar-envio', 'ProfessorController@cancelarEnvioDocumentos')->name('professor.cancelar-envio.documentos');
 
     Route::get('/notificacoes', 'ProfessorController@notificacoes')->name('professor.notificacoes');
-
 });
 
 Route::prefix('/aluno')->group(function() {
@@ -150,5 +139,4 @@ Route::prefix('/aluno')->group(function() {
     Route::post('/tcc/coorientadores/cancelar-coorientacao', 'TccController@cancelarCoorientacao')->name('aluno.cancelar-coorientacao.tcc');
 
     Route::get('/notificacoes', 'AlunoController@notificacoes')->name('aluno.notificacoes');
-
 });

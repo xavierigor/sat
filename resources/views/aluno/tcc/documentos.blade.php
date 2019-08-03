@@ -44,6 +44,7 @@
                             href="{{asset('storage/documentos/tcc/'.Auth::user()->tcc->documentos->termo_de_compromisso)}}">
                                 {{Auth::user()->tcc->documentos->termo_de_compromisso}}
                             </a>
+                            <small class="mt-1 d-block text-muted">{{ Auth::user()->tcc->documentos->tc_updated_at->format('d/m/Y H:i') }}</small>
                         </div>
                         <div class="d-inline-block mt-1">
                             <a title="Baixar documento" href="{{asset('storage/documentos/tcc/'.Auth::user()->tcc->documentos->termo_de_compromisso)}}"
@@ -109,6 +110,7 @@
                                 href="{{asset('storage/documentos/tcc/'.Auth::user()->tcc->rel_acompanhamento)}}">
                                     {{Auth::user()->tcc->documentos->rel_acompanhamento}}
                                 </a>
+                                <small class="mt-1 d-block text-muted">{{ Auth::user()->tcc->documentos->ra_updated_at->format('d/m/Y H:i') }}</small>
                             </div>
                             <div class="d-inline-block mt-1">
                                 <a title="Baixar documento" href="{{asset('storage/documentos/tcc/'.Auth::user()->tcc->documentos->rel_acompanhamento)}}"
@@ -136,12 +138,12 @@
                     
                     @if(Auth::user()->tcc->documentos->termo_de_compromisso && Auth::user()->tcc->documentos->rel_acompanhamento)
                         <a title="Enviar documentos para coordenador" data-toggle="modal" data-target="#enviarDocumentos" href="#" 
-                            class="btn btn-primary btn-sm ">
+                            class="btn btn-primary">
                             Enviar para Coordenador
                             <i class="fas fa-paper-plane fa-fw"></i>
                         </a>
                     @else
-                        <button type="submit" class="btn btn-primary btn-sm button-prevent-mult-submits" title="Salvar documentos">
+                        <button type="submit" class="btn btn-primary button-prevent-mult-submits" title="Salvar documentos">
                             <i style="display: none;" class="spinner-submit fa fa-spinner fa-spin"></i>
                             Salvar
                         </button>

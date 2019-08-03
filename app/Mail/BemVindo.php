@@ -33,6 +33,6 @@ class BemVindo extends Mailable
     public function build()
     {
         return $this->markdown('emails.bemVindo')
-                    ->subject('Cadastro Realizado (SAT)');
+                    ->subject('SAT - Cadastro Realizado');
     }
 }
