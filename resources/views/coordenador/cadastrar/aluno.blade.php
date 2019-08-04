@@ -57,12 +57,12 @@
                     </small>
                 </div>
                 <div class="form-group col-md-3">
-                    <label for="tcc">Tcc <span class="text-danger">*</span></label>
-                    <select value="{{ old('tcc') }}"  type="text" class="form-control form-control-sm {{ $errors->has('tcc') ? 'border-danger' : ''}}" id="tcc" name="tcc">
-                        <option {{ (old('tcc') == 'tcc 1') ? 'selected' : ''}}>tcc 1</option>
-                        <option {{ (old('tcc') == 'tcc 2') ? 'selected' : ''}}>tcc 2</option>
+                    <label for="disciplina">Disciplina <span class="text-danger">*</span></label>
+                    <select value="{{ old('disciplina') }}"  type="text" class="form-control form-control-sm {{ $errors->has('disciplina') ? 'border-danger' : ''}}" id="disciplina" name="disciplina">
+                        <option {{ (old('disciplina') == 'tcc 1') ? 'selected' : ''}}>tcc 1</option>
+                        <option {{ (old('disciplina') == 'tcc 2') ? 'selected' : ''}}>tcc 2</option>
                     </select>
-                    {!! $errors->first('tcc', '<small class="text-danger">:message</small>') !!}
+                    {!! $errors->first('disciplina', '<small class="text-danger">:message</small>') !!}
                     <small class="form-text text-muted">
                         Selecione a disciplina de TCC que o aluno está matriculado
                     </small>

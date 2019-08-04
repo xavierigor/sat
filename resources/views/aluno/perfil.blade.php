@@ -36,7 +36,7 @@
                     @if(Auth::user()->telefone) 
                         {{ Auth::user()->telefone }}
                     @else
-                        (--) - ---- ----
+                        Não especificado
                     @endif
                 </h6>
             </div>
@@ -48,6 +48,10 @@
                 <h6>
                     <i class="fas fa-id-badge fa-fw"></i>
                     {{ Auth::user()->matricula }}
+                </h6><br>
+                <h6>
+                    <i class="fas fa-graduation-cap fa-fw"></i>
+                    {{ Auth::user()->tcc->disciplina }}
                 </h6>
             </div>
         </div>

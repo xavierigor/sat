@@ -212,6 +212,18 @@ body {
 
 /* Fim Notificações */
 
+/* Bancas de defesa */
+
+.data-defesa-dia, .data-defesa-mes{
+    display: flex;
+    justify-content: center;
+    border: 1px solid #FF0100;
+    /* border-radius: 20%; */
+    color: #FF0100 !important;
+}
+
+/* Fim Bancas de defesa */
+
 /* Scrollbar */
 
 ::-webkit-scrollbar {

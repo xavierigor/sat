@@ -70,12 +70,13 @@ Route::prefix('/coordenador')->group(function() {
     Route::get('/defesa/cadastrar', 'DefesaController@create')->name('coordenador.defesa.create');
     Route::post('/defesa/cadastrar', 'DefesaController@store')->name('coordenador.defesa.store');
     Route::post('/defesa/cadastrar/orientador', 'DefesaController@orientador'); // Não mudar
+    Route::delete('/defesa/remover', 'DefesaController@destroy')->name('coordenador.defesa.destroy');
 
     Route::get('/noticia/cadastrar', 'NoticiaController@create')->name('coordenador.noticia.create');
     Route::post('/noticia/salvar', 'NoticiaController@store')->name('coordenador.noticia.store');
     Route::get('/noticia/editar/{id}', 'NoticiaController@edit')->name('coordenador.noticia.edit');
     Route::post('/noticia/atualizar/{id}', 'NoticiaController@update')->name('coordenador.noticia.update');
-    Route::delete('/noticias', 'NoticiaController@destroy')->name('coordenador.noticia.destroy');
+    Route::delete('/noticias/remover', 'NoticiaController@destroy')->name('coordenador.noticia.destroy');
 
     Route::get('/documento-modelo/cadastrar', 'DocumentoModeloController@create')->name('coordenador.dm.create');
     Route::post('/documento-modelo/salvar', 'DocumentoModeloController@store')->name('coordenador.dm.store');

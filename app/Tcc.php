@@ -20,7 +20,7 @@ class Tcc extends Model
     }
 
     protected $fillable = [
-        'titulo', 'area_de_pesquisa', 'tcc',
+        'titulo', 'area_de_pesquisa', 'disciplina',
     ];
     // protected $fillable = [
     //     'titulo', 'area_de_pesquisa', 'tcc', 'termo_de_compromissso', 'tc_status', 'rel_acompanhamento', 'ra_status'

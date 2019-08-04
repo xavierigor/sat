@@ -38,6 +38,10 @@
                                 <h6>
                                     <i class="fas fa-id-badge fa-fw"></i>
                                     <span class="matricula"></span>
+                                </h6><br>
+                                <h6>
+                                    <i class="fas fa-graduation-cap fa-fw"></i>
+                                    <span class="disciplina"></span>
                                 </h6>
                             </div>
                         </div>

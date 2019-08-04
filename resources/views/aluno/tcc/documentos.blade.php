@@ -46,12 +46,13 @@
                             </a>
                             <small class="mt-1 d-block text-muted">{{ Auth::user()->tcc->documentos->tc_updated_at->format('d/m/Y H:i') }}</small>
                         </div>
-                        <div class="d-inline-block mt-1">
+                        <div class="d-inline-block">
                             <a title="Baixar documento" href="{{asset('storage/documentos/tcc/'.Auth::user()->tcc->documentos->termo_de_compromisso)}}"
-                            download class="tc mr-2 text-decoration-none text-secondary">
+                            download class="tc mr-1 text-decoration-none text-secondary">
                                 <i class="fas fa-file-download fa-fw"></i>
                                 Baixar
                             </a>
+                            &centerdot;
                             <a title="Remover documento" data-toggle="modal" data-target="#removerDocumento" href="#" 
                             class="tc text-decoration-none text-secondary" data-nome="{{ Auth::user()->tcc->documentos->termo_de_compromisso }}"
                             data-documento="termo_de_compromisso">
@@ -80,12 +81,13 @@
                                     {{Auth::user()->tcc->termo_de_compromisso}}
                                 </a>
                             </div>
-                            <div class="d-inline-block mt-1">
+                            <div class="d-inline-block">
                                 <a title="Baixar documento" href="{{asset('storage/documentos/tcc/'.Auth::user()->tcc->termo_de_compromisso)}}"
-                                download class="tc mr-2 text-decoration-none text-secondary">
+                                download class="tc mr-1 text-decoration-none text-secondary">
                                     <i class="fas fa-file-download fa-fw"></i>
                                     Baixar
                                 </a>
+                                &centerdot;
                                 <a title="Remover documento" data-toggle="modal" data-target="#removerDocumento" href="#" 
                                 class="tc text-decoration-none text-secondary" data-nome="{{ Auth::user()->tcc->termo_de_compromisso }}"
                                 data-documento="termo_de_compromisso">
@@ -101,7 +103,7 @@
                         {!! $errors->first('termo_de_compromisso', '<small class="text-danger d-block mt-2">:message</small>') !!}
                     </div> --}}
 
-                @if(Auth::user()->tcc->tcc == "tcc 2")
+                @if(Auth::user()->tcc->disciplina == "tcc 2")
                     <div class="form-group mt-5">
                         <label for="rel_acompanhamento" class="d-block font-weight-bold">Relatório de Acompanhamento</label>
                         @if(Auth::user()->tcc->documentos->rel_acompanhamento)
@@ -112,14 +114,15 @@
                                 </a>
                                 <small class="mt-1 d-block text-muted">{{ Auth::user()->tcc->documentos->ra_updated_at->format('d/m/Y H:i') }}</small>
                             </div>
-                            <div class="d-inline-block mt-1">
+                            <div class="d-inline-block">
                                 <a title="Baixar documento" href="{{asset('storage/documentos/tcc/'.Auth::user()->tcc->documentos->rel_acompanhamento)}}"
-                                download class="tc mr-2 text-decoration-none text-secondary">
+                                download class="ra mr-1 text-decoration-none text-secondary">
                                     <i class="fas fa-file-download fa-fw"></i>
                                     Baixar
                                 </a>
+                                &centerdot;
                                 <a title="Remover documento" data-toggle="modal" data-target="#removerDocumento" href="#" 
-                                class="tc text-decoration-none text-secondary" data-nome="{{ Auth::user()->tcc->documentos->rel_acompanhamento }}"
+                                class="ra text-decoration-none text-secondary" data-nome="{{ Auth::user()->tcc->documentos->rel_acompanhamento }}"
                                 data-documento="rel_acompanhamento">
                                     <i class="fas fa-trash-alt fa-fw"></i>
                                     Remover

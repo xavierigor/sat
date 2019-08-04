@@ -76,7 +76,7 @@
                 <thead>
                     <tr>
                         <th scope="col">Nome</th>
-                        <th scope="col">Tcc</th>
+                        <th scope="col">Disciplina</th>
                         <th scope="col">Documentos</th>
                         <th scope="col">Opções</th>
                     </tr>
@@ -87,13 +87,13 @@
                         <tr>
                             <td>{{ $aluno->name }}</td>
                             <td>
-                                @if( $aluno->tcc->tcc == "tcc 1")
+                                @if( $aluno->tcc->disciplina == "tcc 1")
                                     <span class="badge badge-secondary">
-                                        {{ $aluno->tcc->tcc }}
+                                        {{ $aluno->tcc->disciplina }}
                                     </span>
                                 @else
                                     <span class="badge badge-danger">
-                                        {{ $aluno->tcc->tcc }}
+                                        {{ $aluno->tcc->disciplina }}
                                     </span>
                                 @endif 
                             </td>
@@ -112,7 +112,7 @@
                                             <b class="text-info">pendente</b>
                                         @endif
                                 </div>
-                                @if( $aluno->tcc->tcc == "tcc 2")
+                                @if( $aluno->tcc->disciplina == "tcc 2")
                                     <div>
                                     Relatório de acompanhamento: 
                                         @if( $aluno->tcc->documentos->ra_status == "enviado")
@@ -133,7 +133,7 @@
                                 <button href="#" role="button" class="btn btn-outline-primary btn-sm" data-toggle="modal"
                                     data-target="#visualizarAluno" data-nome="{{ $aluno->name }}"
                                     data-matricula="{{ $aluno->matricula }}" data-telefone="{{ $aluno->telefone }}"
-                                    data-email="{{ $aluno->email }}" data-image="{{ $aluno->image }}"
+                                    data-email="{{ $aluno->email }}" data-image="{{ $aluno->image }}" data-disciplina="{{ $aluno->tcc->disciplina }}"
                                     data-data_nasc="{{ DateTime::createFromFormat('Y-m-d', $aluno->data_nasc)->format('d/m/Y') }}"
                                     title="Ver perfil">
                                     <i class="fas fa-user fa-fw"></i>

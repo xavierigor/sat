@@ -207,7 +207,7 @@ class CoordenadorController extends Controller
                     // Verifica filtro de disciplina
                     ->when( ( request()->has('filtrotcc') && request('filtrotcc') != 'todos'), function ($q) {
                         $alunos = Tcc::select('id','user_id')
-                                            ->where('tcc', request('filtrotcc'))
+                                            ->where('disciplina', request('filtrotcc'))
                                             ->get();
                         $alunos_id = [];
                         foreach ($alunos as $aluno) {
@@ -234,7 +234,7 @@ class CoordenadorController extends Controller
                             return $q3->orderBy( $ordenar_por, 'asc');
                         }
                     })
-                    ->with('tcc:id,user_id,tcc')
+                    ->with('tcc:id,user_id,disciplina')
                     ->paginate($this->TotalUsuariosPágina)
                     ->appends([['nome', request('nome')],
                                 ['filtrotcc', request('filtrotcc')],
@@ -259,7 +259,7 @@ class CoordenadorController extends Controller
                     // Verifica filtro de disciplina
                     ->when( ( request()->has('filtrotcc') && request('filtrotcc') != 'todos'), function ($q) {
                         $alunos = Tcc::select('id','user_id')
-                                            ->where('tcc', request('filtrotcc'))
+                                            ->where('disciplina', request('filtrotcc'))
                                             ->get();
                         $alunos_id = [];
                         foreach ($alunos as $aluno) {
@@ -286,7 +286,7 @@ class CoordenadorController extends Controller
                             return $q3->orderBy( $ordenar_por, 'asc');
                         }
                     })
-                    ->with('tcc:id,user_id,tcc','tcc.documentos')
+                    ->with('tcc:id,user_id,disciplina','tcc.documentos')
                     ->paginate($this->TotalUsuariosPágina)
                     ->appends([['nome', request('nome')],
                                 ['filtrotcc', request('filtrotcc')],
@@ -350,7 +350,7 @@ class CoordenadorController extends Controller
             'email' => 'required|email|unique:users|max:100',
             'matricula' => 'required|max:9|unique:users',
             'data_nasc' => 'required|date|date_format:Y-m-d',
-            'tcc' => 'required',
+            'disciplina' => 'required',
         ]);
             
         // salva dados no BD
@@ -367,7 +367,7 @@ class CoordenadorController extends Controller
             // cria novo tupla na tabela TCC e associa ao aluno salvo (com o id)
             $tcc = new Tcc;
             $tcc->user_id = $aluno->id;
-            $tcc->tcc = $request->tcc;
+            $tcc->disciplina = $request->disciplina;
 
             if($tcc->save()) {
 

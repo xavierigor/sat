@@ -39,7 +39,7 @@
                                 </a>
                                 é seu orientando.
                                 <span class="ml-2 badge badge-secondary">
-                                    {{ $orientacao->orientando->tcc->tcc }}
+                                    {{ $orientacao->orientando->tcc->disciplina }}
                                 </span>
                             </h6>
                         </div>
@@ -49,7 +49,7 @@
                             data-tc_updated_at="{{ $orientacao->orientando->tcc->documentos->tc_updated_at ? $orientacao->orientando->tcc->documentos->tc_updated_at->format('d/m/Y H:i') : '' }}"
                             data-ra_updated_at="{{ $orientacao->orientando->tcc->documentos->ra_updated_at ? $orientacao->orientando->tcc->documentos->ra_updated_at->format('d/m/Y H:i') : '' }}"
                             data-nome="{{ $orientacao->orientando->name }}" data-id="{{ $orientacao->orientando->id }}"
-                            data-tcc="{{ $orientacao->orientando->tcc->tcc }}"
+                            data-tcc="{{ $orientacao->orientando->tcc->disciplina }}"
                             data-toggle="modal" data-target="#mostrarDocumentos">
                                 Documentos
                                 <i class="fas fa-file-pdf fa-fw"></i>

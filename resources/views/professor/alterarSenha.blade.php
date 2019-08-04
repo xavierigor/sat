@@ -25,7 +25,7 @@
                 <div class="input-group">
                     <input class="input-senha form-control form-control-sm {{ $errors->has('senha_atual') ? 'border-danger' : ''}}" type="password" id="senha_atual" name="senha_atual">
                     <div class="input-group-append">
-                        <button class="button-senha btn btn-outline-secondary btn-sm" type="button" onclick="mostrarSenha()" title="Mostrar e esconder senha">
+                        <button class="button-senha btn btn-outline-secondary-2 btn-sm" type="button" onclick="mostrarSenha()" title="Mostrar e esconder senha">
                             <i class="fas fa-eye fa-fw"></i>
                         </button>
                     </div>
@@ -44,7 +44,7 @@
                 <div class="input-group">
                     <input class="input-senha form-control form-control-sm {{ $errors->has('nova_senha') ? 'border-danger' : ''}}" type="password" id="nova_senha" name="nova_senha">
                     <div class="input-group-append">
-                        <button class="button-senha btn btn-outline-secondary btn-sm" type="button" onclick="mostrarSenha()" title="Mostrar e esconder senha">
+                        <button class="button-senha btn btn-outline-secondary-2 btn-sm" type="button" onclick="mostrarSenha()" title="Mostrar e esconder senha">
                             <i class="fas fa-eye fa-fw"></i>
                         </button>
                     </div>
@@ -63,7 +63,7 @@
                 <div class="input-group">
                     <input class="input-senha form-control form-control-sm {{ $errors->has('nova_senha_confirmation') ? 'border-danger' : ''}}" type="password" id="nova_senha_confirmation" name="nova_senha_confirmation">
                     <div class="input-group-append">
-                        <button class="button-senha btn btn-outline-secondary btn-sm" type="button" onclick="mostrarSenha()" title="Mostrar e esconder senha">
+                        <button class="button-senha btn btn-outline-secondary-2 btn-sm" type="button" onclick="mostrarSenha()" title="Mostrar e esconder senha">
                             <i class="fas fa-eye fa-fw"></i>
                         </button>
                     </div>

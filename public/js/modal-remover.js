@@ -50,3 +50,12 @@ $('#removerNoticia').on('show.bs.modal', function (event) {
 
   modal.find('#id').val(id)
 })
+
+$('#removerDefesa').on('show.bs.modal', function (event) {
+  let button = $(event.relatedTarget)
+  let id = button.data('id')
+
+  let modal = $(this)
+
+  modal.find('#id').val(id)
+})

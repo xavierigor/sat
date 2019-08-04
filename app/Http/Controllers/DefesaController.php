@@ -21,7 +21,6 @@ class DefesaController extends Controller
     public function index ()
     {
         $defesas = Defesa::orderBy('created_at', 'desc')->paginate($this->TotalItensPágina);
-
         return view('public.agenda-defesas.index')->with('defesas', $defesas);
     }
 
@@ -140,5 +139,17 @@ class DefesaController extends Controller
         }
 
         return response()->json(['error' => null]);
+    }
+
+    public function destroy(Request $request){
+        
+        $defesa = Defesa::find($request->id);
+
+        if($defesa->delete()) {
+            return redirect()->route('public.defesa.index')->with(session()->flash('success', 'Defesa cancelada.'));
+        }
+
+        return redirect()->back()->with(session()->flash('error', 'Erro ao cancelar defesa.'));
+
     }
 }

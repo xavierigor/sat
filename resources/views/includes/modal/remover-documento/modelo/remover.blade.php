@@ -1,5 +1,5 @@
 <div class="modal fade" id="removerDocumentoModelo" tabindex="-1" role="dialog" aria-labelledby="removerDocumentoModeloLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h6 class="modal-title font-weight-bold" id="removerDocumentoModeloLabel">Remover Documento Modelo</h6>
@@ -13,7 +13,7 @@
                 ?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Não</button>
                 <form class="form-prevent-mult-submits" method="POST" action="{{ route('coordenador.dm.destroy') }}">
                     @csrf
                     @method('DELETE')

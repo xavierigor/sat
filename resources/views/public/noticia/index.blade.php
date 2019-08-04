@@ -17,9 +17,11 @@
         @foreach($noticias as $noticia)
             <div class="mb-4">
                 <div class="d-block">
-                    <a class="font-weight-bold" href="{{ route('public.noticia.show', Hashids::encode($noticia->id)) }}">
-                        {!! $noticia->titulo !!}
-                    </a>
+                    <h5>
+                        <a class="font-weight-bold" href="{{ route('public.noticia.show', Hashids::encode($noticia->id)) }}">
+                            {!! $noticia->titulo !!}
+                        </a>
+                    </h5>
                 </div>
                 <small>{{ $noticia->autor->name }}, {{ $noticia->created_at->diffForHumans() }}</small>
 
@@ -36,10 +38,11 @@
                         </a>
                     </div>
                 @endif
+                <hr>
             </div>
         @endforeach
 
-        <div class="mt-5">
+        <div class="mt-5 d-flex justify-content-end">
             {{ $noticias->links() }}
         </div>
     @else

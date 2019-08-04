@@ -36,8 +36,20 @@
         </div>
     </div>
 
-    <div class="mt-5" style="word-break: break-word;">
-        {!! $noticia->corpo !!}
+    <div class="mt-4" style="word-break: break-word;">
+        <h1 class="m-0">
+            <b>
+                {{ $noticia->titulo }}
+            </b>
+        </h1>
+        <small class="text-secondary">
+            por <b>{{ $noticia->autor->name }}</b>&#10240;&centerdot;&#10240;{{ $noticia->created_at->format('d-m-Y') }}
+        </small>
+
+        <br><br><br>
+        <h6>
+            {!! $noticia->corpo !!}
+        </h6>
     </div>
 @endsection
 

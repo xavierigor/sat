@@ -36,7 +36,7 @@
                     @if(Auth::user()->telefone) 
                         {{ Auth::user()->telefone }}
                     @else
-                        (--) - ---- ----
+                        Não especificado
                     @endif
                 </h6>
             </div>

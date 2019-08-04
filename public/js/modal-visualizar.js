@@ -17,7 +17,7 @@ $('#visualizarProfessor').on('show.bs.modal', function (event) {
   if(telefone != ''){
     modal.find('.telefone').text(telefone)
   } else {
-    modal.find('.telefone').text("(--) - ---- ----")
+    modal.find('.telefone').text("Não especificado")
   }
 
   modal.find('.email').text(email)
@@ -48,21 +48,23 @@ $('#visualizarAluno').on('show.bs.modal', function (event) {
   let telefone = button.data('telefone')
   let email = button.data('email')
   let data_nasc = button.data('data_nasc')
+  let disciplina = button.data('disciplina')
   let image = button.data('image')
 
   let modal = $(this)
   modal.find('.modal-title').text(nome)
   modal.find('.nome').text(nome)
   modal.find('.matricula').text(matricula)
-
+  
   if(telefone != ''){
     modal.find('.telefone').text(telefone)
   } else {
-    modal.find('.telefone').text("(--) - ---- ----")
+    modal.find('.telefone').text("Não especificado")
   }  
-
+  
   modal.find('.email').text(email)
   modal.find('.data_nasc').text(data_nasc)
+  modal.find('.disciplina').text(disciplina)
 
   let img_url = modal.find('.image').data('url')
 
