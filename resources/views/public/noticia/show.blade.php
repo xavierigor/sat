@@ -27,9 +27,6 @@
             @include('includes.modal.noticia.remover')
         @endif
         <div>
-            <small>
-                por <span class="font-weight-bold">{{ $noticia->autor->name }}</span> em {{ $noticia->created_at->format('d/m/Y') }}
-            </small>
             <small class="float-right">
                 Última atualização {{ $noticia->updated_at->diffForHumans() }}
             </small>

@@ -6,6 +6,7 @@ $('#mostrarDocumentos').on('show.bs.modal', function(event) {
     let nome = button.data('nome')
     let id = button.data('id')
     let tcc = button.data('tcc')
+    let status = button.data('tc_status')
 
     let modal = $(this)
 

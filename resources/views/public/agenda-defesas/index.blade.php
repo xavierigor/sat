@@ -21,11 +21,15 @@
                 <div class="data-defesa float-right">
                     <div style="width:50px;"
                     class="data-defesa-dia px-2 py-1 rounded-top">
-                        <h5 class="my-auto"><b>29</b></h5>
+                        <h5 class="my-auto"><b>
+                        {{ Carbon\Carbon::parse($defesa->data)->format('d') }}
+                        </b></h5>
                     </div>
                     <div style="width:50px;"
                     class="data-defesa-mes px-2 py-1 rounded-bottom border-top-0">
-                        <small class="my-auto">nov</small>
+                        <small class="my-auto">
+                        {{ date("F", mktime(0, 0, 0, Carbon\Carbon::parse($defesa->data)->format('m'), 1)) }}                        
+                        </small>
                     </div>
                 </div>
         
@@ -51,7 +55,7 @@
                         <h6 class="mr-2">Título: adasdadadadad{{ $defesa->aluno->tcc->titulo }}</h6>
                     </div>
                     
-                    <div class="banca mt-4">
+                    <div class="banca mt-3">
                         <h6>Banca: {{ $defesa->aluno->tcc->titulo }}</h6>
                         <div style="list-style-type: none;">
                             <div class="d-flex inline-block m-0">
@@ -87,6 +91,8 @@
                             
                         </div>
                     </div>
+
+                    <p class="banca mt-3">Data: {{ $defesa->data }} &centerdot; Hora: {{ $defesa->data }} &centerdot; Local: {{ $defesa->sala }}</p>
                 </div>
                 
                 <br><hr>

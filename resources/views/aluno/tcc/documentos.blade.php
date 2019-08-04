@@ -44,9 +44,9 @@
                             href="{{asset('storage/documentos/tcc/'.Auth::user()->tcc->documentos->termo_de_compromisso)}}">
                                 {{Auth::user()->tcc->documentos->termo_de_compromisso}}
                             </a>
-                            <small class="mt-1 d-block text-muted">{{ Auth::user()->tcc->documentos->tc_updated_at->format('d/m/Y H:i') }}</small>
+                            <small class="mt-1 d-block text-muted">Atualizado em: {{ Auth::user()->tcc->documentos->tc_updated_at->format('d/m/Y H:i') }}</small>
                         </div>
-                        <div class="d-inline-block">
+                        <div class="d-inline-block mt-2">
                             <a title="Baixar documento" href="{{asset('storage/documentos/tcc/'.Auth::user()->tcc->documentos->termo_de_compromisso)}}"
                             download class="tc mr-1 text-decoration-none text-secondary">
                                 <i class="fas fa-file-download fa-fw"></i>
@@ -81,7 +81,7 @@
                                     {{Auth::user()->tcc->termo_de_compromisso}}
                                 </a>
                             </div>
-                            <div class="d-inline-block">
+                            <div class="d-inline-block mt-2">
                                 <a title="Baixar documento" href="{{asset('storage/documentos/tcc/'.Auth::user()->tcc->termo_de_compromisso)}}"
                                 download class="tc mr-1 text-decoration-none text-secondary">
                                     <i class="fas fa-file-download fa-fw"></i>
@@ -112,9 +112,9 @@
                                 href="{{asset('storage/documentos/tcc/'.Auth::user()->tcc->rel_acompanhamento)}}">
                                     {{Auth::user()->tcc->documentos->rel_acompanhamento}}
                                 </a>
-                                <small class="mt-1 d-block text-muted">{{ Auth::user()->tcc->documentos->ra_updated_at->format('d/m/Y H:i') }}</small>
+                                <small class="mt-1 d-block text-muted">Atualizado em: {{ Auth::user()->tcc->documentos->ra_updated_at->format('d/m/Y H:i') }}</small>
                             </div>
-                            <div class="d-inline-block">
+                            <div class="d-inline-block mt-2">
                                 <a title="Baixar documento" href="{{asset('storage/documentos/tcc/'.Auth::user()->tcc->documentos->rel_acompanhamento)}}"
                                 download class="ra mr-1 text-decoration-none text-secondary">
                                     <i class="fas fa-file-download fa-fw"></i>
@@ -138,18 +138,25 @@
                 @endif
                 
                 <div class="botoes mt-5">
-                    
-                    @if(Auth::user()->tcc->documentos->termo_de_compromisso && Auth::user()->tcc->documentos->rel_acompanhamento)
-                        <a title="Enviar documentos para coordenador" data-toggle="modal" data-target="#enviarDocumentos" href="#" 
-                            class="btn btn-primary">
-                            Enviar para Coordenador
-                            <i class="fas fa-paper-plane fa-fw"></i>
-                        </a>
-                    @else
-                        <button type="submit" class="btn btn-primary button-prevent-mult-submits" title="Salvar documentos">
-                            <i style="display: none;" class="spinner-submit fa fa-spinner fa-spin"></i>
-                            Salvar
-                        </button>
+                    @if(Auth::user()->tcc->disciplina == "tcc 1")
+                        @if(Auth::user()->tcc->documentos->termo_de_compromisso && Auth::user()->tcc->documentos->rel_acompanhamento)
+                            <a title="Enviar documentos para coordenador" data-toggle="modal" data-target="#enviarDocumentos" href="#" 
+                                class="btn btn-sm btn-primary">
+                                Enviar para Coordenador
+                                <i class="fas fa-paper-plane fa-fw"></i>
+                            </a>
+                        @elseif(Auth::user()->tcc->documentos->termo_de_compromisso && Auth::user()->tcc->disciplina == 'tcc 1')
+                            <a title="Enviar documentos para coordenador" data-toggle="modal" data-target="#enviarDocumentos" href="#" 
+                                class="btn btn-sm btn-primary">
+                                Enviar para Coordenador
+                                <i class="fas fa-paper-plane fa-fw"></i>
+                            </a>
+                        @else
+                            <button type="submit" class="btn btn-sm btn-primary button-prevent-mult-submits" title="Salvar documentos">
+                                <i style="display: none;" class="spinner-submit fa fa-spinner fa-spin"></i>
+                                Salvar
+                            </button>
+                        @endif
                     @endif
                 </div>
             </form>

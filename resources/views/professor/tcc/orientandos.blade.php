@@ -31,28 +31,34 @@
                     @endif
                 </div>
                 <div class="text-md-left row d-flex my-auto">
-                    <div class="col-md-12 col-sm-12">
-                        <div class="m-auto">
-                            <h6 class="d-inline-block">
+                    <div class="col-md-12 col-sm-12 my-auto">
+                        <div class="d-flex">
+                            <h6 class="d-inline-block my-auto">
                                 <a class="d-inline-block" href="#">
                                     {{ $orientacao->orientando->name }}   
                                 </a>
                                 é seu orientando.
-                                <span class="ml-2 badge badge-secondary">
+                            </h6>
+                            @if( $orientacao->orientando->tcc->disciplina == "tcc 1")
+                                <span class="ml-2 my-auto badge badge-secondary">
                                     {{ $orientacao->orientando->tcc->disciplina }}
                                 </span>
-                            </h6>
+                            @else
+                                <span class="ml-2 my-auto badge badge-danger">
+                                    {{ $orientacao->orientando->tcc->disciplina }}
+                                </span>
+                            @endif
                         </div>
-                        <div class="m-auto">
+                        <div class="mt-3">
                             <button type="button" class="mr-1 btn btn-outline-primary btn-sm"
                             data-documentos="{{ $orientacao->orientando->tcc->documentos }}"
                             data-tc_updated_at="{{ $orientacao->orientando->tcc->documentos->tc_updated_at ? $orientacao->orientando->tcc->documentos->tc_updated_at->format('d/m/Y H:i') : '' }}"
                             data-ra_updated_at="{{ $orientacao->orientando->tcc->documentos->ra_updated_at ? $orientacao->orientando->tcc->documentos->ra_updated_at->format('d/m/Y H:i') : '' }}"
                             data-nome="{{ $orientacao->orientando->name }}" data-id="{{ $orientacao->orientando->id }}"
-                            data-tcc="{{ $orientacao->orientando->tcc->disciplina }}"
+                            data-tc_status="{{ $orientacao->orientando->tcc->documentos->tc_status }}" data-tcc="{{ $orientacao->orientando->tcc->disciplina }}"
                             data-toggle="modal" data-target="#mostrarDocumentos">
                                 Documentos
-                                <i class="fas fa-file-pdf fa-fw"></i>
+                                <i class="fas fa-file-download fa-fw"></i>
                             </button>
 
                             <!-- Chamar modal cancelar orientação -->
