@@ -6,7 +6,7 @@
 
 
 <p align="center">
-  <img alt="Tela de login do projeto" src="public/images/telassite.jpg" />
+  <img alt="Tela de login do projeto" src="public/images/telassistema.jpg" />
 </p>
 
 
